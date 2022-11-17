@@ -1,4 +1,4 @@
-# callsync: recording alignment, call detection and assignment, audio analysis
+# callsync: sychronous analysis of multiple microphones
 
 **Note**: This package is still under construction. If you want to test it, feel free to contact me (<simeonqs@hotmail.com>) with any questions. 
 
