@@ -1,30 +1,23 @@
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-# Project: methods paper
-# Date started: 09-04-2021
-# Date last modified: 10-05-2022
-# Author: Simeon Q. Smeele
-# Description: Simple cross correlation of two vectors. Uses zero embedding to find optimal overlap. Also
-# has an option to normalise by the longest vector (divides final difference by length).
-# This version returns the time difference for best overlap.
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
 #' @title simple.cc
 #'
 #' @description Simple cross correlation of two vectors. Uses zero embedding to find optimal overlap. Also
 #' has an option to normalise by the longest vector (divides final difference by length).
 #' This version returns the time difference for best overlap.
 #'
-#' @param dat A data set object
-#' @param id Scope (e.g., country codes or individual IDs)
-#' @param time Time (e.g., time periods are given by years, months, ...)
+#' @param s1 the first numeric vector (required)
+#' @param s2 the second numeric vector (required)
+#' @param norm if `TRUE` the final difference is divided by the length of the longest vector
 #'
-#' @return A data frame object that contains a summary of a sample that
-#'     can later be converted to a TeX output using \code{overview_print}
+#' @return Returns an integer, which is the start of s1 relative to s2.
+#' E.g., -1 means that s1 has to be moved one step back to be aligned with s2.
 #' @examples
-#' data(toydata)
-#' output_table <- overview_tab(dat = toydata, id = ccode, time = year)
+#' s1 = c(0, 0, 0, 1, 1, 2, 0)
+#' s2 = c(0, 0, 2, 2, 3, 0, 0, 0, 0)
+#' offset = simple.cc(s1, s2) # -1
+#' index_s1 = seq(1, length(s1)) + offset # align
+#' plot(s2, type = 'b')
+#' points(index_s1, s1, col = 2, type = 'b')
 #' @export
-#' @importFrom dplyr "%>%"
 
 simple.cc = function(s1, s2, # two vectors
                      norm = F){ # if T, the final difference is divided by the length of the longest vector

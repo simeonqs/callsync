@@ -1,15 +1,20 @@
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-# Project: methods paper
-# Date started: 20-10-2021
-# Date last modified: 16-11-2022
-# Author: Simeon Q. Smeele
-# Description: Loads wave from selection table and audio file. Filters, checks for clipping.
-# This version has no filter.
-# This version makes from and to optional and includes an optional filter.
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-require(tuneR)
-require(seewave)
+#' @title load.wave
+#'
+#' @description Wrapper function for `readWave` from *tuneR*.
+#' Also optionally applies `ffilter` from *seewave*.
+#'
+#' @param path_audio_file the path to the .wav file
+#' @param from time in seconds from where to start the loading of the audio file.
+#' Default is `0` which loads the whole file.
+#' @param to time in seconds until where to load the audio file. Default is `Inf` which loads the whole file.
+#' @param ffilter_from frequency in Hz for the high-pass filter.
+#' Default is `NULL`, which does not apply a filter.
+#'
+#' @return Returns an R wave object.
+#'
+#' @export
+#' @importFrom tuneR "readWave"
+#' @importFrom seewave "ffilter"
 
 load.wave = function(path_audio_file,
                      from = 0,

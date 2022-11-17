@@ -1,10 +1,23 @@
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-# Project: methods paper 
-# Date started: 15-11-2021
-# Date last modified: 15-11-2022
-# Author: Simeon Q. Smeele
-# Description: Detects calls in a wave object with amplitude envelope. 
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#' @title call.detect
+#'
+#' @description Detects calls in a wave object using an amplitude envelope.
+#'
+#' @param wave wave object, e.g., from `load.wave` or `readWave`.
+#' @param threshold rector of length 1 or 2. The fraction of the maximum of the normalised envelope to use as
+#' threshold to detect start and end. If a vector of length 2 is supplied, the first is used to detect the
+#' start and the second to detect the end (in case of echo).
+#' @param msmooth used as argument for the `seewave::env` function. *A vector of length 2 to smooth the
+#' amplitude envelope with a mean sliding window. The first component is the window length (in number of
+#' points). The second component is the overlap between successive windows (in \%).* Default is `c(500, 95)`.
+#' @param plot_it  if `TRUE`, returns three-panel plot of wave form, envelope and spectrogram to current
+#' plotting window. Default is `FALSE`.
+#'
+#' @return Returns a dataframe with start = start time in samples and end = end time in samples for each
+#' detection. Optionally also plots the wave form and detections to current window.
+#'
+#' @export
+#' @importFrom seewave "env"
+#' @importFrom callsync "better.spectro"
 
 call.detect = function(wave, # wave object
                        threshold = 0.3, # fraction of max of envelope to use as threshold for start/end
@@ -13,12 +26,12 @@ call.detect = function(wave, # wave object
                        msmooth = c(500, 95), # smoothening of envelope
                        plot_it = FALSE # if TRUE, returns three-panel plot of wave, envelope and spectrogram
 ){
-  
+
   # Create envelope
-  env = env(wave, msmooth = msmooth, plot = F) 
+  env = seewave::env(wave, msmooth = msmooth, plot = F)
   env = ( env - min(env) ) / max( env - min(env) )
   duration = length(wave@left)/wave@samp.rate
-  
+
   # Find max location
   where_max = which(env == 1)
   ## Left loop
@@ -27,15 +40,15 @@ call.detect = function(wave, # wave object
   while(is.na(start)){
     j = j - 1
     if(j == 0) start = j else if(env[j] < threshold[1]) start = j
-  } 
+  }
   ## Right loop
   end = NA
   j = where_max
   while(is.na(end)){
     j = j + 1
     if(j == length(env)) end = j else if(env[j] < threshold[length(threshold)]) end = j
-  } 
-  
+  }
+
   # Re-clip wave
   start_env = start
   if(start == 0) start = 1 # avoid issues when call starts at start clip
@@ -43,7 +56,7 @@ call.detect = function(wave, # wave object
   start = round((start-1) * duration/length(env) * wave@samp.rate)
   end = round((end-1) * duration/length(env) * wave@samp.rate)
   new_wave = wave[start:end]
-  
+
   # Plot
   if(plot_it){
     par(mfrow = c(2, 2))
@@ -55,9 +68,9 @@ call.detect = function(wave, # wave object
     plot(wave)
     abline(v = c(start/wave@samp.rate, end/wave@samp.rate))
   }
-  
+
   # Return
   detections = data.frame(start = start, end = end)
   return(detections)
-  
+
 }
