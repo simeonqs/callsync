@@ -4,9 +4,18 @@ Title: Recording synchronisation, call detection and assignment, audio analysis
 Version: 0.0.0
 Author: person("Simeon Q.", "Smeele", email = "simeonqs@hotmail.com", role = c("cre","aut")
 Maintainer: Simeon Q. Smeele <simeonqs@hotmail.com>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Description: `callsync` is intended for users that use collar or backpack microphones and want to analyse the resulting recordings. It allows users to create a pipeline from raw recordings until final feature vectors, but specific functions can also be replaced by alternatives.
+License: GPL-3
+https://github.com/simeonqs/callsync
+BugReports: https://github.com/simeonqs/callsync/issues
+Depends:
+	R (>= 4.1.0)
+Imports:	
+	dplyr (>= 1.0.0)
+Suggests:
+	knitr
+VignetteBuilder:
+	knitr
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.1
