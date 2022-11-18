@@ -2,7 +2,7 @@
 
 **Note**: This package is still under construction. If you want to test it, feel free to contact me (<simeonqs@hotmail.com>) with any questions. 
 
-`callsync` is intended for users that use collar or backpack microphones and want to analyse the resulting recordings. It allows users to create a pipeline from raw recordings until final feature vectors, but specific functions can also be replaced by alternatives. 
+`callsync` is an R package intended for users that use collar or backpack microphones and want to analyse the resulting recordings. It allows users to create a pipeline from raw recordings until final feature vectors, but specific functions can also be replaced by alternatives. 
 
 The main features are:
 
