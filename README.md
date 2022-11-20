@@ -6,18 +6,19 @@
 
 The main features are:
 
-- alignment and partitioning of drifting microphones using signal compression and cross correlation
-- call detection using an amplitude envelope
-- fine-scale alignment and call assignment across recordings using cross correlation and energy content
-- fundamental frequency tracing and analysis
-- filtering of noise
-- spectrographic cross correlation
+1. alignment and partitioning of drifting microphones using signal compression and cross correlation
+2. call detection using an amplitude envelope
+3. fine-scale alignment and call assignment across recordings using cross correlation and energy content
+4. fundamental frequency tracing
+5. analysis of the resulting traces and wav clips
 
 ![*Flowchart for the `callsync` package.*](flowchart.png)
 
 The package also offers:
 
 - flexible spectrograms
+- spectrographic cross correlation
+- amplitude and frequency modulation
 
 To install and load the package run:
 
