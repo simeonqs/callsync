@@ -13,6 +13,8 @@ The main features are:
 - filtering of noise
 - spectrographic cross correlation
 
+![]("figures/flowchart.pdf")
+
 The package also offers:
 
 - flexible spectrograms
