@@ -19,8 +19,9 @@
 #' points(index_s1, s1, col = 2, type = 'b')
 #' @export
 
-simple.cc = function(s1, s2, # two vectors
-                     norm = F){ # if T, the final difference is divided by the length of the longest vector
+simple.cc = function(s1,
+                     s2,
+                     norm = F){
 
   # Run through positions
   np = length(s1) + length(s2) - 1

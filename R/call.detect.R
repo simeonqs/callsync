@@ -17,15 +17,11 @@
 #'
 #' @export
 #' @importFrom seewave "env"
-#' @importFrom callsync "better.spectro"
 
-call.detect = function(wave, # wave object
-                       threshold = 0.3, # fraction of max of envelope to use as threshold for start/end
-                       # if vector of two is supplied, the first is used for start
-                       # and second for end (in case of echo)
-                       msmooth = c(500, 95), # smoothening of envelope
-                       plot_it = FALSE # if TRUE, returns three-panel plot of wave, envelope and spectrogram
-){
+call.detect = function(wave,
+                       threshold = 0.3,
+                       msmooth = c(500, 95),
+                       plot_it = FALSE){
 
   # Create envelope
   env = seewave::env(wave, msmooth = msmooth, plot = F)

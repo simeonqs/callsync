@@ -7,7 +7,7 @@
 #' @param from time in seconds from where to start the loading of the audio file.
 #' Default is `0` which loads the whole file.
 #' @param to time in seconds until where to load the audio file. Default is `Inf` which loads the whole file.
-#' @param ffilter_from frequency in Hz for the high-pass filter.
+#' @param ffilter_from numeric, frequency in Hz for the high-pass filter.
 #' Default is `NULL`, which does not apply a filter.
 #'
 #' @return Returns an R wave object.

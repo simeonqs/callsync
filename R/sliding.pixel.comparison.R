@@ -1,16 +1,21 @@
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-# Project: monk parakeets
-# Date started: 22-02-2021
-# Date last modified: 17-03-2021
-# Author: Simeon Q. Smeele
-# Description: Compares two spectrograms. 
-# This version includes step size. 
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#' @title sliding.pixel.comparison
+#'
+#' @description Can be used to run spectrographic cross correlation. Both spectrograms are zero-padded
+#' and slid over each other. For each step the difference is computed. The function returns the absolute
+#' difference at the point at the minimum (maximal signal overlap).
+#'
+#' @param s1 numeric matrix, the first spectrogram.
+#' @param s2 numeric matrix, the second spectrogram.
+#' @param step_size numeric, how many pixels should be moved for each step. Default is `1`.
+#'
+#' @return Returns the distance at the point of maximal signal overlap.
+#'
+#' @export
 
-sliding.pixel.comparison = function(s1, 
+sliding.pixel.comparison = function(s1,
                                     s2,
                                     step_size = 1){
-  
+
   # Run through positions
   np = ncol(s1) + ncol(s2) - 1
   os = sapply(seq(1, np, step_size), function(i){
@@ -28,4 +33,4 @@ sliding.pixel.comparison = function(s1,
 
   return(min(os))
 
-} # End sliding.pixel.comparison
+} # end sliding.pixel.comparison

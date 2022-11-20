@@ -13,7 +13,8 @@
 #' m_new = o.to.m(o)
 #' @export
 
-o.to.m = function(o, n = seq(sqrt(length(o)+1)+1)){
+o.to.m = function(o,
+                  n = seq(sqrt(length(o)+1)+1)){
 
   m = matrix(nrow = length(n), ncol = length(n))
   m[lower.tri(m)] = o
