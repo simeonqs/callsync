@@ -6,16 +6,18 @@ Author: person("Simeon Q.", "Smeele", email = "simeonqs@hotmail.com", role = c("
 Maintainer: Simeon Q. Smeele <simeonqs@hotmail.com>
 Description: `callsync` is intended for users that use collar or backpack microphones and want to analyse the resulting recordings. It allows users to create a pipeline from raw recordings until final feature vectors, but specific functions can also be replaced by alternatives.
 License: GPL-3
-https://github.com/simeonqs/callsync
+https: //github.com/simeonqs/callsync
 BugReports: https://github.com/simeonqs/callsync/issues
 Depends:
 	R (>= 4.1.0)
-Imports:	
+Imports: 
 	dplyr (>= 1.0.0)
 Suggests:
-	knitr
+    knitr,
+    testthat (>= 3.0.0)
 VignetteBuilder:
 	knitr
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.1
+Config/testthat/edition: 3
