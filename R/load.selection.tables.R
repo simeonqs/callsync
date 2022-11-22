@@ -33,7 +33,7 @@ load.selection.tables = function(path_selection_tables){
     })
   names(selection_tables) = path_selection_tables |>
     list.files('*txt') |> stringr::str_remove('.Table.1.selections.txt')
-  dat = selection_tables |> dplyr::bind_rows(.id = 'file')
+  dat = selection_tables |> dplyr::bind_rows(.id = 'file') |> as.data.frame()
   dat = dat[dat$View == 'Waveform 1',]
 
   dat$fs = paste(dat$file, dat$Selection, sep = '-')
