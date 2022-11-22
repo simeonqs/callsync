@@ -11,6 +11,7 @@
 #' @param path_recordings character, the path where the raw recordings are stored. Can be nested in folders,
 #' in this case provide the top-level folder.
 #' @param path_chunks character, the path where aligned chunks should be stored.
+#' @param chunk_seq numeric vector or `NULL`. If supplied only these chunks are rerun.
 #' @param keys_id character vector of length 2. The characters before and after the unique ID of the
 #' individual or microphone. This can be in the file name or in the folder structure. E.g., if the path to the
 #' recording is `../data/week_1/recording_mic1.wav` the keys would be `c('recording', '.wav')`.
@@ -20,8 +21,10 @@
 #' @param blank numeric, the duration in minutes to be discarded at the beginning and end of the recording.
 #' @param wing numeric, the duration in minutes to load before and after each chunk to improve alignment. This
 #' is not saved with the aligned chunk.
+#' @param ffilter_from numeric, frequency in Hz for the high-pass filter.
 #' @param save_pdf logical, if `TRUE` a pdf is saved with a page per chunk that shows all the aligned
 #' recordings.
+#' @param quiet logical, if `TRUE` no messages are printet.
 #'
 #' @return saves all the aligned chunks in the location specific by `path_chunks`.
 #'
@@ -29,17 +32,21 @@
 #'
 #' @importFrom tuneR "readWave"
 #' @importFrom tuneR "writeWave"
+#' @importFrom stringr "str_detect"
 
-align = function(chunk_size = 15, # duration of output in minutes
-                 step_size = 0.5, # step size in seconds
-                 all_files = NULL, # alternatively a vector of full file names
-                 path_recordings = NULL, # the path where folders are stored
-                 path_chunks = NULL, # where to store the chunks and optional pdf
+align = function(chunk_size = 15,
+                 step_size = 0.5,
+                 all_files = NULL,
+                 path_recordings = NULL,
+                 path_chunks = NULL,
+                 chunk_seq = NULL,
                  keys_id = NULL,
                  keys_rec = NULL,
-                 blank = 15, # duration of blank before/after taking chunks in minutes
-                 wing = 10, # how much to load extra for alignment in minutes
-                 save_pdf = FALSE # if T saves a single PDF per folder with 1 chunk per page
+                 blank = 15,
+                 wing = 10,
+                 ffilter_from = NULL,
+                 save_pdf = FALSE,
+                 quiet = FALSE
 ){
 
   # Run checks
@@ -47,8 +54,8 @@ align = function(chunk_size = 15, # duration of output in minutes
 
   # List files and detect recording IDs
   if(is.null(all_files)) all_files = list.files(path_recordings, full.names = T, recursive = T)
-  all_recs = all_files %>% strsplit(keys_rec[1]) %>% sapply(`[`, 2) %>%
-    strsplit(keys_rec[2]) %>% sapply(`[`, 1)
+  all_recs = all_files |> strsplit(keys_rec[1]) |> sapply(`[`, 2) |>
+    strsplit(keys_rec[2]) |> sapply(`[`, 1)
 
   # Create list to save chunks
   if(is.null(path_chunks)) chunk_list = list()
@@ -61,24 +68,26 @@ align = function(chunk_size = 15, # duration of output in minutes
 
     # Open PDF - if needed
     if(save_pdf){
-      pdf(sprintf('%s/%s.pdf', path_chunks, str_remove(basename(files[1]), '.wav')), 15, 10)
-      par(mfrow = c(length(files), 1), mar = c(0, 0, 0, 0), oma = c(5, 1, 1, 1))
+      pdf(sprintf('%s/%s.pdf', path_chunks, str_remove(basename(files[1]), '.wav')), 20, length(files))
+      par(mfrow = c(length(files), 1), mar = c(0, 0, 0, 0), oma = c(5, 3, 1, 1))
     }
 
     # Check for the min duration
     sizes = files %>% lapply(file.info) %>% sapply(function(x) x$size) # load file size for all files
-    wave = readWave(files[which(sizes == min(sizes))]) # load the smallest file (this must also be shortest)
+    wave = readWave(files[which(sizes == min(sizes))][1]) # load the smallest file (this must also be shortest)
     ## retrieve min duration: take the floor to get the maximal number of chunks that fits, then multiply by
     ## the chunk size again to get the min duration back in minutes
     min_duration = floor(length(wave@left) / wave@samp.rate / 60 / chunk_size) * chunk_size
 
     # Run through chunks
-    chunk_seq = seq(blank, # start after the blank
-                    min_duration-blank-chunk_size, # until minimum duration - blank and chunk
-                    chunk_size) # by chunk steps
-    message(sprintf('Running recording: %s. Running %s chunks with start times: ', rec, length(chunk_seq)))
+    if(is.null(chunk_seq))
+      chunk_seq = seq(blank, # start after the blank
+                      min_duration-blank-chunk_size, # until minimum duration - blank and chunk
+                      chunk_size) # by chunk steps
+    if(!quiet) message(sprintf('Running recording: %s. Running %s chunks with start times: ',
+                               rec, length(chunk_seq)))
     for(chunk in chunk_seq){
-      message(chunk)
+      if(!quiet) message(chunk)
 
       # Load master
       master = readWave(files[1], from = chunk - wing, to = chunk + chunk_size + wing, units = 'minutes')
@@ -86,7 +95,8 @@ align = function(chunk_size = 15, # duration of output in minutes
       # Sum the sound per step
       step = master@samp.rate*step_size
       starts = seq(1, length(master@left)-step, step)
-      s1 = sapply(starts, function(start) sum(abs(master@left[start:(start+step)])))
+      if(!is.null(ffilter_from)) mf = ffilter(master, from = ffilter_from, output = 'Wave') else mf = master
+      s1 = sapply(starts, function(start) sum(abs(mf@left[start:(start+step)])))
 
       # Plot - if needed
       if(save_pdf){
@@ -119,7 +129,8 @@ align = function(chunk_size = 15, # duration of output in minutes
 
         # Align
         starts = seq(1, length(child@left)-step, step)
-        s2 = sapply(starts, function(start) sum(abs(child@left[start:(start+step)])))
+        if(!is.null(ffilter_from)) cf = ffilter(child, from = ffilter_from, output = 'Wave') else cf = child
+        s2 = sapply(starts, function(start) sum(abs(cf@left[start:(start+step)])))
         d = simple.cc(s1, s2)*step_size
 
         # Plot
