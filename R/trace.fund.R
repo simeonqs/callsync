@@ -54,6 +54,10 @@ trace.fund = function(wave,
   smoo = with(d[!is.na(d$funds),], smooth.spline(starts, funds, spar = spar))
   new_trace = with(d, predict(smoo, starts))$y
 
+  # Move all points within limits
+  new_trace[new_trace < freq_lim[1]] = freq_lim[1]
+  new_trace[new_trace > freq_lim[2]] = freq_lim[2]
+
   # Return
   out = data.frame(time = (starts + wl/2) / wave@samp.rate,
                    fund = new_trace * 1000,
