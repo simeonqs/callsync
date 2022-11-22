@@ -6,12 +6,13 @@
 #' time = time in seconds, fund = fundamental frequency in Hz and missing = logical indicating if the
 #' fundamental was detected (`T`) or interpolated (`F`).
 #' @param sr sample rate of the wave object used for `trace.fund`.
+#' @param hop the `hop` parameter used to generate the trace.
 #'
 #' @return Returns a dataframe with all measurements.
 #'
 #' @export
 
-measure.trace = function(trace, sr = 44100){
+measure.trace = function(trace, sr = 44100, hop = 5){
 
   # Calculate FM
   temp = calc.fm(trace = trace$fund, min_height = 5, plot_it = FALSE)
