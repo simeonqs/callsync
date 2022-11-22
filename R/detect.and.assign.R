@@ -11,7 +11,6 @@
 #' @param msmooth used as argument for the `seewave::env` function. *A vector of length 2 to smooth the
 #' amplitude envelope with a mean sliding window. The first component is the window length (in number of
 #' points). The second component is the overlap between successive windows (in \%).* Default is `c(500, 95)`.
-#' @param plot_it  if `TRUE`, returns three-panel plot of wave form, envelope and spectrogram to current
 #' @param min_dur numeric, the minimal duration in seconds for a detection to be saved. Default is `0.1`.
 #' @param max_dur numeric, the maximal duration in seconds for a detection to be saved. Default is `0.3`.
 #' @param step_size numeric, duration in seconds of the bins for signal compression before cross correlation.

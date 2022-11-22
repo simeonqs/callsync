@@ -11,6 +11,7 @@
 #' @export
 #' @importFrom stringr "str_remove"
 #' @importFrom dplyr "bind_rows"
+#' @importFrom utils "read.csv"
 
 load.selection.tables = function(path_selection_tables){
 

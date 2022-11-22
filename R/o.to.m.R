@@ -7,10 +7,14 @@
 #' @param n the names for the rows and columns of the matrix (optional)
 #'
 #' @return Returns a matrix where it assumes that `m[lower.tri(m)] = o`.
+#'
 #' @examples
 #' m = matrix(1:9, nrow = 3, ncol = 3)
 #' o = m[lower.tri(m)]
 #' m_new = o.to.m(o)
+#'
+#' @importFrom stats "as.dist"
+#'
 #' @export
 
 o.to.m = function(o,

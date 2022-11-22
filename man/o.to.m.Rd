@@ -22,4 +22,5 @@ triangular of the matrix: `m[lower.tri(m)] = o`. It includes 0 on the diagonal.
 m = matrix(1:9, nrow = 3, ncol = 3)
 o = m[lower.tri(m)]
 m_new = o.to.m(o)
+
 }

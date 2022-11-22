@@ -33,6 +33,11 @@
 #' @importFrom tuneR "readWave"
 #' @importFrom tuneR "writeWave"
 #' @importFrom stringr "str_detect"
+#' @importFrom grDevices "pdf"
+#' @importFrom graphics "par"
+#' @importFrom graphics "axis"
+#' @importFrom graphics "mtext"
+#' @importFrom grDevices "dev.off"
 
 align = function(chunk_size = 15,
                  step_size = 0.5,
@@ -73,7 +78,7 @@ align = function(chunk_size = 15,
     }
 
     # Check for the min duration
-    sizes = files %>% lapply(file.info) %>% sapply(function(x) x$size) # load file size for all files
+    sizes = files |> lapply(file.info) |> sapply(function(x) x$size) # load file size for all files
     wave = readWave(files[which(sizes == min(sizes))][1]) # load the smallest file (this must also be shortest)
     ## retrieve min duration: take the floor to get the maximal number of chunks that fits, then multiply by
     ## the chunk size again to get the min duration back in minutes
@@ -101,16 +106,16 @@ align = function(chunk_size = 15,
       # Plot - if needed
       if(save_pdf){
         ## compute the max of the y-axis
-        max_y = 2^wave@bit/2 * step_size * wave@samp.rate / 2
+        max_y = 2^mf@bit/2 * step_size * mf@samp.rate / 2
         ## plot
         times = starts/step/60*step_size
         plot(times, s1,
-             type = 'l', xlim = c(-wing, max(times) + wing), ylim = c(0, max_y), xaxt = 'n', yaxt = 'n',
+             type = 'l', xlim = c(-wing, max(times) + wing), xaxt = 'n', yaxt = 'n',
              main = chunk)
       }
 
       # Save master
-      id =  files[1] %>% strsplit(keys_id[1]) %>% sapply(`[`, 2) %>% strsplit(keys_id[2]) %>% sapply(`[`, 1)
+      id =  files[1] |> strsplit(keys_id[1]) |> sapply(`[`, 2) |> strsplit(keys_id[2]) |> sapply(`[`, 1)
       new_master = master[(wing*60*master@samp.rate):(length(master@left)-wing*60*master@samp.rate)]
       if(!is.null(path_chunks)){
         writeWave(new_master,
@@ -136,12 +141,12 @@ align = function(chunk_size = 15,
         # Plot
         if(save_pdf){
           times = starts/step/60*step_size - d/60
-          plot(times, s2, type = 'l', ylim = c(0, max_y), xlim = c(-wing, max(times + d/60) + wing),
+          plot(times, s2, type = 'l', xlim = c(-wing, max(times + d/60) + wing),
                xaxt = 'n', yaxt = 'n')
         }
 
         # Save child
-        id =  files[i] %>% strsplit(keys_id[1]) %>% sapply(`[`, 2) %>% strsplit(keys_id[2]) %>% sapply(`[`, 1)
+        id =  files[i] |> strsplit(keys_id[1]) |> sapply(`[`, 2) |> strsplit(keys_id[2]) |> sapply(`[`, 1)
         new_child = child[(wing*60*child@samp.rate + d*child@samp.rate):
                             (length(child@left)-wing*60*child@samp.rate + d*child@samp.rate)]
         if(!is.null(path_chunks)){

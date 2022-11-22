@@ -22,6 +22,7 @@
 #' @importFrom signal "specgram"
 #' @importFrom oce "imagep"
 #' @importFrom parallel "mclapply"
+#' @importFrom utils "combn"
 
 run.spcc = function(waves,
                     freq_range = c(700, 3500),
@@ -43,7 +44,7 @@ run.spcc = function(waves,
   c = combn(1:length(spec_objects), 2)
   o = mclapply(1:ncol(c), function(i)
     sliding.pixel.comparison(spec_objects[[c[1,i]]], spec_objects[[c[2,i]]], step_size = 10),
-    mc.cores = mc.cores) %>% unlist
+    mc.cores = mc.cores) |> unlist()
   o = o/max(o)
 
   # Create matrix

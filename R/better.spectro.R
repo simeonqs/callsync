@@ -17,6 +17,7 @@
 #'
 #' @importFrom signal "specgram"
 #' @importFrom oce "imagep"
+#' @importFrom grDevices "hcl.colors"
 
 better.spectro = function(wave,
                           main = '',

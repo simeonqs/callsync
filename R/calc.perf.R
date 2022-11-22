@@ -28,7 +28,7 @@ calc.perf = function(d, gt){
   }
 
   # Calculate rates
-  fp_rate = length(pf)/nrow(d)
+  fp_rate = length(fp)/nrow(d)
   tp_rate = length(tp)/nrow(gt)
 
   # Return

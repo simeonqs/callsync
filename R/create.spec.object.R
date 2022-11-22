@@ -4,7 +4,6 @@
 #'
 #' @param wave wave object, e.g., from `load.wave` or `readWave`.
 #' @param freq_range numeric vector of length 2, the frequency range in Hz to return.
-#' @param hop integer, how many samples to skip for each trace point.
 #' @param wl numeric, window length in samples. Default is `512`.
 #' @param ovl numeric, overlap in samples. Default is `450`.
 #' @param plot_it  logical, if `TRUE`, returns three-panel plot of wave form, envelope and spectrogram to
@@ -22,6 +21,8 @@
 #'
 #' @importFrom signal "specgram"
 #' @importFrom oce "imagep"
+#' @importFrom stats "sd"
+#' @importFrom grDevices "hcl.colors"
 
 create.spec.object = function(wave,
                               wl = 512,

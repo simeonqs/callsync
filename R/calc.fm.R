@@ -11,6 +11,9 @@
 #' @return Returns a dataframe with fm = median difference bewteen peaks and bottoms and ipi = interpeak
 #' interval (s).
 #'
+#' @importFrom stats "median"
+#' @importFrom graphics "points"
+#'
 #' @export
 
 calc.fm = function(trace,

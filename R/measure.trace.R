@@ -10,6 +10,8 @@
 #'
 #' @return Returns a dataframe with all measurements.
 #'
+#' @importFrom graphics "abline"
+#'
 #' @export
 
 measure.trace = function(trace, sr = 44100, hop = 5){

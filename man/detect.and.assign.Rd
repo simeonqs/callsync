@@ -49,8 +49,6 @@ is not saved with the aligned chunk.}
 returned.}
 
 \item{quiet}{logical, if `TRUE` no messages are printet.}
-
-\item{plot_it}{if `TRUE`, returns three-panel plot of wave form, envelope and spectrogram to current}
 }
 \value{
 Returns a data frame with start = start time in samples and end = end time in samples for each

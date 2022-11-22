@@ -9,6 +9,7 @@
 #'
 #' @export
 #' @importFrom dplyr "bind_rows"
+#' @importFrom utils "read.table"
 
 load.selection.tables.audacity = function(path_selection_tables){
   files = list.files(path_selection_tables, '*txt', full.names = T)

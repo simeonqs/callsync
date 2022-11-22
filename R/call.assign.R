@@ -25,6 +25,7 @@
 #' @importFrom tuneR "readWave"
 #' @importFrom tuneR "writeWave"
 #' @importFrom stringr "str_detect"
+#' @importFrom graphics "abline"
 #' @import tuneR
 
 call.assign = function(all_files = NULL,
@@ -149,11 +150,11 @@ call.assign = function(all_files = NULL,
               #      ybottom = par("usr")[3], ytop = par("usr")[4],
               #      border = NA, col = alpha('green', 0.3))
               writeWave(wave[(start-0.1*wave@samp.rate):(end+0.1*wave@samp.rate)],
-                        file = sprintf('%s/%s@%s-%s.wav',
-                                       path_calls,
-                                       str_remove(basename(audio_files[i]), '.wav'),
-                                       start,
-                                       end),
+                        filename = sprintf('%s/%s@%s-%s.wav',
+                                           path_calls,
+                                           str_remove(basename(audio_files[i]), '.wav'),
+                                           start,
+                                           end),
                         extensible = F)
             }
 

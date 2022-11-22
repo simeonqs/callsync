@@ -14,6 +14,11 @@
 #'
 #' @return Returns a data frame with all measurements.
 #'
+#' @importFrom graphics "abline"
+#' @importFrom graphics "lines"
+#' @importFrom scales "alpha"
+#' @importFrom graphics "text"
+#'
 #' @export
 
 measure.trace.multiple = function(traces,

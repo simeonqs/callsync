@@ -16,7 +16,9 @@
 #' detection. Optionally also plots the wave form and detections to current window.
 #'
 #' @export
+#'
 #' @importFrom seewave "env"
+#' @importFrom graphics "abline"
 
 call.detect = function(wave,
                        threshold = 0.3,

@@ -15,6 +15,9 @@
 #' @export
 #'
 #' @importFrom seewave "env"
+#' @importFrom graphics "abline"
+#' @importFrom stats "median"
+#' @importFrom graphics "points"
 
 calc.am = function(wave,
                    msmooth = c(1000, 90)){

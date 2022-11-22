@@ -37,8 +37,6 @@ reduction.}
 
 \item{method}{character, either `sd` or `max`. If `sd`, pixels are standardised. If `max`, pixels are
 normalised.}
-
-\item{hop}{integer, how many samples to skip for each trace point.}
 }
 \value{
 Returns a numeric matrix with the spectrogram values.
