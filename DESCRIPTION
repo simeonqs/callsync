@@ -11,7 +11,13 @@ BugReports: https://github.com/simeonqs/callsync/issues
 Depends:
 	R (>= 4.1.0)
 Imports: 
-	dplyr (>= 1.0.0)
+	dplyr (>= 1.0.10),
+	oce (>= 1.7),
+	seewave (>= 2.2.0),
+	signal (>= 0.7),
+	stringr (>= 1.4.1),
+	tuneR (>= 1.4.0),
+	scales (>= 1.2.1)
 Suggests:
     knitr,
     testthat (>= 3.0.0)
