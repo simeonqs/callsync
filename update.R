@@ -11,3 +11,12 @@ test_coverage()
 
 # Load
 library(callsync)
+
+# Test more
+devtools::check()
+
+library(rhub)
+results <- rhub::check_for_cran()
+results$cran_summary()
+
+devtools::check_win_devel()
