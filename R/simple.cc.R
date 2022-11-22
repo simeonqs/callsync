@@ -21,7 +21,7 @@
 
 simple.cc = function(s1,
                      s2,
-                     norm = F){
+                     norm = FALSE){
 
   # Run through positions
   np = length(s1) + length(s2) - 1
@@ -38,6 +38,8 @@ simple.cc = function(s1,
   })
 
   # Return
-  return(which(os == min(os)) - length(s1))
+  out = which(os == min(os)) - length(s1)
+  if(norm) out = out/max(c(length(s1), length(s2)))
+  return(out)
 
 }
