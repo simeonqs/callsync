@@ -1,11 +1,16 @@
-#' @title measure.trace
+#' @title measure.trace.multiple
 #'
-#' @description Takes several measurements on a fundamental frequency trace.
+#' @description Takes several measurements on multiple fundamental frequency traces.
 #'
-#' @param trace data frame, e.g., the output of the `trace.fund` function. Should contain columns with
-#' time = time in seconds, fund = fundamental frequency in Hz and missing = logical indicating if the
+#' @param traces a list of data frames, e.g., the output of the `trace.fund` function. Should contain columns
+#' with time = time in seconds, fund = fundamental frequency in Hz and missing = logical indicating if the
 #' fundamental was detected (`T`) or interpolated (`F`).
-#' @param sr sample rate of the wave object used for `trace.fund`.
+#' @param new_waves a list of wave objects, should only contain the call.
+#' @param waves a list of wave objects, should not be resized.
+#' @param audio_files character vector, should contain the names of the audiofiles.
+#' @param detections the detections.
+#' @param snr numeric, the signal to noise ratio for calls to be considered good.
+#' @param path_pdf numeric or `NULL`, where to store the pdf. If `NULL` no pdf is stored.
 #'
 #' @return Returns a data frame with all measurements.
 #'
@@ -14,6 +19,8 @@
 measure.trace.multiple = function(traces,
                                   new_waves,
                                   waves,
+                                  audio_files,
+                                  detections,
                                   snr = 10,
                                   path_pdf = NULL){
 
