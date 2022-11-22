@@ -29,7 +29,7 @@ run.spcc = function(waves,
                     thr_high = 0.6,
                     wl = 256,
                     ovl = 250,
-                    method = 'max',
+                    method = 'sd',
                     sum_one = TRUE,
                     mc.cores = 1
 ){
@@ -45,6 +45,9 @@ run.spcc = function(waves,
     sliding.pixel.comparison(spec_objects[[c[1,i]]], spec_objects[[c[2,i]]], step_size = 10),
     mc.cores = mc.cores) %>% unlist
   o = o/max(o)
+
+  # Create matrix
+  if(is.null(names(waves))) names(waves) = seq_along(waves)
   m = o.to.m(o, str_remove(names(waves), '.wav'))
 
   # Return
