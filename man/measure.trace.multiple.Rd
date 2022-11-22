@@ -2,20 +2,38 @@
 % Please edit documentation in R/measure.trace.multiple.R
 \name{measure.trace.multiple}
 \alias{measure.trace.multiple}
-\title{measure.trace}
+\title{measure.trace.multiple}
 \usage{
-measure.trace.multiple(traces, new_waves, waves, snr = 10, path_pdf = NULL)
+measure.trace.multiple(
+  traces,
+  new_waves,
+  waves,
+  audio_files,
+  detections,
+  snr = 10,
+  path_pdf = NULL
+)
 }
 \arguments{
-\item{trace}{data frame, e.g., the output of the `trace.fund` function. Should contain columns with
-time = time in seconds, fund = fundamental frequency in Hz and missing = logical indicating if the
+\item{traces}{a list of data frames, e.g., the output of the `trace.fund` function. Should contain columns
+with time = time in seconds, fund = fundamental frequency in Hz and missing = logical indicating if the
 fundamental was detected (`T`) or interpolated (`F`).}
 
-\item{sr}{sample rate of the wave object used for `trace.fund`.}
+\item{new_waves}{a list of wave objects, should only contain the call.}
+
+\item{waves}{a list of wave objects, should not be resized.}
+
+\item{audio_files}{character vector, should contain the names of the audiofiles.}
+
+\item{detections}{the detections.}
+
+\item{snr}{numeric, the signal to noise ratio for calls to be considered good.}
+
+\item{path_pdf}{numeric or `NULL`, where to store the pdf. If `NULL` no pdf is stored.}
 }
 \value{
 Returns a data frame with all measurements.
 }
 \description{
-Takes several measurements on a fundamental frequency trace.
+Takes several measurements on multiple fundamental frequency traces.
 }

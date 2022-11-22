@@ -2,11 +2,12 @@
 % Please edit documentation in R/detect.and.assign.R
 \name{detect.and.assign}
 \alias{detect.and.assign}
-\title{trace.fund}
+\title{detect.and.assign}
 \usage{
 detect.and.assign(
   all_files = NULL,
   path_chunks = NULL,
+  path_calls = NULL,
   ffilter_from = 1100,
   threshold = 0.4,
   msmooth = c(1000, 95),
@@ -14,14 +15,17 @@ detect.and.assign(
   max_dur = 0.3,
   step_size = 0.01,
   wing = 6,
-  save_files = TRUE
+  save_files = TRUE,
+  quiet = FALSE
 )
 }
 \arguments{
 \item{all_files}{character vector or `NULL`. Character vector should contain all the paths to the raw
-recordings that should be considered.}
+recordings that should be considered. If `NULL` files are loaded from `path_chunks`.}
 
-\item{path_chunks}{character, path to where to store the results.}
+\item{path_chunks}{character, path to where the chunks are stored.}
+
+\item{path_calls}{character, path to where to store the results.}
 
 \item{ffilter_from}{numeric, frequency in Hz for the high-pass filter.}
 
@@ -43,6 +47,8 @@ is not saved with the aligned chunk.}
 
 \item{save_files}{logical, if `TRUE` the files are stored in the `path_chunks` location. Results are also
 returned.}
+
+\item{quiet}{logical, if `TRUE` no messages are printet.}
 
 \item{plot_it}{if `TRUE`, returns three-panel plot of wave form, envelope and spectrogram to current}
 }

@@ -11,7 +11,7 @@ run.spcc(
   thr_high = 0.6,
   wl = 256,
   ovl = 250,
-  method = "max",
+  method = "sd",
   sum_one = TRUE,
   mc.cores = 1
 )

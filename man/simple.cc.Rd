@@ -4,7 +4,7 @@
 \alias{simple.cc}
 \title{simple.cc}
 \usage{
-simple.cc(s1, s2, norm = F)
+simple.cc(s1, s2, norm = FALSE)
 }
 \arguments{
 \item{s1}{the first numeric vector (required)}

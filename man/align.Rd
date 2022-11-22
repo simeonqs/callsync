@@ -10,11 +10,14 @@ align(
   all_files = NULL,
   path_recordings = NULL,
   path_chunks = NULL,
+  chunk_seq = NULL,
   keys_id = NULL,
   keys_rec = NULL,
   blank = 15,
   wing = 10,
-  save_pdf = FALSE
+  ffilter_from = NULL,
+  save_pdf = FALSE,
+  quiet = FALSE
 )
 }
 \arguments{
@@ -31,6 +34,8 @@ in this case provide the top-level folder.}
 
 \item{path_chunks}{character, the path where aligned chunks should be stored.}
 
+\item{chunk_seq}{numeric vector or `NULL`. If supplied only these chunks are rerun.}
+
 \item{keys_id}{character vector of length 2. The characters before and after the unique ID of the
 individual or microphone. This can be in the file name or in the folder structure. E.g., if the path to the
 recording is `../data/week_1/recording_mic1.wav` the keys would be `c('recording', '.wav')`.}
@@ -44,8 +49,12 @@ is `../data/week_1/recording_mic1.wav` the keys would be `c('data/', '_mic')`.}
 \item{wing}{numeric, the duration in minutes to load before and after each chunk to improve alignment. This
 is not saved with the aligned chunk.}
 
+\item{ffilter_from}{numeric, frequency in Hz for the high-pass filter.}
+
 \item{save_pdf}{logical, if `TRUE` a pdf is saved with a page per chunk that shows all the aligned
 recordings.}
+
+\item{quiet}{logical, if `TRUE` no messages are printet.}
 }
 \value{
 saves all the aligned chunks in the location specific by `path_chunks`.

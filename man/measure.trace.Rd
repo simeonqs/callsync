@@ -4,7 +4,7 @@
 \alias{measure.trace}
 \title{measure.trace}
 \usage{
-measure.trace(trace, sr = 44100)
+measure.trace(trace, sr = 44100, hop = 5)
 }
 \arguments{
 \item{trace}{data frame, e.g., the output of the `trace.fund` function. Should contain columns with
@@ -12,6 +12,8 @@ time = time in seconds, fund = fundamental frequency in Hz and missing = logical
 fundamental was detected (`T`) or interpolated (`F`).}
 
 \item{sr}{sample rate of the wave object used for `trace.fund`.}
+
+\item{hop}{the `hop` parameter used to generate the trace.}
 }
 \value{
 Returns a dataframe with all measurements.
