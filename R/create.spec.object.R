@@ -52,7 +52,7 @@ create.spec.object = function(wave,
   spec_object = spec_object[which(spec$f > freq_range[1] & spec$f < freq_range[2]),]
   if(method == 'max') spec_object = (spec_object - mean(spec_object)) / max(spec_object)
   if(method == 'sd') spec_object = (spec_object - mean(spec_object)) / sd(spec_object)
-  spec_object[spec_object < thr_low] = 0 # thr_low
+  spec_object[spec_object < thr_low] = 0
   spec_object[spec_object > thr_high] = thr_high
   if(sum_one) spec_object = spec_object/sum(spec_object)
 
