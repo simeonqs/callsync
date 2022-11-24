@@ -87,8 +87,8 @@ align = function(chunk_size = 15,
 
     # Open PDF - if needed
     if(save_pdf){
-      pdf(sprintf('%s/%s.pdf', path_chunks, str_remove(basename(files[1]), '.wav')), 20, length(files))
-      par(mfrow = c(length(files), 1), mar = c(0, 0, 0, 0), oma = c(5, 3, 1, 1))
+      pdf(sprintf('%s/%s.pdf', path_chunks, str_remove(basename(files[1]), '.wav')), 9, length(files)/2)
+      par(mfrow = c(length(files), 1), mar = c(0, 0, 0, 0), oma = c(5, 1, 3, 1))
     }
 
     # Check for the min duration
@@ -123,13 +123,12 @@ align = function(chunk_size = 15,
 
       # Plot - if needed
       if(save_pdf){
-        ## compute the max of the y-axis
-        max_y = 2^mf@bit/2 * step_size * mf@samp.rate / 2
         ## plot
         times = starts/step/60*step_size
         plot(times, s1,
-             type = 'l', xlim = c(-wing, max(times) + wing), xaxt = 'n', yaxt = 'n',
-             main = chunk)
+             type = 'l', xlim = c(-wing/2, max(times) + wing/2), xaxt = 'n', yaxt = 'n',
+             main = '')
+        mtext(chunk, line = 1)
       }
 
       # Save master
@@ -161,7 +160,7 @@ align = function(chunk_size = 15,
         # Plot
         if(save_pdf){
           times = starts/step/60*step_size - d/60
-          plot(times, s2, type = 'l', xlim = c(-wing, max(times + d/60) + wing),
+          plot(times, s2, type = 'l', xlim = c(-wing/2, max(times + d/60) + wing/2),
                xaxt = 'n', yaxt = 'n')
         }
 
@@ -181,8 +180,8 @@ align = function(chunk_size = 15,
 
       # Add axis
       if(save_pdf){
-        axis(1)
-        mtext('time [m]', 1, 3)
+        axis(1, cex.axis = 1.5)
+        mtext('time [m]', 1, 3, cex = 1)
       }
 
     } # end chunk loop
