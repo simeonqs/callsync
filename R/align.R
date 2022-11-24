@@ -22,6 +22,7 @@
 #' @param wing numeric, the duration in minutes to load before and after each chunk to improve alignment. This
 #' is not saved with the aligned chunk.
 #' @param ffilter_from numeric, frequency in Hz for the high-pass filter.
+#' @param down_sample numeric, the sample rate for downsampling. If `NULL` no downsampling is done.
 #' @param save_pdf logical, if `TRUE` a pdf is saved with a page per chunk that shows all the aligned
 #' recordings.
 #' @param quiet logical, if `TRUE` no messages are printet.
@@ -32,12 +33,14 @@
 #'
 #' @importFrom tuneR "readWave"
 #' @importFrom tuneR "writeWave"
+#' @importFrom seewave "resamp"
 #' @importFrom stringr "str_detect"
 #' @importFrom grDevices "pdf"
 #' @importFrom graphics "par"
 #' @importFrom graphics "axis"
 #' @importFrom graphics "mtext"
 #' @importFrom grDevices "dev.off"
+#' @importFrom stats "var"
 
 align = function(chunk_size = 15,
                  step_size = 0.5,
@@ -50,6 +53,7 @@ align = function(chunk_size = 15,
                  blank = 15,
                  wing = 10,
                  ffilter_from = NULL,
+                 down_sample = NULL,
                  save_pdf = FALSE,
                  quiet = FALSE
 ){
@@ -71,6 +75,16 @@ align = function(chunk_size = 15,
     # List files
     files = all_files[str_detect(all_files, rec)]
 
+    # Check if sample rate is all the same
+    minis = lapply(files, load.wave, from = 0, to = 0.1)
+    if(!is.null(down_sample)) minis = lapply(minis, function(x){
+      if(x@samp.rate == down_sample) return(x) else
+        return(seewave::resamp(x, g = down_sample, output = 'Wave'))
+    })
+    srs = sapply(minis, function(x) x@samp.rate)
+    if(!stats::var(srs) == 0)
+      warning(sprintf('Not all sample rates are equal. Check your raw data for recording %s.', rec))
+
     # Open PDF - if needed
     if(save_pdf){
       pdf(sprintf('%s/%s.pdf', path_chunks, str_remove(basename(files[1]), '.wav')), 20, length(files))
@@ -80,6 +94,8 @@ align = function(chunk_size = 15,
     # Check for the min duration
     sizes = files |> lapply(file.info) |> sapply(function(x) x$size) # load file size for all files
     wave = readWave(files[which(sizes == min(sizes))][1]) # load the smallest file (this must also be shortest)
+    if(!is.null(down_sample)) if(wave@samp.rate != down_sample)
+      wave = seewave::resamp(wave, g = down_sample, output = 'Wave')
     ## retrieve min duration: take the floor to get the maximal number of chunks that fits, then multiply by
     ## the chunk size again to get the min duration back in minutes
     min_duration = floor(length(wave@left) / wave@samp.rate / 60 / chunk_size) * chunk_size
@@ -96,6 +112,8 @@ align = function(chunk_size = 15,
 
       # Load master
       master = readWave(files[1], from = chunk - wing, to = chunk + chunk_size + wing, units = 'minutes')
+      if(!is.null(down_sample)) if(master@samp.rate != down_sample)
+        master = seewave::resamp(master, g = down_sample, output = 'Wave')
 
       # Sum the sound per step
       step = master@samp.rate*step_size
@@ -131,6 +149,8 @@ align = function(chunk_size = 15,
 
         # Load child
         child = readWave(files[i], from = chunk - wing, to = chunk + chunk_size + wing, units = 'minutes')
+        if(!is.null(down_sample)) if(child@samp.rate != down_sample)
+          child = seewave::resamp(child, g = down_sample, output = 'Wave')
 
         # Align
         starts = seq(1, length(child@left)-step, step)
