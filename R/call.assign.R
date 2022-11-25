@@ -15,6 +15,10 @@
 #' is not saved with the aligned chunk.
 #' @param step_size numeric, duration in seconds of the bins for signal compression before cross correlation.
 #' Default is `0.01`.
+#' @param assign_fraq numeric between 0 and 1, how much louder does the focal needs to be than the second
+#' loudest track to be accepted. Default is `0.05` and accepts if the focal is just 0.05 louder.
+#' @param save_wing numeric, how much extra to export before and after a detection to make sure the whole call
+#' is included in seconds. Default is `0.1`.
 #' @param quiet logical, if `TRUE` no messages are printet.
 #'
 #' @return Returns a data frame with file = file name, start = start time in samples and end = end time in
@@ -26,6 +30,7 @@
 #' @importFrom tuneR "writeWave"
 #' @importFrom stringr "str_detect"
 #' @importFrom graphics "abline"
+#' @importFrom graphics "rect"
 #' @import tuneR
 
 call.assign = function(all_files = NULL,
@@ -35,6 +40,8 @@ call.assign = function(all_files = NULL,
                        ffilter_from = 1100,
                        wing = 5,
                        step_size = 0.01,
+                       assign_fraq = 0.05,
+                       save_wing = 0.1,
                        quiet = FALSE){
 
   # Detect recording IDs
@@ -142,14 +149,16 @@ call.assign = function(all_files = NULL,
 
           # Test if master was the loudest
           if(any(is.na(cs))) next
-          if(cs[1] == max(cs)){
+          second_loudest = sort(cs, decreasing = TRUE)[2]
+          if(cs[1] == max(cs) & cs[1] * (1-assign_fraq) > second_loudest){
             if(save_files){
-              abline(v = start/wave@samp.rate, lty = 2, col = 'green', lwd = 2)
-              abline(v = end/wave@samp.rate, lty = 2, col = 'green', lwd = 2)
-              # rect(xleft = start/wave@samp.rate, xright = end/wave@samp.rate,
-              #      ybottom = par("usr")[3], ytop = par("usr")[4],
-              #      border = NA, col = alpha('green', 0.3))
-              writeWave(wave[(start-0.1*wave@samp.rate):(end+0.1*wave@samp.rate)],
+              graphics::rect(xleft = (start-save_wing)/wave@samp.rate,
+                             xright = (end+save_wing)/wave@samp.rate,
+                             ybottom = par("usr")[3], ytop = par("usr")[4],
+                             border = NA, col = alpha('cyan3', 0.5))
+              abline(v = (start-save_wing)/wave@samp.rate, lty = 2, col = 'cyan3', lwd = 3)
+              abline(v = (end+save_wing)/wave@samp.rate, lty = 2, col = 'cyan3', lwd = 3)
+              writeWave(wave[(start-save_wing*wave@samp.rate):(end+save_wing*wave@samp.rate)],
                         filename = sprintf('%s/%s@%s-%s.wav',
                                            path_calls,
                                            str_remove(basename(audio_files[i]), '.wav'),
