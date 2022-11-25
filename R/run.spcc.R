@@ -13,6 +13,8 @@
 #' @param thr_high numeric, the upper range (see `method`). Pixels with higher values are set to `thr_high`.
 #' @param sum_one logical, if `TRUE` pixels are divided by the sum of all pixels, such that they sum to one.
 #' @param mc.cores numeric, how many threads to run in parallel. For Windows only one can be used.
+#' @param step_size numeric, argument for `sliding.pixel.comparison` how many pixels should be moved for each
+#' step. Default is `10`.
 #'
 #' @return Matrix with row and columns names equal to the names of the wave list. Diagonal is zeroes. Other
 #' values are the normalised pairwise distances from `sliding.pixel.comparison`.
@@ -32,7 +34,8 @@ run.spcc = function(waves,
                     ovl = 250,
                     method = 'sd',
                     sum_one = TRUE,
-                    mc.cores = 1
+                    mc.cores = 1,
+                    step_size = 10
 ){
 
   # Generate spec_ojects
@@ -43,7 +46,7 @@ run.spcc = function(waves,
   # Get combinations and run function
   c = combn(1:length(spec_objects), 2)
   o = mclapply(1:ncol(c), function(i)
-    sliding.pixel.comparison(spec_objects[[c[1,i]]], spec_objects[[c[2,i]]], step_size = 10),
+    sliding.pixel.comparison(spec_objects[[c[1,i]]], spec_objects[[c[2,i]]], step_size = step_size),
     mc.cores = mc.cores) |> unlist()
   o = o/max(o)
 
