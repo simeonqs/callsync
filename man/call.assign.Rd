@@ -12,6 +12,8 @@ call.assign(
   ffilter_from = 1100,
   wing = 5,
   step_size = 0.01,
+  assign_fraq = 0.05,
+  save_wing = 0.1,
   quiet = FALSE
 )
 }
@@ -34,6 +36,12 @@ is not saved with the aligned chunk.}
 
 \item{step_size}{numeric, duration in seconds of the bins for signal compression before cross correlation.
 Default is `0.01`.}
+
+\item{assign_fraq}{numeric between 0 and 1, how much louder does the focal needs to be than the second
+loudest track to be accepted. Default is `0.05` and accepts if the focal is just 0.05 louder.}
+
+\item{save_wing}{numeric, how much extra to export before and after a detection to make sure the whole call
+is included in seconds. Default is `0.1`.}
 
 \item{quiet}{logical, if `TRUE` no messages are printet.}
 }

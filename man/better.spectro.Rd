@@ -11,7 +11,10 @@ better.spectro(
   ovl = 450,
   xlim = "free",
   ylim = "free",
-  mar = rep(3, 4)
+  mar = rep(3, 4),
+  cex.main = 1,
+  cex.axis = 0.75,
+  cex.lab = 0.5
 )
 }
 \arguments{
@@ -27,8 +30,14 @@ better.spectro(
 
 \item{ylim}{numeric vector of length 2, limits for the y-axis. Default is no limits ('free').}
 
-\item{mar}{numeric vector of length 4, the margins of the plot for the `impagep` function.
+\item{mar}{numeric vector of length 4, the margins of the plot for the `impagep` function.}
+
+\item{cex.main}{numeric the relative size of the title}
+
+\item{cex.axis}{numeric the relative size of the axis labels
 Default is `rep(3, 4)`.}
+
+\item{cex.lab}{numeric the relative size of the axis titles}
 }
 \value{
 Plots the spectrogram to current window.

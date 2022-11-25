@@ -13,7 +13,8 @@ run.spcc(
   ovl = 250,
   method = "sd",
   sum_one = TRUE,
-  mc.cores = 1
+  mc.cores = 1,
+  step_size = 10
 )
 }
 \arguments{
@@ -36,6 +37,9 @@ normalised.}
 \item{sum_one}{logical, if `TRUE` pixels are divided by the sum of all pixels, such that they sum to one.}
 
 \item{mc.cores}{numeric, how many threads to run in parallel. For Windows only one can be used.}
+
+\item{step_size}{numeric, argument for `sliding.pixel.comparison` how many pixels should be moved for each
+step. Default is `10`.}
 }
 \value{
 Matrix with row and columns names equal to the names of the wave list. Diagonal is zeroes. Other

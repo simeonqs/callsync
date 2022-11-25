@@ -4,15 +4,7 @@
 \alias{measure.trace.multiple}
 \title{measure.trace.multiple}
 \usage{
-measure.trace.multiple(
-  traces,
-  new_waves,
-  waves,
-  audio_files,
-  detections,
-  snr = 10,
-  path_pdf = NULL
-)
+measure.trace.multiple(traces, new_waves, waves, detections, path_pdf = NULL)
 }
 \arguments{
 \item{traces}{a list of data frames, e.g., the output of the `trace.fund` function. Should contain columns
@@ -21,13 +13,10 @@ fundamental was detected (`T`) or interpolated (`F`).}
 
 \item{new_waves}{a list of wave objects, should only contain the call.}
 
-\item{waves}{a list of wave objects, should not be resized.}
-
-\item{audio_files}{character vector, should contain the names of the audiofiles.}
+\item{waves}{a named list of wave objects, should not be resized. The names of the list are used for the
+file name column and spectrogram titles.}
 
 \item{detections}{the detections.}
-
-\item{snr}{numeric, the signal to noise ratio for calls to be considered good.}
 
 \item{path_pdf}{numeric or `NULL`, where to store the pdf. If `NULL` no pdf is stored.}
 }

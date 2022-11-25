@@ -16,6 +16,7 @@ align(
   blank = 15,
   wing = 10,
   ffilter_from = NULL,
+  down_sample = NULL,
   save_pdf = FALSE,
   quiet = FALSE
 )
@@ -50,6 +51,8 @@ is `../data/week_1/recording_mic1.wav` the keys would be `c('data/', '_mic')`.}
 is not saved with the aligned chunk.}
 
 \item{ffilter_from}{numeric, frequency in Hz for the high-pass filter.}
+
+\item{down_sample}{numeric, the sample rate for downsampling. If `NULL` no downsampling is done.}
 
 \item{save_pdf}{logical, if `TRUE` a pdf is saved with a page per chunk that shows all the aligned
 recordings.}
