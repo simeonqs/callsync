@@ -6,8 +6,7 @@ test_that('Basics.', {
   detections = lapply(waves, call.detect)
 
   traces = lapply(waves, trace.fund)
-  mt = measure.trace.multiple(traces = traces, waves = waves, new_waves = new_waves, audio_files = files,
-                              detections = detections)
+  mt = measure.trace.multiple(traces = traces, waves = waves, new_waves = new_waves, detections = detections)
 
   expect_equal(class(mt), 'data.frame')
   expect_true(mt$mean_fund_hz[1] > 1)
