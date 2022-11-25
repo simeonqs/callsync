@@ -46,9 +46,11 @@ detect.and.assign = function(all_files = NULL,
 
 ){
 
+  # Make sure a path is supplied if the files should be saved
+  if(save_files & is.null(path_calls)) stop('If you want to save the files you need set path_calls.')
+
   # List files and detect recording IDs
   if(is.null(all_files)) all_files = list.files(path_chunks, pattern = '*wav', full.names = T, recursive = T)
-  # all_files = all_files[str_detect(all_files, '@180') & str_detect(all_files, 'file_3')]
   all_recs = all_files |> strsplit('@') |> sapply(`[`, 3)
 
   # Detect calls in each chunk
@@ -76,7 +78,7 @@ detect.and.assign = function(all_files = NULL,
                             quiet = quiet)
 
   # Return
-  return(detec_saver)
+  if(!save_files) return(detec_saver)
 
   # Message
   if(!quiet) message('All done!')
