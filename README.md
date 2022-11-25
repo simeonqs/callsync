@@ -19,6 +19,8 @@ The package also offers:
 - flexible spectrograms
 - spectrographic cross correlation
 - analysis of amplitude and frequency modulation
+- loading selection tables from Raven and Audacity
+- calculating performance of the detection and assignment functions
 
 To install and load the package run:
 
