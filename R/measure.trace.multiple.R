@@ -81,6 +81,8 @@ measure.trace.multiple = function(traces,
     # Take measurements and save results
     temp = measure.trace(traces[[i]], sr = waves[[i]]@samp.rate) # take measurements
     temp = cbind(temp, data.frame(file = names(waves)[i], # add other info
+                                  start = start,
+                                  end = end,
                                   signal_to_noise = signal/noise))
     measurements = rbind(measurements, temp) # save in main dataframe
 
