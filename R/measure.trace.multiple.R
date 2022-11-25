@@ -6,10 +6,9 @@
 #' with time = time in seconds, fund = fundamental frequency in Hz and missing = logical indicating if the
 #' fundamental was detected (`T`) or interpolated (`F`).
 #' @param new_waves a list of wave objects, should only contain the call.
-#' @param waves a list of wave objects, should not be resized.
-#' @param audio_files character vector, should contain the names of the audiofiles.
+#' @param waves a named list of wave objects, should not be resized. The names of the list are used for the
+#' file name column and spectrogram titles.
 #' @param detections the detections.
-#' @param snr numeric, the signal to noise ratio for calls to be considered good.
 #' @param path_pdf numeric or `NULL`, where to store the pdf. If `NULL` no pdf is stored.
 #'
 #' @return Returns a data frame with all measurements.
@@ -24,17 +23,22 @@
 measure.trace.multiple = function(traces,
                                   new_waves,
                                   waves,
-                                  audio_files,
                                   detections,
-                                  snr = 10,
                                   path_pdf = NULL){
+
+  # Test if new_waves are smaller than waves - easy to enter them in wrong order
+  if(!all(sapply(waves, length) >= sapply(new_waves, length)))
+    stop('Waves longer than new_waves! Are you sure you entered them under the correct arguments?')
+
+  # Add names to waves if not supplied
+  if(is.null(names(waves))) names(waves) = seq_along(waves)
 
   # Make data frame to save results
   measurements = data.frame()
 
   # Run through files
   if(!is.null(path_pdf)) pdf(path_pdf, 7, 5)
-  for(i in 1:length(audio_files)){
+  for(i in 1:length(waves)){
 
     # Load wave
     new_wave = new_waves[[i]]
@@ -44,15 +48,14 @@ measure.trace.multiple = function(traces,
     # Test STN
     signal = mean(abs(new_wave@left))
     noise = mean(abs(waves[[i]][-(start:end)]@left))
-    if(signal/noise > snr) col = 1 else col = 2
 
     # Plot
     if(!is.null(path_pdf)){
       par(mfrow = c(2, 2))
       plot(waves[[i]])
-      abline(v = c(start/waves[[i]]@samp.rate, end/waves[[i]]@samp.rate), col = col)
+      abline(v = c(start/waves[[i]]@samp.rate, end/waves[[i]]@samp.rate), col = 1)
       better.spectro(waves[[i]], wl = 200, ovl = 195, ylim = c(500, 4000),
-                     main = basename(audio_files[i]), mar = rep(4, 4))
+                     main = names(waves)[i], mar = rep(4, 4))
       lines(traces[[i]]$time + start/waves[[i]]@samp.rate,
             traces[[i]]$fund,
             col = alpha('green', 0.3), lty = 1, lwd = 1)
@@ -77,7 +80,7 @@ measure.trace.multiple = function(traces,
 
     # Take measurements and save results
     temp = measure.trace(traces[[i]], sr = waves[[i]]@samp.rate) # take measurements
-    temp = cbind(temp, data.frame(file = basename(audio_files[i]), # add other info
+    temp = cbind(temp, data.frame(file = names(waves)[i], # add other info
                                   signal_to_noise = signal/noise))
     measurements = rbind(measurements, temp) # save in main dataframe
 
