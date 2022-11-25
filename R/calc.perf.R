@@ -17,7 +17,7 @@ calc.perf = function(d, gt){
   # Find the tp and fp
   tp = fp = c()
   for(i in 1:nrow(d)){
-    sub = gt[gt$file == d$file[i],]
+    sub = gt[which(gt$file == d$file[i]),]
     if(nrow(sub) == 0) {fp = c(fp, i); next}
     # keep if the start of the detection falls within a ground truth (after start and before end)
     keep_start = sapply(1:nrow(sub), function(j) d$start[i] > sub$start[j] & d$start[i] < sub$end[j])
