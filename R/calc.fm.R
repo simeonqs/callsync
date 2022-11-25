@@ -1,14 +1,14 @@
 #' @title calc.fm
 #'
 #' @description Calculates the frequency modulation for a wave object and returns several measurements in
-#' a dataframe.
+#' a data frame.
 #'
 #' @param trace numeric vector, e.g., the fundamental frequency from `trace.fund`.
 #' @param min_height the minimum difference between a bottom and a peak for an infliction point to be
 #' accepted.
 #' @param plot_it logical, if `TRUE` plot the trace and peaks to current window. Default is `FALSE`.
 #'
-#' @return Returns a dataframe with fm = median difference bewteen peaks and bottoms and ipi = interpeak
+#' @return Returns a data frame with fm = median difference between peaks and bottoms and ipi = inter peak
 #' interval (s).
 #'
 #' @importFrom stats "median"

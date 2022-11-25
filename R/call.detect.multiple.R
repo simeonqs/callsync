@@ -41,6 +41,7 @@ call.detect.multiple = function(wave,
   other_ends = which_above[which(diff(which_above) != 1)]
   starts = sort(c(start, other_starts))
   ends = sort(c(end, other_ends))
+
   # Remove short durations
   r = c()
   if(length(starts) > 1){
