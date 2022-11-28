@@ -1,14 +1,19 @@
+all_files = list.files('files', '*chunk*', full.names = T)
+
+detections = lapply(all_files, function(file){
+  wave = load.wave(file, ffilter_from = 1100)
+  detections = call.detect.multiple(wave, plot_it = F)
+  return(detections)
+})
+names(detections) = basename(all_files)
+
+test_that('Finding files.', {
+
+  expect_true(length(all_files) != 0)
+
+})
+
 test_that('Class and end > start.', {
-
-  all_files = list.files('files', '*chunk*', full.names = T)
-
-  # Detect calls in each chunk
-  detections = lapply(all_files, function(file){
-    wave = load.wave(file, ffilter_from = 1100)
-    detections = call.detect.multiple(wave, plot_it = F)
-    return(detections)
-  })
-  names(detections) = basename(all_files)
 
   ca = call.assign(all_files = all_files,
                    detections = detections,
@@ -20,4 +25,19 @@ test_that('Class and end > start.', {
 
 })
 
+test_that('Save files, a is null.', {
+
+  td = tempdir()
+
+  ca = call.assign(all_files = all_files,
+                   detections = detections,
+                   quiet = TRUE,
+                   save_files = TRUE,
+                   path_calls = td)
+
+  expect_null(ca)
+
+  unlink(td)
+
+})
 
