@@ -66,3 +66,14 @@ saves all the aligned chunks in the location specific by `path_chunks`.
 Aligns multiple recordings (.wav files). It assumes all microphones are within recording range
 of each other most of the time.
 }
+\details{
+There are two ways to tell the function where the files are. You can either compile a character
+vector of pathnames yourself and enter this under `all_files` or you can give a single character path to
+`path_recordings`. You need to make sure that there is an identifier by which to group the recordings and
+an identifier for each individual or microphone in the path. This can either be a in the folder structure
+or in the file names themselves. The align function will align all individuals per recording id (e.g.,
+date). These identifiers are found using regexp, so mostly you can use the first few characters before
+and after them (see examples in the argument descriptions). The function loads chunks of the recordings,
+sums the absolute amplitude per bin and runs cross correlation to find alignment relative to the first
+recording. The aligned chunks are then saved.
+}

@@ -15,10 +15,10 @@ accepted.}
 \item{plot_it}{logical, if `TRUE` plot the trace and peaks to current window. Default is `FALSE`.}
 }
 \value{
-Returns a dataframe with fm = median difference bewteen peaks and bottoms and ipi = interpeak
+Returns a data frame with fm = median difference between peaks and bottoms and ipi = inter peak
 interval (s).
 }
 \description{
 Calculates the frequency modulation for a wave object and returns several measurements in
-a dataframe.
+a data frame.
 }
