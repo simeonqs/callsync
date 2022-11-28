@@ -4,11 +4,12 @@
 #'
 #' @param traces a list of data frames, e.g., the output of the `trace.fund` function. Should contain columns
 #' with time = time in seconds, fund = fundamental frequency in Hz and missing = logical indicating if the
-#' fundamental was detected (`T`) or interpolated (`F`).
+#' fundamental was detected (`TRUE`) or interpolated (`FALSE`). If the list is named the names will be used
+#' as file names in the output.
 #' @param new_waves a list of wave objects, should only contain the call.
-#' @param waves a named list of wave objects, should not be resized. The names of the list are used for the
-#' file name column and spectrogram titles.
+#' @param waves a list of wave objects, should not be resized.
 #' @param detections the detections.
+#' @param sr numeric, sample rate of the waves objects used for the traces. Only needed if `waves` is `NULL`.
 #' @param path_pdf numeric or `NULL`, where to store the pdf. If `NULL` no pdf is stored.
 #'
 #' @return Returns a data frame with all measurements.
@@ -21,41 +22,47 @@
 #' @export
 
 measure.trace.multiple = function(traces,
-                                  new_waves,
-                                  waves,
-                                  detections,
+                                  new_waves = NULL,
+                                  waves = NULL,
+                                  detections = NULL,
+                                  sr = NULL,
                                   path_pdf = NULL){
 
   # Test if new_waves are smaller than waves - easy to enter them in wrong order
-  if(!all(sapply(waves, length) >= sapply(new_waves, length)))
+  if(!is.null(waves)) if(!all(sapply(waves, length) >= sapply(new_waves, length)))
     stop('Waves longer than new_waves! Are you sure you entered them under the correct arguments?')
-
-  # Add names to waves if not supplied
-  if(is.null(names(waves))) names(waves) = seq_along(waves)
 
   # Make data frame to save results
   measurements = data.frame()
 
   # Run through files
   if(!is.null(path_pdf)) pdf(path_pdf, 7, 5)
-  for(i in 1:length(waves)){
+  for(i in seq_along(traces)){
 
     # Load wave
-    new_wave = new_waves[[i]]
-    start = detections[[i]]$start
-    end = detections[[i]]$end
+    if(!is.null(waves)){
+      new_wave = new_waves[[i]]
+      start = detections[[i]]$start
+      end = detections[[i]]$end
+    } else {
+      start = NA
+      end = NA
+    }
 
     # Test STN
-    signal = mean(abs(new_wave@left))
-    noise = mean(abs(waves[[i]][-(start:end)]@left))
+    if(!is.null(waves)){
+      signal = mean(abs(new_wave@left))
+      noise = mean(abs(waves[[i]][-(start:end)]@left))
+    }
 
     # Plot
-    if(!is.null(path_pdf)){
+    if(!is.null(path_pdf) & !is.null(waves)){
+      if(is.null(names(traces))) np = seq_along(traces) else np = names(traces)
       par(mfrow = c(2, 2))
       plot(waves[[i]])
       abline(v = c(start/waves[[i]]@samp.rate, end/waves[[i]]@samp.rate), col = 1)
       better.spectro(waves[[i]], wl = 200, ovl = 195, ylim = c(500, 4000),
-                     main = names(waves)[i], mar = rep(4, 4))
+                     main = np[i], mar = rep(4, 4))
       lines(traces[[i]]$time + start/waves[[i]]@samp.rate,
             traces[[i]]$fund,
             col = alpha('green', 0.3), lty = 1, lwd = 1)
@@ -79,11 +86,18 @@ measure.trace.multiple = function(traces,
     } # end plot_it
 
     # Take measurements and save results
-    temp = measure.trace(traces[[i]], sr = waves[[i]]@samp.rate) # take measurements
-    temp = cbind(temp, data.frame(file = names(waves)[i], # add other info
+    if(is.null(waves) & is.null(sr)){
+      sr = 1
+      warning('Sample rate set to 1. This will make the duration meaningless.
+              Supply `sr` for meaningfull durations.')
+    } else if(!is.null(waves)) sr = waves[[i]]@samp.rate
+    temp = measure.trace(traces[[i]], sr = sr) # take measurements
+    if(is.null(names(traces))) n = NA else n = names(traces)[i]
+    if(is.null(waves)) stn = NA else stn = signal/noise
+    temp = cbind(temp, data.frame(file = n, # add other info
                                   start = start,
                                   end = end,
-                                  signal_to_noise = signal/noise))
+                                  signal_to_noise = stn))
     measurements = rbind(measurements, temp) # save in main dataframe
 
   } # end i loop
