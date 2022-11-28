@@ -84,7 +84,7 @@ call.assign = function(all_files = NULL,
       }
 
       # Run through files
-      for(i in 1:length(audio_files)){
+      for(i in seq_along(audio_files)){
 
         # Load wave
         wave = waves[[i]]
@@ -95,6 +95,7 @@ call.assign = function(all_files = NULL,
 
         # Plot wave
         plot(wf, xaxs = 'i', xaxt = 'n', nr = 15*2500)
+        text(1, 0.5 * max(wf@left), labels = basename(audio_files[i]), adj = 0)
 
         # Test if any detections else skip
         if(nrow(detects) == 0) next
@@ -188,6 +189,6 @@ call.assign = function(all_files = NULL,
   } # end folder loop
 
   # Return
-  return(detec_saver)
+  if(!save_files) return(detec_saver)
 
 } # end call.assign
