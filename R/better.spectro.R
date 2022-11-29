@@ -1,18 +1,17 @@
 #' @title better.spectro
 #'
-#' @description Creates a spectrogram and plots this to the current window.
+#' @description Creates a spectrogram and plots it to the current window.
 #'
 #' @param wave wave object, e.g., from `load.wave` or `readWave`.
-#' @param main title for the spectrogram. Default is not title.
+#' @param main character, title for the spectrogram. Default is no title.
 #' @param wl numeric, window length in samples. Default is `512`.
 #' @param ovl numeric, overlap in samples. Default is `450`.
-#' @param ylim numeric vector of length 2, limits for the y-axis. Default is no limits ('free').
-#' @param xlim numeric vector of length 2, limits for the x-axis. Default is no limits ('free').
-#' @param mar numeric vector of length 4, the margins of the plot for the `impagep` function.
+#' @param ylim numeric vector of length 2, limits for the y-axis. Default is no limits.
+#' @param xlim numeric vector of length 2, limits for the x-axis. Default is no limits.
+#' @param mar numeric vector of length 4, the margins of the plot for the `impagep` function. Default is `rep(3, 4)`.
 #' @param cex.main numeric the relative size of the title
 #' @param cex.lab numeric the relative size of the axis titles
-#' @param cex.axis numeric the relative size of the axis labels
-#' Default is `rep(3, 4)`.
+#' @param cex.axis numeric the relative size of the axis labels. 
 #'
 #' @return Plots the spectrogram to current window.
 #'
@@ -26,8 +25,8 @@ better.spectro = function(wave,
                           main = '',
                           wl = 512,
                           ovl = 450,
-                          xlim = 'free',
-                          ylim = 'free',
+                          xlim = NULL,
+                          ylim = NULL,
                           mar = rep(3, 4),
                           cex.main = 1,
                           cex.axis = 0.75,
@@ -54,8 +53,8 @@ better.spectro = function(wave,
   spec$t = spec$t + wl/wave@samp.rate/2 # - ovl/wave@samp.rate/2
 
   # Find limits
-  if(xlim[1] == 'free') xlim = c(min(spec$t), max(spec$t))
-  if(ylim[1] == 'free') ylim = c(min(spec$f), max(spec$f))
+  if(is.null(xlim[1])) xlim = c(min(spec$t), max(spec$t))
+  if(is.null(ylim[1])) ylim = c(min(spec$f), max(spec$f))
 
   # Plot spectrogram
   oce::imagep(x = spec$t,
