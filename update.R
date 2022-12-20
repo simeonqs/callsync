@@ -8,9 +8,6 @@ devtools::install('/Users/ssmeele/ownCloud/Simeon/MPI AB/Side projects/Methods p
 devtools::test()
 devtools::test_coverage()
 
-# Create vignette
-usethis::use_vignette("vignette")
-
 # Load
 library(callsync)
 
