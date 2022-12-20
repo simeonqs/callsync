@@ -70,9 +70,13 @@ align = function(chunk_size = 15,
 
   # Run checks
   if(wing > blank) stop('Wing cannot be greater than blank.')
+  if(!is.null(list.files(path_recordings, pattern = '*WAV', full.names = T, recursive = T))) warning(
+    'Detected files with extension .WAV. Only files with .wav will be run.'
+  )
 
   # List files and detect recording IDs
-  if(is.null(all_files)) all_files = list.files(path_recordings, full.names = T, recursive = T)
+  if(is.null(all_files)) all_files = list.files(path_recordings, pattern = '*wav',
+                                                full.names = T, recursive = T)
   all_recs = all_files |> strsplit(keys_rec[1]) |> sapply(`[`, 2) |>
     strsplit(keys_rec[2]) |> sapply(`[`, 1)
 
@@ -103,7 +107,7 @@ align = function(chunk_size = 15,
 
     # Check for the min duration
     sizes = files |> lapply(file.info) |> sapply(function(x) x$size) # load file size for all files
-    wave = readWave(files[which(sizes == min(sizes))][1]) # load the smallest file (this must also be shortest)
+    wave = readWave(files[which(sizes == min(sizes))][1]) # load the smallest file (this must also shortest)
     if(!is.null(down_sample)) if(wave@samp.rate != down_sample)
       wave = seewave::resamp(wave, g = down_sample, output = 'Wave')
     ## retrieve min duration: take the floor to get the maximal number of chunks that fits, then multiply by
@@ -115,8 +119,8 @@ align = function(chunk_size = 15,
       chunk_seq = seq(blank, # start after the blank
                       min_duration-blank-chunk_size, # until minimum duration - blank and chunk
                       chunk_size) # by chunk steps
-    if(!quiet) message(sprintf('Running recording: %s. Running %s chunks with start times: ',
-                               rec, length(chunk_seq)))
+    if(!quiet) message(sprintf('Running %s recordings with id: %s. Running %s chunks with start times: ',
+                               length(files), rec, length(chunk_seq)))
     for(chunk in chunk_seq){
       if(!quiet) message(chunk)
 
@@ -166,6 +170,14 @@ align = function(chunk_size = 15,
         if(!is.null(ffilter_from)) cf = ffilter(child, from = ffilter_from, output = 'Wave') else cf = child
         s2 = sapply(starts, function(start) sum(abs(cf@left[start:(start+step)])))
         d = simple.cc(s1, s2)*step_size
+        if(abs(d) > wing*60){
+          warning(paste0('Alignment adjustment exceeds wing in chunk ', chunk, ' of recording ',
+                         files[i], '. Make sure the wing is large enough. Otherwise alignment might not be',
+                         'possible with the current settings. Current chunk will be stored without ',
+                         'alignment.'))
+          d = 0
+        }
+
 
         # Plot
         if(save_pdf){
