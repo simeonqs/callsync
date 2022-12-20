@@ -14,7 +14,7 @@ seconds and file = file name}
 seconds and file = file name}
 }
 \value{
-Returns a named list with tp = the row numbers of the true positives, fp = the row numbers of the
+Returns a named list with tp = the row numbers (in d) for the true positives, fp = the row numbers (in d) for the
 false positives, fp_rate = `length(pf)/nrow(d)` and tp_rate = `length(tp)/nrow(gt)`.
 }
 \description{

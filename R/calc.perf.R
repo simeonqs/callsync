@@ -7,7 +7,7 @@
 #' @param gt data frame, ground truth selection table with start = start time in seconds, end = end time in
 #' seconds and file = file name
 #'
-#' @return Returns a named list with tp = the row numbers of the true positives, fp = the row numbers of the
+#' @return Returns a named list with tp = the row numbers (in d) for the true positives, fp = the row numbers (in d) for the
 #' false positives, fp_rate = `length(pf)/nrow(d)` and tp_rate = `length(tp)/nrow(gt)`.
 #'
 #' @export

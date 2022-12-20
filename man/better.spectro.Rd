@@ -9,8 +9,8 @@ better.spectro(
   main = "",
   wl = 512,
   ovl = 450,
-  xlim = "free",
-  ylim = "free",
+  xlim = NULL,
+  ylim = NULL,
   mar = rep(3, 4),
   cex.main = 1,
   cex.axis = 0.75,
@@ -20,22 +20,21 @@ better.spectro(
 \arguments{
 \item{wave}{wave object, e.g., from `load.wave` or `readWave`.}
 
-\item{main}{title for the spectrogram. Default is not title.}
+\item{main}{character, title for the spectrogram. Default is no title.}
 
 \item{wl}{numeric, window length in samples. Default is `512`.}
 
 \item{ovl}{numeric, overlap in samples. Default is `450`.}
 
-\item{xlim}{numeric vector of length 2, limits for the x-axis. Default is no limits ('free').}
+\item{xlim}{numeric vector of length 2, limits for the x-axis. Default is no limits.}
 
-\item{ylim}{numeric vector of length 2, limits for the y-axis. Default is no limits ('free').}
+\item{ylim}{numeric vector of length 2, limits for the y-axis. Default is no limits.}
 
-\item{mar}{numeric vector of length 4, the margins of the plot for the `impagep` function.}
+\item{mar}{numeric vector of length 4, the margins of the plot for the `impagep` function. Default is `rep(3, 4)`.}
 
 \item{cex.main}{numeric the relative size of the title}
 
-\item{cex.axis}{numeric the relative size of the axis labels
-Default is `rep(3, 4)`.}
+\item{cex.axis}{numeric the relative size of the axis labels.}
 
 \item{cex.lab}{numeric the relative size of the axis titles}
 }
@@ -43,5 +42,5 @@ Default is `rep(3, 4)`.}
 Plots the spectrogram to current window.
 }
 \description{
-Creates a spectrogram and plots this to the current window.
+Creates a spectrogram and plots it to the current window.
 }

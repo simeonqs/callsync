@@ -8,9 +8,9 @@
 #' amplitude envelope with a mean sliding window. The first component is the window length (in number of
 #' points). The second component is the overlap between successive windows (in \%).* Default is `c(500, 95)`.
 #'
-#' @return Returns a dataframe with nr_notes = total number of amplitude modulations in the signal,
-#' amp_mod_med = median difference between highest and lowest amplitude, internote_med = median internote
-#' distance.
+#' @return Returns a data frame with nr_notes = total number of amplitude modulations in the signal,
+#' amp_mod_med = median difference between highest and lowest amplitude from the normalised envelope,
+#' internote_med = median internote distance in seconds.
 #'
 #' @export
 #'
@@ -22,8 +22,7 @@
 calc.am = function(wave,
                    msmooth = c(1000, 90)){
 
-  # Idea is that we can cut a vocalisation at the angle change in the bottom, if you smoothen enough
-  # (works well for i = 1)
+  # Create envelope
   env = env(wave, msmooth = c(400, 30), plot = F) # taking envelope of the wave
   env = env/max(env)
 
