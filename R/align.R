@@ -32,10 +32,11 @@
 #' @param wing numeric, the duration in minutes to load before and after each chunk to improve alignment. This
 #' is not saved with the aligned chunk.
 #' @param ffilter_from numeric, frequency in Hz for the high-pass filter.
-#' @param down_sample numeric, the sample rate for downsampling. If `NULL` no downsampling is done.
+#' @param down_sample numeric, the sample rate for down-sampling. If `NULL` no down-sampling is done.
 #' @param save_pdf logical, if `TRUE` a pdf is saved with a page per chunk that shows all the aligned
 #' recordings.
-#' @param quiet logical, if `TRUE` no messages are printet.
+#' @param save_log logical, if `TRUE` a csv file with all alignment times is saved in path_chunks.
+#' @param quiet logical, if `TRUE` no messages are printed.
 #'
 #' @return saves all the aligned chunks in the location specific by `path_chunks`.
 #'
@@ -65,14 +66,16 @@ align = function(chunk_size = 15,
                  ffilter_from = NULL,
                  down_sample = NULL,
                  save_pdf = FALSE,
+                 save_log = FALSE,
                  quiet = FALSE
 ){
 
   # Run checks
   if(wing > blank) stop('Wing cannot be greater than blank.')
-  if(!is.null(list.files(path_recordings, pattern = '*WAV', full.names = T, recursive = T))) warning(
-    'Detected files with extension .WAV. Only files with .wav will be run.'
-  )
+  if(is.null(all_files))
+    if(length(list.files(path_recordings, pattern = '*WAV', full.names = T, recursive = T)) > 0) warning(
+      'Detected files with extension .WAV. Only files with .wav will be run.'
+    )
 
   # List files and detect recording IDs
   if(is.null(all_files)) all_files = list.files(path_recordings, pattern = '*wav',
@@ -82,6 +85,9 @@ align = function(chunk_size = 15,
 
   # Create list to save chunks
   if(is.null(path_chunks)) chunk_list = list()
+
+  # Optionally create list to save alignment details
+  if(save_log) align_log = data.frame()
 
   # Run through unique recordings
   for(rec in unique(all_recs)){
@@ -129,6 +135,12 @@ align = function(chunk_size = 15,
       if(!is.null(down_sample)) if(master@samp.rate != down_sample)
         master = seewave::resamp(master, g = down_sample, output = 'Wave')
 
+      # Optionally save alignment log
+      if(save_log) align_log = rbind(align_log, data.frame(rec = rec, file = files[1], chunk = chunk,
+                                                           from = chunk,
+                                                           to = chunk + chunk_size,
+                                                           offset = 0))
+
       # Sum the sound per step
       step = master@samp.rate*step_size
       starts = seq(1, length(master@left)-step, step)
@@ -141,7 +153,7 @@ align = function(chunk_size = 15,
         times = starts/step/60*step_size
         plot(times, s1,
              type = 'l', xlim = c(-wing/2, max(times) + wing/2), xaxt = 'n', yaxt = 'n',
-             main = '')
+             main = '', col = '#3a586e')
         mtext(chunk, line = 1)
       }
 
@@ -172,18 +184,23 @@ align = function(chunk_size = 15,
         d = simple.cc(s1, s2)*step_size
         if(abs(d) > wing*60){
           warning(paste0('Alignment adjustment exceeds wing in chunk ', chunk, ' of recording ',
-                         files[i], '. Make sure the wing is large enough. Otherwise alignment might not be',
+                         files[i], '. Make sure the wing is large enough. Otherwise alignment might not be ',
                          'possible with the current settings. Current chunk will be stored without ',
                          'alignment.'))
           d = 0
         }
 
+        # Optionally save alignment log
+        if(save_log) align_log = rbind(align_log, data.frame(rec = rec, file = files[i], chunk = chunk,
+                                                             from = chunk + d,
+                                                             to = chunk + chunk_size + d,
+                                                             offset = d))
 
         # Plot
         if(save_pdf){
           times = starts/step/60*step_size - d/60
           plot(times, s2, type = 'l', xlim = c(-wing/2, max(times + d/60) + wing/2),
-               xaxt = 'n', yaxt = 'n')
+               xaxt = 'n', yaxt = 'n', col = '#3a586e')
         }
 
         # Save child
@@ -212,6 +229,9 @@ align = function(chunk_size = 15,
     if(save_pdf) dev.off()
 
   } # end folder loop
+
+  # Optionally save alignment log
+  if(save_log) write.csv2(align_log, sprintf('%s/align_log.csv', path_chunks), row.names = F)
 
   # Return if not saved to file
   if(is.null(path_chunks)) return(chunk_list)
