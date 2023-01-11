@@ -156,9 +156,9 @@ call.assign = function(all_files = NULL,
               graphics::rect(xleft = (start-save_wing)/wave@samp.rate,
                              xright = (end+save_wing)/wave@samp.rate,
                              ybottom = par("usr")[3], ytop = par("usr")[4],
-                             border = NA, col = alpha('cyan3', 0.5))
-              abline(v = (start-save_wing)/wave@samp.rate, lty = 2, col = 'cyan3', lwd = 3)
-              abline(v = (end+save_wing)/wave@samp.rate, lty = 2, col = 'cyan3', lwd = 3)
+                             border = NA, col = alpha('#3a586e', 0.5))
+              abline(v = (start-save_wing)/wave@samp.rate, lty = 2, col = '#3a586e', lwd = 3)
+              abline(v = (end+save_wing)/wave@samp.rate, lty = 2, col = '#3a586e', lwd = 3)
               writeWave(wave[(start-save_wing*wave@samp.rate):(end+save_wing*wave@samp.rate)],
                         filename = sprintf('%s/%s@%s-%s.wav',
                                            path_calls,
