@@ -19,7 +19,9 @@
 #' is not saved with the aligned chunk.
 #' @param save_files logical, if `TRUE` the files are stored in the `path_chunks` location. Results are also
 #' returned.
-#' @param quiet logical, if `TRUE` no messages are printet.
+#' @param quiet logical, if `TRUE` no messages are printed.
+#' @param save_extra numberic, how much to add to start and end time in seconds. Can be used to make sure
+#' the whole vocalisation is included.
 #'
 #' @return Returns a data frame with start = start time in samples and end = end time in samples for each
 #' detection.
@@ -42,7 +44,8 @@ detect.and.assign = function(all_files = NULL,
                              step_size = 0.01,
                              wing = 6,
                              save_files = TRUE,
-                             quiet = FALSE
+                             quiet = FALSE,
+                             save_extra = 0
 
 ){
 
@@ -63,7 +66,8 @@ detect.and.assign = function(all_files = NULL,
                                       msmooth = msmooth,
                                       min_dur = min_dur,
                                       max_dur = max_dur,
-                                      plot_it = F)
+                                      plot_it = F,
+                                      save_extra = save_extra)
     return(detections)
   })
   names(detections) = basename(all_files)
