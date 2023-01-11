@@ -19,4 +19,7 @@ load.selection.tables.audacity = function(path_selection_tables){
     names(st) = c('start', 'end', 'file')
     return(st)
   }) |> bind_rows()
+  st_all$start = as.numeric(st_all$start)
+  st_all$end = as.numeric(st_all$end)
+  return(st_all)
 }
