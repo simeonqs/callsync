@@ -52,6 +52,7 @@
 #' @importFrom graphics "mtext"
 #' @importFrom grDevices "dev.off"
 #' @importFrom stats "var"
+#' @importFrom utils "write.csv2"
 
 align = function(chunk_size = 15,
                  step_size = 0.5,
@@ -231,7 +232,7 @@ align = function(chunk_size = 15,
   } # end folder loop
 
   # Optionally save alignment log
-  if(save_log) write.csv2(align_log, sprintf('%s/align_log.csv', path_chunks), row.names = F)
+  if(save_log) utils::write.csv2(align_log, sprintf('%s/align_log.csv', path_chunks), row.names = F)
 
   # Return if not saved to file
   if(is.null(path_chunks)) return(chunk_list)
