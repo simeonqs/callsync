@@ -18,6 +18,7 @@ align(
   ffilter_from = NULL,
   down_sample = NULL,
   save_pdf = FALSE,
+  save_log = FALSE,
   quiet = FALSE
 )
 }
@@ -52,12 +53,14 @@ is not saved with the aligned chunk.}
 
 \item{ffilter_from}{numeric, frequency in Hz for the high-pass filter.}
 
-\item{down_sample}{numeric, the sample rate for downsampling. If `NULL` no downsampling is done.}
+\item{down_sample}{numeric, the sample rate for down-sampling. If `NULL` no down-sampling is done.}
 
 \item{save_pdf}{logical, if `TRUE` a pdf is saved with a page per chunk that shows all the aligned
 recordings.}
 
-\item{quiet}{logical, if `TRUE` no messages are printet.}
+\item{save_log}{logical, if `TRUE` a csv file with all alignment times is saved in path_chunks.}
+
+\item{quiet}{logical, if `TRUE` no messages are printed.}
 }
 \value{
 saves all the aligned chunks in the location specific by `path_chunks`.
