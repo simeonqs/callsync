@@ -10,7 +10,8 @@ call.detect.multiple(
   msmooth = c(500, 95),
   plot_it = F,
   min_dur = 0.1,
-  max_dur = 0.3
+  max_dur = 0.3,
+  save_extra = 0
 )
 }
 \arguments{
@@ -30,6 +31,9 @@ current plotting window. Default is `FALSE`.}
 \item{min_dur}{numeric, the minimal duration in seconds for a detection to be saved. Default is `0.1`.}
 
 \item{max_dur}{numeric, the maximal duration in seconds for a detection to be saved. Default is `0.3`.}
+
+\item{save_extra}{numberic, how much to add to start and end time in seconds. Can be used to make sure
+the whole vocalisation is included.}
 }
 \value{
 Returns a data frame with start = start time in samples and end = end time in samples for each

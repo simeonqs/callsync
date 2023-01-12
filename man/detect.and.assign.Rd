@@ -16,7 +16,8 @@ detect.and.assign(
   step_size = 0.01,
   wing = 6,
   save_files = TRUE,
-  quiet = FALSE
+  quiet = FALSE,
+  save_extra = 0
 )
 }
 \arguments{
@@ -48,7 +49,10 @@ is not saved with the aligned chunk.}
 \item{save_files}{logical, if `TRUE` the files are stored in the `path_chunks` location. Results are also
 returned.}
 
-\item{quiet}{logical, if `TRUE` no messages are printet.}
+\item{quiet}{logical, if `TRUE` no messages are printed.}
+
+\item{save_extra}{numberic, how much to add to start and end time in seconds. Can be used to make sure
+the whole vocalisation is included.}
 }
 \value{
 Returns a data frame with start = start time in samples and end = end time in samples for each
