@@ -2,7 +2,8 @@ Package: callsync
 Type: Package
 Title: Recording Synchronisation, Call Detection and Assignment, Audio Analysis
 Version: 0.0.0
-Authors@R: person("Simeon Q.", "Smeele", email = "simeonqs@hotmail.com", role = c("cre","aut"))
+Authors@R: c(person("Simeon Q.", "Smeele", email = "simeonqs@hotmail.com", role = c("cre","aut")),
+  person("Stephen A.", "Tyndel", email = "styndel@ab.mpg.de", role = c("ctb")))
 Description: The `callsync` package is intended for users that use collar or backpack microphones and want 
   to analyse the resulting recordings. It allows users to create a pipeline from raw recordings until final 
   feature vectors, but specific functions can also be replaced by alternatives.
