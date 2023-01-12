@@ -61,7 +61,7 @@ call.detect.multiple = function(wave,
   # Fix time
   if(length(starts) != 0){
     starts = round((starts-1) * duration/length(env) * wave@samp.rate - save_extra * wave@samp.rate)
-    ends = round((ends-1) * duration/length(env) * wave@samp.rate - save_extra * wave@samp.rate)
+    ends = round((ends-1) * duration/length(env) * wave@samp.rate + save_extra * wave@samp.rate)
   }
 
   # Return
