@@ -18,7 +18,6 @@ devtools::check()
 usethis::use_news_md()
 
 # CRAN
-library(rhub)
 results <- rhub::check_for_cran()
 results$cran_summary()
 usethis::use_cran_comments()
@@ -26,9 +25,7 @@ usethis::use_cran_comments()
 devtools::check_win_devel()
 
 devtools::spell_check()
-devtools::release()
+devtools::release() # do this next
 
 # Good practice
-library(goodpractice)
 goodpractice::gp()
-
