@@ -74,13 +74,12 @@ align = function(chunk_size = 15,
   # Run checks
   if(wing > blank) stop('Wing cannot be greater than blank.')
   if(is.null(all_files))
-    if(length(list.files(path_recordings, pattern = '*WAV', full.names = T, recursive = T)) > 0) warning(
-      'Detected files with extension .WAV. Only files with .wav will be run.'
-    )
+    if(length(list.files(path_recordings, pattern = '*WAV', full.names = TRUE, recursive = TRUE)) > 0)
+      warning('Detected files with extension .WAV. Only files with .wav will be run.')
 
   # List files and detect recording IDs
   if(is.null(all_files)) all_files = list.files(path_recordings, pattern = '*wav',
-                                                full.names = T, recursive = T)
+                                                full.names = TRUE, recursive = TRUE)
   all_recs = all_files |> strsplit(keys_rec[1]) |> sapply(`[`, 2) |>
     strsplit(keys_rec[2]) |> sapply(`[`, 1)
 
