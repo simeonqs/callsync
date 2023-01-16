@@ -4,7 +4,7 @@ Title: Recording Synchronisation, Call Detection and Assignment, Audio Analysis
 Version: 0.0.1
 Authors@R: c(person("Simeon Q.", "Smeele", email = "simeonqs@hotmail.com", role = c("cre","aut")),
   person("Stephen A.", "Tyndel", email = "styndel@ab.mpg.de", role = c("ctb")))
-Description: This package is intended to analyse recordings from multiple microphones (e.g., backpack
+Description: Intended to analyse recordings from multiple microphones (e.g., backpack
   microphones in captive setting). It allows users to align recordings even if there is non-linear 
   drift of several minutes between them. A call detection and assignment pipeline can be used 
   to find vocalisations and assign them to the vocalising individuals (even if the vocalisation
