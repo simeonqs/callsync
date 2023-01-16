@@ -25,7 +25,9 @@ usethis::use_cran_comments()
 devtools::check_win_devel()
 
 devtools::spell_check()
-devtools::release() # do this next
 
 # Good practice
 goodpractice::gp()
+
+# Final step before submission
+devtools::release()
