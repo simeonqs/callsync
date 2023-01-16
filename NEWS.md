@@ -1,3 +1,7 @@
 # callsync 0.0.0
 
-* Added a `NEWS.md` file to track changes to the package.
+* First release.
+
+# callsync 0.0.1
+
+* Updated description and size to accommodate comments from CRAN review. 
