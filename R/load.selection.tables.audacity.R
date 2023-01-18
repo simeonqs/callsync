@@ -12,7 +12,7 @@
 #' @importFrom utils "read.table"
 
 load.selection.tables.audacity = function(path_selection_tables){
-  files = list.files(path_selection_tables, '*txt', full.names = T)
+  files = list.files(path_selection_tables, '*txt', full.names = TRUE)
   st_all = lapply(files, function(file){
     st = read.table(file)
     st = st[seq(1, nrow(st)-1, 2),] # remove weird lines

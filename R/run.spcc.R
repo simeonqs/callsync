@@ -40,7 +40,7 @@ run.spcc = function(waves,
 
   # Generate spec_ojects
   spec_objects = lapply(waves, create.spec.object,
-                        freq_range = freq_range, plot_it = F, thr_low = thr_low, thr_high = thr_high,
+                        freq_range = freq_range, plot_it = FALSE, thr_low = thr_low, thr_high = thr_high,
                         wl = wl, ovl = ovl, method = method, sum_one = sum_one)
 
   # Get combinations and run function

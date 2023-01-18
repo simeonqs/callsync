@@ -19,7 +19,7 @@
 #' loudest track to be accepted. Default is `0.05` and accepts if the focal is just 0.05 louder.
 #' @param save_wing numeric, how much extra to export before and after a detection to make sure the whole call
 #' is included in seconds. Default is `0.1`.
-#' @param quiet logical, if `TRUE` no messages are printet.
+#' @param quiet logical, if `TRUE` no messages are printed.
 #'
 #' @return Returns a data frame with file = file name, start = start time in samples and end = end time in
 #' samples for each detection.
@@ -165,7 +165,7 @@ call.assign = function(all_files = NULL,
                                            str_remove(basename(audio_files[i]), '.wav'),
                                            start,
                                            end),
-                        extensible = F)
+                        extensible = FALSE)
             }
 
             # Save for output as well

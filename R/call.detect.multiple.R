@@ -13,7 +13,7 @@
 #' current plotting window. Default is `FALSE`.
 #' @param min_dur numeric, the minimal duration in seconds for a detection to be saved. Default is `0.1`.
 #' @param max_dur numeric, the maximal duration in seconds for a detection to be saved. Default is `0.3`.
-#' @param save_extra numberic, how much to add to start and end time in seconds. Can be used to make sure
+#' @param save_extra numeric, how much to add to start and end time in seconds. Can be used to make sure
 #' the whole vocalisation is included.
 #'
 #' @return Returns a data frame with start = start time in samples and end = end time in samples for each
@@ -26,13 +26,13 @@
 call.detect.multiple = function(wave,
                                 threshold = 0.3,
                                 msmooth = c(500, 95),
-                                plot_it = F,
+                                plot_it = FALSE,
                                 min_dur = 0.1,
                                 max_dur = 0.3,
                                 save_extra = 0){
 
   # Envelope
-  env = env(wave, msmooth = msmooth, plot = F)
+  env = env(wave, msmooth = msmooth, plot = FALSE)
   env = ( env - min(env) ) / max( env - min(env) )
   duration = length(wave@left)/wave@samp.rate
 

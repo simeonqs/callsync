@@ -43,7 +43,7 @@ loudest track to be accepted. Default is `0.05` and accepts if the focal is just
 \item{save_wing}{numeric, how much extra to export before and after a detection to make sure the whole call
 is included in seconds. Default is `0.1`.}
 
-\item{quiet}{logical, if `TRUE` no messages are printet.}
+\item{quiet}{logical, if `TRUE` no messages are printed.}
 }
 \value{
 Returns a data frame with file = file name, start = start time in samples and end = end time in

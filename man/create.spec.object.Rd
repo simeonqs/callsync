@@ -9,10 +9,10 @@ create.spec.object(
   wl = 512,
   ovl = 450,
   freq_range = c(0, 20000),
-  plot_it = T,
+  plot_it = TRUE,
   thr_low = 1.5,
   thr_high = 3,
-  sum_one = F,
+  sum_one = FALSE,
   method = "sd"
 )
 }

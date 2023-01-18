@@ -11,7 +11,7 @@
 #' @param mar numeric vector of length 4, the margins of the plot for the `impagep` function. Default is `rep(3, 4)`.
 #' @param cex.main numeric the relative size of the title
 #' @param cex.lab numeric the relative size of the axis titles
-#' @param cex.axis numeric the relative size of the axis labels. 
+#' @param cex.axis numeric the relative size of the axis labels.
 #'
 #' @return Plots the spectrogram to current window.
 #'
@@ -66,8 +66,8 @@ better.spectro = function(wave,
               xlim = xlim,
               ylim = ylim,
               col = hcl.colors(20, "RdBu", rev = TRUE) ,
-              drawPalette = F,
-              decimate = F,
+              drawPalette = FALSE,
+              decimate = FALSE,
               main = main,
               mar = mar,
               cex.main = cex.main,

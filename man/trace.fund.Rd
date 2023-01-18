@@ -31,7 +31,7 @@ trace.fund(
 }
 \value{
 Data frame with time = time in seconds, fund = fundamental frequency in Hz and missing = logical
-indicating if the fundamental was detected (`T`) or interpolated (`F`).
+indicating if the fundamental was detected (`TRUE`) or interpolated (`FALSE`).
 }
 \description{
 Traces the fundamental frequency from a wave object. Also applies smoothening to trace.

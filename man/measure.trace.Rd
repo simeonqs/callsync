@@ -9,7 +9,7 @@ measure.trace(trace, sr = 44100, hop = 5)
 \arguments{
 \item{trace}{data frame, e.g., the output of the `trace.fund` function. Should contain columns with
 time = time in seconds, fund = fundamental frequency in Hz and missing = logical indicating if the
-fundamental was detected (`T`) or interpolated (`F`).}
+fundamental was detected (`TRUE`) or interpolated (`FALSE`).}
 
 \item{sr}{sample rate of the wave object used for `trace.fund`.}
 

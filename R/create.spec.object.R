@@ -28,10 +28,10 @@ create.spec.object = function(wave,
                               wl = 512,
                               ovl = 450,
                               freq_range = c(0, 20000),
-                              plot_it = T,
+                              plot_it = TRUE,
                               thr_low = 1.5,
                               thr_high = 3,
-                              sum_one = F,
+                              sum_one = FALSE,
                               method = 'sd'){
 
   # Create spectrogram
@@ -58,7 +58,7 @@ create.spec.object = function(wave,
   if(sum_one) spec_object = spec_object/sum(spec_object)
 
   # Plot spectrogram
-  if(plot_it) image(t(spec_object), col = hcl.colors(12, 'Blue-Yellow', rev = T))
+  if(plot_it) image(t(spec_object), col = hcl.colors(12, 'Blue-Yellow', rev = TRUE))
 
   # Return
   return(spec_object)

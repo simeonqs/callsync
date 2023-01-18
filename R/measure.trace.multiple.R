@@ -66,9 +66,9 @@ measure.trace.multiple = function(traces,
       lines(traces[[i]]$time + start/waves[[i]]@samp.rate,
             traces[[i]]$fund,
             col = alpha('green', 0.3), lty = 1, lwd = 1)
-      abline(h = c(mean(traces[[i]]$fund, na.rm = T),
-                   max(traces[[i]]$fund, na.rm = T),
-                   min(traces[[i]]$fund, na.rm = T)), lty = 2,
+      abline(h = c(mean(traces[[i]]$fund, na.rm = TRUE),
+                   max(traces[[i]]$fund, na.rm = TRUE),
+                   min(traces[[i]]$fund, na.rm = TRUE)), lty = 2,
              col = alpha('black', 0.5))
       plot(NULL, xlim = c(0, 1), ylim = c(0, 8), xaxt = 'n', yaxt = 'n', xlab = '', ylab = '')
       text(0, 1:6, adj = 0,

@@ -16,7 +16,7 @@
 load.selection.tables = function(path_selection_tables){
 
   selection_tables = path_selection_tables |>
-    list.files('*txt', full.names = T) |>
+    list.files('*txt', full.names = TRUE) |>
     lapply(function(x){
       temp = read.csv(x, sep = '\t')
       if(ncol(temp) != 8){ # if there are decibel columns, make sure it still works

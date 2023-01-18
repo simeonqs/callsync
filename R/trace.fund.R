@@ -11,7 +11,7 @@
 #' @param thr numeric between 0-1, the fraction of the maximum of the spectrum used to detect the fundamental
 #'
 #' @return Data frame with time = time in seconds, fund = fundamental frequency in Hz and missing = logical
-#' indicating if the fundamental was detected (`T`) or interpolated (`F`).
+#' indicating if the fundamental was detected (`TRUE`) or interpolated (`FALSE`).
 #'
 #' @export
 #'
@@ -40,7 +40,7 @@ trace.fund = function(wave,
     while(cont){ # climb until reach first peak
       if(s[ii+1,2] > s[ii,2]) ii = ii + 1 else {
         peak = s[ii,1]
-        cont = F
+        cont = FALSE
       }
     }
     ## Only include peak if very clear
@@ -61,7 +61,7 @@ trace.fund = function(wave,
   # Return
   out = data.frame(time = (starts + wl/2) / wave@samp.rate,
                    fund = new_trace * 1000,
-                   missing = ifelse(is.na(funds), T, F))
+                   missing = ifelse(is.na(funds), TRUE, FALSE))
   if(all(funds == 1)) out$missing = rep(T, length(out$missing))
   return(out)
 
