@@ -14,9 +14,6 @@ library(callsync)
 # Test more
 devtools::check()
 
-# Add news
-usethis::use_news_md()
-
 # CRAN
 results <- rhub::check_for_cran()
 results$cran_summary()
