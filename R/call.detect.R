@@ -57,6 +57,8 @@ call.detect = function(wave,
 
   # Plot
   if(plot_it){
+    oldpar = par(no.readonly = TRUE)
+    on.exit(par(oldpar))
     par(mfrow = c(2, 2))
     plot(env, type = 'l')
     abline(v = c(start_env, end_env))

@@ -80,6 +80,8 @@ call.assign = function(all_files = NULL,
                     path_calls,
                     str_remove(basename(audio_files[1]), '.wav')),
             30*15, 14)
+        oldpar = par(no.readonly = TRUE)
+        on.exit(par(oldpar))
         par(mfrow = c(1*length(audio_files), 1), mar = c(0, 0, 0, 0), oma = c(5, 5, 1, 1))
       }
 

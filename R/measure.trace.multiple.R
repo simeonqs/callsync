@@ -58,6 +58,8 @@ measure.trace.multiple = function(traces,
     # Plot
     if(!is.null(path_pdf) & !is.null(waves)){
       if(is.null(names(traces))) np = seq_along(traces) else np = names(traces)
+      oldpar = par(no.readonly = TRUE)
+      on.exit(par(oldpar))
       par(mfrow = c(2, 2))
       plot(waves[[i]])
       abline(v = c(start/waves[[i]]@samp.rate, end/waves[[i]]@samp.rate), col = 1)

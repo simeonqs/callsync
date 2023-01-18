@@ -108,6 +108,8 @@ align = function(chunk_size = 15,
     # Open PDF - if needed
     if(save_pdf){
       pdf(sprintf('%s/%s.pdf', path_chunks, str_remove(basename(files[1]), '.wav')), 9, length(files)/2)
+      oldpar = par(no.readonly = TRUE)
+      on.exit(par(oldpar))
       par(mfrow = c(length(files), 1), mar = c(0, 0, 0, 0), oma = c(5, 1, 3, 1))
     }
 
