@@ -26,7 +26,7 @@ call.detect = function(wave,
                        plot_it = FALSE){
 
   # Create envelope
-  env = seewave::env(wave, msmooth = msmooth, plot = F)
+  env = seewave::env(wave, msmooth = msmooth, plot = FALSE)
   env = ( env - min(env) ) / max( env - min(env) )
   duration = length(wave@left)/wave@samp.rate
 

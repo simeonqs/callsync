@@ -23,7 +23,7 @@ calc.am = function(wave,
                    msmooth = c(1000, 90)){
 
   # Create envelope
-  env = env(wave, msmooth = c(400, 30), plot = F) # taking envelope of the wave
+  env = env(wave, msmooth = c(400, 30), plot = FALSE) # taking envelope of the wave
   env = env/max(env)
 
   # Run through points of envelope and calculate difference between local minima and maxima
@@ -63,7 +63,7 @@ calc.am = function(wave,
   for(i in 1:(length(minis)+1)){
     if(i == 1) s = 0 else s = round(minis[i-1]*time_per_samp*wave@samp.rate)
     if(i > length(minis)) e = length(wave@left) else e = round(minis[i]*time_per_samp*wave@samp.rate)
-    new_env = env(wave[s:e], msmooth = c(100, 80), plot = F)
+    new_env = env(wave[s:e], msmooth = c(100, 80), plot = FALSE)
     new_duration_wave = length(wave[s:e]@left)/wave@samp.rate
     new_n_samp_env = length(new_env[,1])
     new_time_per_samp = new_duration_wave/new_n_samp_env
@@ -77,12 +77,12 @@ calc.am = function(wave,
   }
 
   # Plot results
-  if(F){ # envelope
+  if(FALSE){ # envelope
     plot(env, type = 'b')
     abline(v = maxes, col = 2, lty = 2)
     abline(v = minis, col = 3, lty = 2)
   }
-  if(F){ # spectrogram
+  if(FALSE){ # spectrogram
     better.spectro(wave)
     abline(v = exact.maxes, col = 1, lty = 2)
   }

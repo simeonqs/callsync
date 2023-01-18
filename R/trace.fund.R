@@ -31,11 +31,11 @@ trace.fund = function(wave,
   starts = seq(1, final, hop)
   funds = sapply(starts, function(start){
     w = wave[start:(start+wl)] # select part wave
-    s = seewave::spec(w, plot = F) # make spectrum
+    s = seewave::spec(w, plot = FALSE) # make spectrum
     s[,2][s[,1] < freq_lim[1] | s[,1] > freq_lim[2]] = 0 # set all outside limit to 0
     s[,2] = s[,2]/max(s[,2]) # rescale the remaining spectrum
     peak = s[,1][s[,2] > thr][1]
-    cont = T
+    cont = TRUE
     ii = which(s[,1] == peak)
     while(cont){ # climb until reach first peak
       if(s[ii+1,2] > s[ii,2]) ii = ii + 1 else {
@@ -62,7 +62,7 @@ trace.fund = function(wave,
   out = data.frame(time = (starts + wl/2) / wave@samp.rate,
                    fund = new_trace * 1000,
                    missing = ifelse(is.na(funds), TRUE, FALSE))
-  if(all(funds == 1)) out$missing = rep(T, length(out$missing))
+  if(all(funds == 1)) out$missing = rep(TRUE, length(out$missing))
   return(out)
 
 }

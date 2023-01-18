@@ -107,9 +107,9 @@ align = function(chunk_size = 15,
 
     # Open PDF - if needed
     if(save_pdf){
-      pdf(sprintf('%s/%s.pdf', path_chunks, str_remove(basename(files[1]), '.wav')), 9, length(files)/2)
       oldpar = par(no.readonly = TRUE)
       on.exit(par(oldpar))
+      pdf(sprintf('%s/%s.pdf', path_chunks, str_remove(basename(files[1]), '.wav')), 9, length(files)/2)
       par(mfrow = c(length(files), 1), mar = c(0, 0, 0, 0), oma = c(5, 1, 3, 1))
     }
 
@@ -166,7 +166,7 @@ align = function(chunk_size = 15,
         writeWave(new_master,
                   sprintf('%s/%s@%s@%s@%s.wav',
                           path_chunks, str_remove(basename(files[1]),'.wav'), id, rec, chunk),
-                  extensible = F)
+                  extensible = FALSE)
       } else chunk_list[[sprintf(paste(c(str_remove(basename(files[1]),'.wav'), id, rec, chunk),
                                        collapse = '@'))]] = new_master
 
@@ -213,7 +213,7 @@ align = function(chunk_size = 15,
           writeWave(new_child,
                     sprintf('%s/%s@%s@%s@%s.wav',
                             path_chunks, str_remove(basename(files[i]),'.wav'), id, rec, chunk),
-                    extensible = F)
+                    extensible = FALSE)
         } else chunk_list[[sprintf(paste(c(str_remove(basename(files[i]),'.wav'), id, rec, chunk),
                                          collapse = '@'))]] = new_child
 
@@ -233,7 +233,7 @@ align = function(chunk_size = 15,
   } # end folder loop
 
   # Optionally save alignment log
-  if(save_log) utils::write.csv2(align_log, sprintf('%s/align_log.csv', path_chunks), row.names = F)
+  if(save_log) utils::write.csv2(align_log, sprintf('%s/align_log.csv', path_chunks), row.names = FALSE)
 
   # Return if not saved to file
   if(is.null(path_chunks)) return(chunk_list)

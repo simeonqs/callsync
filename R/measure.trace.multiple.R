@@ -74,7 +74,7 @@ measure.trace.multiple = function(traces,
              col = alpha('black', 0.5))
       plot(NULL, xlim = c(0, 1), ylim = c(0, 8), xaxt = 'n', yaxt = 'n', xlab = '', ylab = '')
       text(0, 1:6, adj = 0,
-           labels = c(sprintf('mean_fund_hz: %s', round(mean(traces[[i]]$fund, na.rm = T))),
+           labels = c(sprintf('mean_fund_hz: %s', round(mean(traces[[i]]$fund, na.rm = TRUE))),
                       sprintf('diff_start_mean: %s',
                               round(traces[[i]]$fund[1] - mean(traces[[i]]$fund))),
                       sprintf('diff_end_mean: %s',
