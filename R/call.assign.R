@@ -68,7 +68,8 @@ call.assign = function(all_files = NULL,
       if(!quiet) message(sprintf('Running _%s...', start_chunk))
 
       # List files and load
-      audio_files = chunk_files[str_detect(chunk_files, start_chunk)]
+      stch = sprintf('@%s', start_chunk)
+      audio_files = chunk_files[str_detect(chunk_files, stch)]
 
       # Test chunk
       waves = lapply(audio_files, load.wave, from = 0, to = Inf)
@@ -76,12 +77,12 @@ call.assign = function(all_files = NULL,
 
       # Open PDF
       if(save_files){
+        oldpar = par(no.readonly = TRUE)
+        on.exit(par(oldpar))
         pdf(sprintf('%s/%s.pdf',
                     path_calls,
                     str_remove(basename(audio_files[1]), '.wav')),
             30*15, 14)
-        oldpar = par(no.readonly = TRUE)
-        on.exit(par(oldpar))
         par(mfrow = c(1*length(audio_files), 1), mar = c(0, 0, 0, 0), oma = c(5, 5, 1, 1))
       }
 

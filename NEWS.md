@@ -14,3 +14,8 @@
 
 * Fixed all T/F to TRUE/FALSE.
 * Included on.exit() for functions that modify par(). 
+
+# callsync 0.0.4
+
+* Fixed a bug. Previous version for call.assign would include chunk 120 when running chunk 20 because of how
+  regex was formulated. 
