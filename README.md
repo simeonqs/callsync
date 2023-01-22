@@ -25,7 +25,16 @@ The package also offers:
 - loading selection tables from Raven and Audacity
 - calculating performance of the detection and assignment functions
 
-The tested version can be installed from CRAN. To install and load the developmental version run:
+# Install
+
+The tested version can be installed from CRAN:
+
+```
+install.packages('callsync')
+library(callsync)
+```
+
+To install and load the developmental version run:
 
 ```
 install.packages('devtools')
@@ -34,4 +43,10 @@ devtools::install_github('simeonqs/callsync')
 library(callsync)
 ```
 
-Feel free to contact me (<simeonqs@hotmail.com>) with any questions, suggestions or requests.
+# Maintenance and contact
+
+The package should be fully functional, and extra features are actively being developed. Feel free to contact me (<simeonqs@hotmail.com>) with any questions, suggestions or requests.
+
+# Citation
+
+We will soon publish a preprint that introduces all the main features of the package. 
