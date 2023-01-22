@@ -1,5 +1,7 @@
 # *callsync*: sychronous analysis of multiple microphones
 
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/callsync)](https://cran.r-project.org/package=callsync)
+
 **Note**: This package is still under construction. If you want to test it, feel free to contact me (<simeonqs@hotmail.com>) with any questions. 
 
 `callsync` is an R package intended for users that use collar or backpack microphones and want to analyse the resulting recordings. It allows users to create a pipeline from raw recordings until final feature vectors, but specific functions can also be replaced by alternatives. 
