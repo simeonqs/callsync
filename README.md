@@ -1,6 +1,10 @@
 # *callsync*: sychronous analysis of multiple microphones
 
-**Note**: This package is still under construction. If you want to test it, feel free to contact me (<simeonqs@hotmail.com>) with any questions. 
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/callsync)](https://cran.r-project.org/package=callsync)
+[![Dependencies](https://tinyverse.netlify.com/badge/callsync)](https://cran.r-project.org/package=callsync) 
+[![Project Status: Active  The project is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Licence](https://img.shields.io/badge/licence-GPL--2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.en.html) 
+[![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/callsync)](https://cranlogs.r-pkg.org/badges/grand-total/callsync)
 
 `callsync` is an R package intended for users that use collar or backpack microphones and want to analyse the resulting recordings. It allows users to create a pipeline from raw recordings until final feature vectors, but specific functions can also be replaced by alternatives. 
 
@@ -22,7 +26,16 @@ The package also offers:
 - loading selection tables from Raven and Audacity
 - calculating performance of the detection and assignment functions
 
-To install and load the package run:
+# Install
+
+The tested version can be installed from CRAN:
+
+```
+install.packages('callsync')
+library(callsync)
+```
+
+To install and load the developmental version run:
 
 ```
 install.packages('devtools')
@@ -31,3 +44,10 @@ devtools::install_github('simeonqs/callsync')
 library(callsync)
 ```
 
+# Maintenance and contact
+
+The package should be fully functional, and extra features are actively being developed. Feel free to contact me (<simeonqs@hotmail.com>) with any questions, suggestions or requests.
+
+# Citation
+
+We will soon publish a preprint that introduces all the main features of the package. 
