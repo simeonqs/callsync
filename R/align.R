@@ -94,6 +94,7 @@ align = function(chunk_size = 15,
 
     # List files
     files = all_files[str_detect(all_files, rec)]
+    if(length(files) < 2) stop(sprintf('Not enough files for recording %s. Need at least two.', rec))
 
     # Check if sample rate is all the same
     minis = lapply(files, load.wave, from = 0, to = 0.1)
