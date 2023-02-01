@@ -102,6 +102,8 @@ align = function(chunk_size = 15,
         return(seewave::resamp(x, g = down_sample, output = 'Wave'))
     })
     srs = sapply(minis, function(x) x@samp.rate)
+    if(any(is.na(srs))) stop('Could not retrieve sample rate for at least one file.
+                             Make sure only uncorrupted wav files have been included.')
     if(!stats::var(srs) == 0)
       warning(sprintf('Not all sample rates are equal. Check your raw data for recording %s.', rec))
 
