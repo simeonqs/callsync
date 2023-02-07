@@ -40,11 +40,13 @@ in this case provide the top-level folder.}
 
 \item{keys_id}{character vector of length 2. The characters before and after the unique ID of the
 individual or microphone. This can be in the file name or in the folder structure. E.g., if the path to the
-recording is `../data/week_1/recording_mic1.wav` the keys would be `c('recording', '.wav')`.}
+recording is `../data/week_1/recording_mic1.wav` the keys would be `c('recording_', '.wav')` and the
+function would retrieve `mic1` as individual id.}
 
 \item{keys_rec}{character vector of length 2. The characters before and after the unique ID of the
 recording. This can be in the file name or in the folder structure. E.g., if the path to the recording
-is `../data/week_1/recording_mic1.wav` the keys would be `c('data/', '_mic')`.}
+is `../data/week_1/recording_mic1.wav` the keys would be `c('data/', '/recording')` and the function would
+retrieve `week_1` as recording id.}
 
 \item{blank}{numeric, the duration in minutes to be discarded at the beginning and end of the recording.}
 
