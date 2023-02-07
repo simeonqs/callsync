@@ -26,6 +26,10 @@ The package also offers:
 - loading selection tables from Raven and Audacity
 - calculating performance of the detection and assignment functions
 
+# Requirements
+
+R version 4.1.0 or later. Earlier versions might work if you replace the `|>` function with `%>%` and load the package `tidyverse`.
+
 # Install
 
 The tested version can be installed from CRAN:
