@@ -17,10 +17,14 @@
 
 # callsync 0.0.4
 
-* Fixed a bug. Previous version for call.assign would include chunk `120` when running chunk `20` because of how
-  regex was formulated. 
+* Fixed a bug. Previous version for call.assign would include chunk `120` when running chunk `20` because of 
+  how regex was formulated. 
 
 # callsync 0.0.5 
 
 * Added error messages.
 * Fixed bug with flipping y axis in `align` if only two tracks were aligned. 
+
+# callsync 0.0.6
+
+* Added CITATION file for the preprint. 
