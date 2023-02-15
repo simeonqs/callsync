@@ -1,20 +1,13 @@
-## Reviewer comments
+* On fedora-clang-devel (r-devel)
+  checking HTML version of manual ... NOTE
+  Skipping checking HTML validation: no command 'tidy' found
 
-* Please write TRUE and FALSE instead of T and F. Please don't use "T" or "F" as vector names.
+As I understand it this cannot be fixed locally but is because something is missing on the 
+Fedora test platform. 
 
-This was fixed in all functions. 
-
-* Please make sure that you do not change the user's options, par or working directory. If you really have to do so within functions, please ensure with an *immediate* call of on.exit() that the settings are reset when the function is exited.
-
-This was included in all functions that used par(). 
-
-## R CMD check results
-
- 
-* New submission
-
-This is a resubmission where several comments of the reviewer are addressed. 
-
-* Possibly misspelled words in DESCRIPTION: spectrographic (14:10)
-
-This is the correct spelling. 
+* On windows-x86_64-devel (r-devel)
+  checking for detritus in the temp directory ... NOTE
+  Found the following files/directories:
+    'lastMiKTeXException'
+  
+Not sure what creates this file, or why it is not removed on Windows. Should not be a problem for CRAN build. 
