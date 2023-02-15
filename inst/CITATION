@@ -1,0 +1,18 @@
+citHeader("To cite callsync in publications use:")
+
+bibentry(
+  bibtype  = "Article",
+  title    = "callsync: an R package for alignment and analysis of multi-microphone animal recordings",
+  author   = c(as.person("Simeon Q Smeele"),
+               as.person("Stephen A Tyndel"),
+               as.person("Barbara C Klump"),
+               as.person("Gustavo Alarcon-Nieto"),
+               as.person("Lucy M Aplin")),
+  journal  = "BioRxiv",
+  year     = "2023",
+  pages    = "2023--02",
+  url      = "https://doi.org/10.1101/2023.02.07.527470",
+  textVersion = "Smeele, S. Q., Tyndel, S. A., Klump, B. C., Alarcon-Nieto, G. & Aplin, L. M. (2023). callsync: an R package for alignment and analysis of multi-microphone animal recordings. BioRxiv.
+
+  NOTE: please also cite the 'tuneR' and 'seewave' packages if you use any function that depend on these."
+)
