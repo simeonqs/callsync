@@ -26,6 +26,10 @@ The package also offers:
 - loading selection tables from Raven and Audacity
 - calculating performance of the detection and assignment functions
 
+# Requirements
+
+R version 4.1.0 or later. Earlier versions might work if you replace the `|>` function with `%>%` and load the package `tidyverse`.
+
 # Install
 
 The tested version can be installed from CRAN:
@@ -48,6 +52,10 @@ library(callsync)
 
 The package should be fully functional, and extra features are actively being developed. Feel free to contact me (<simeonqs@hotmail.com>) with any questions, suggestions or requests.
 
-# Citation
+# Examples and citation
 
-We will soon publish a preprint that introduces all the main features of the package. 
+If you want a framework that uses all the main functions you can read [our preprint](https://doi.org/10.1101/2023.02.07.527470) and can clone [this repository](https://github.com/simeonqs/callsync_an_R_package_for_alignment_and_analysis_of_multi-microphone_animal_recordings). To cite the package, you can use the following citation:
+
+```
+Smeele, S. Q., Tyndel, S. A., Klump, B. C., Alarcon-Nieto, G. & Aplin, L. M. (2023). callsync: an R package for alignment and analysis of multi-microphone animal recordings. BioRxiv. <https://doi.org/10.1101/2023.02.07.527470>
+```
