@@ -8,7 +8,8 @@
 #' accepted.
 #' @param plot_it logical, if `TRUE` plot the trace and peaks to current window. Default is `FALSE`.
 #'
-#' @return Returns a data frame with fm = median difference between peaks and bottoms and ipi = inter peak
+#' @return Returns a data frame with fm = median difference between peaks and bottoms and ipi = inter peak,
+#' np = number of peaks.
 #' interval (s).
 #'
 #' @importFrom stats "median"
@@ -76,15 +77,18 @@ calc.fm = function(trace,
   if(nrow(peaks) < 2){
     ipi = NA
     fm = NA
+    np = NA
   } else {
     infl = rbind(peaks, bottoms)
     infl = infl[order(infl[,1]),]
     fm = median(diff(infl))
     ipi = median(diff(peaks[,1]))
+    np = length(peaks)
   }
 
   # Return
   return(list(fm = fm,
-              ipi = ipi))
+              ipi = ipi,
+              np = np))
 
 } # end calc.fm
