@@ -83,7 +83,7 @@ calc.fm = function(trace,
     infl = infl[order(infl[,1]),]
     fm = median(diff(infl))
     ipi = median(diff(peaks[,1]))
-    np = length(peaks)
+    np = nrow(peaks)
   }
 
   # Return
