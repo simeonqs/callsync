@@ -28,3 +28,10 @@
 # callsync 0.0.6
 
 * Added CITATION file for the preprint. 
+
+# callsync 0.0.7
+
+* 'calc.fm' now also output the number of peaks (np). 
+* Fixed bug in 'call.detect.multiple'. If save_extra was used, it sometimes stored clips outside the range
+  of the wave file (if detections were close to start or end). Now these start and end times are replaced 
+  by 0 and the length of the wave file.
