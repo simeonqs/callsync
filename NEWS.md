@@ -31,7 +31,9 @@
 
 # callsync 0.0.7
 
-* 'calc.fm' now also output the number of peaks (np). 
-* Fixed bug in 'call.detect.multiple'. If save_extra was used, it sometimes stored clips outside the range
+* `calc.fm` now also output the number of peaks (np). 
+* Fixed bug in `call.detect.multiple`. If save_extra was used, it sometimes stored clips outside the range
   of the wave file (if detections were close to start or end). Now these start and end times are replaced 
   by 0 and the length of the wave file.
+* Fixed bug in `detect.and.assign`. If detections were too close to the bounds, the wing went outside the 
+  chunk. These detections are now removed, since they cannot be aligned. 
