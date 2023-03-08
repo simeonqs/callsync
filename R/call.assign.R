@@ -95,6 +95,7 @@ call.assign = function(all_files = NULL,
 
         # Subset the detections
         detects = detections[[basename(audio_files[i])]]
+        detects = detects[detects$start - wing > 1 & detects$end + wing < length(wf@left)]
 
         # Plot wave
         plot(wf, xaxs = 'i', xaxt = 'n', nr = 15*2500)
