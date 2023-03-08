@@ -15,7 +15,8 @@ accepted.}
 \item{plot_it}{logical, if `TRUE` plot the trace and peaks to current window. Default is `FALSE`.}
 }
 \value{
-Returns a data frame with fm = median difference between peaks and bottoms and ipi = inter peak
+Returns a data frame with fm = median difference between peaks and bottoms and ipi = inter peak,
+np = number of peaks.
 interval (s).
 }
 \description{
