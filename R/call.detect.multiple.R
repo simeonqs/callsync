@@ -66,6 +66,27 @@ call.detect.multiple = function(wave,
     ends[ends>length(wave@left)] = length(wave@left)
   }
 
+  # Optionally plot output
+  if(plot_it){
+    oldpar = par(no.readonly = TRUE)
+    on.exit(par(oldpar))
+    par(mfrow = c(2 , 1), mar = c(0, 0, 0, 0), oma = c(4, 1, 1, 1))
+    plot(env, type = 'l', xaxt = 'n', yaxt = 'n')
+    abline(h = threshold, lty = 2, col = 2)
+    plot(wave)
+    for(i in seq_len(length(starts))){
+      graphics::rect(xleft = starts[i]/wave@samp.rate,
+                     xright = ends[i]/wave@samp.rate,
+                     ybottom = par("usr")[3], ytop = par("usr")[4],
+                     border = NA, col = alpha('#3a586e', 0.5))
+      abline(v = starts[i]/wave@samp.rate, lty = 2,
+             col = '#3a586e', lwd = 3)
+      abline(v = ends[i]/wave@samp.rate, lty = 2,
+             col = '#3a586e', lwd = 3)
+    }
+    mtext('time [s]', 1, 3)
+  }
+
   # Return
   detections = data.frame(start = starts, end = ends)
   return(detections)
