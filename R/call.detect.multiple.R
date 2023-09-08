@@ -15,6 +15,10 @@
 #' @param max_dur numeric, the maximal duration in seconds for a detection to be saved. Default is `0.3`.
 #' @param save_extra numeric, how much to add to start and end time in seconds. Can be used to make sure
 #' the whole vocalisation is included.
+#' @param env_type character, what type of envelope to calculate. If `Hilbert` returns the modulus (Mod)
+#' of the analytical signal of wave obtained through the Hilbert transform (hilbert) using seewave::env.
+#' If `summed` returns the summed absolute amplitude. Default is `Hilbert`.
+#' @param bin_depth numeric, how many samples to sum if env_type is `summed`. Default is `512`.
 #'
 #' @return Returns a data frame with start = start time in samples and end = end time in samples for each
 #' detection. Optionally also plots the wave form and detections to current window.
@@ -22,6 +26,7 @@
 #' @export
 #'
 #' @importFrom seewave "env"
+#' @importFrom scales "alpha"
 
 call.detect.multiple = function(wave,
                                 threshold = 0.3,
@@ -29,11 +34,24 @@ call.detect.multiple = function(wave,
                                 plot_it = FALSE,
                                 min_dur = 0.1,
                                 max_dur = 0.3,
-                                save_extra = 0){
+                                save_extra = 0,
+                                env_type = 'Hilbert',
+                                bin_depth = 512){
 
   # Envelope
-  env = env(wave, msmooth = msmooth, plot = FALSE)
-  env = ( env - min(env) ) / max( env - min(env) )
+  if(!env_type %in% c('Hilbert', 'summed')){
+    warning('Unknown env type. Defaulting to Hilbert.')
+  }
+  if(env_type == 'Hilbert') env = env(wave, msmooth = msmooth, plot = FALSE)
+  if(env_type == 'summed') {
+    starts = seq(1, length(wave@left), by = bin_depth)
+    env = vapply(seq_along(starts), function(i){
+      start = starts[i]
+      end = ifelse(i == length(starts), length(wave), starts[i+1])
+      sum(abs(wave@left[start:end]))
+    }, numeric(1))
+  }
+  env = (env - min(env)) / max(env - min(env))
   duration = length(wave@left)/wave@samp.rate
 
   # Find calls
