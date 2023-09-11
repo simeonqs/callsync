@@ -37,3 +37,8 @@
   by 0 and the length of the wave file.
 * Fixed bug in `detect.and.assign`. If detections were too close to the bounds, the wing went outside the 
   chunk. These detections are now removed, since they cannot be aligned. 
+  
+# callsync 0.1.0
+
+* Adding additional functions and modifying/adding options to existing functions. All
+  original functions should still work without changing any settings. 
