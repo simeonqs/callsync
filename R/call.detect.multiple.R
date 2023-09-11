@@ -19,6 +19,8 @@
 #' of the analytical signal of wave obtained through the Hilbert transform (hilbert) using seewave::env.
 #' If `summed` returns the summed absolute amplitude. Default is `Hilbert`.
 #' @param bin_depth numeric, how many samples to sum if env_type is `summed`. Default is `512`.
+#' @param merge_overlap logical, if `TRUE` overlapping detections (due to `save_extra`) are merged.
+#' Default is `FALSE`.
 #'
 #' @return Returns a data frame with start = start time in samples and end = end time in samples for each
 #' detection. Optionally also plots the wave form and detections to current window.
@@ -36,13 +38,17 @@ call.detect.multiple = function(wave,
                                 max_dur = 0.3,
                                 save_extra = 0,
                                 env_type = 'Hilbert',
-                                bin_depth = 512){
+                                bin_depth = 512,
+                                merge_overlap = FALSE){
 
   # Envelope
   if(!env_type %in% c('Hilbert', 'summed')){
     warning('Unknown env type. Defaulting to Hilbert.')
   }
-  if(env_type == 'Hilbert') env = env(wave, msmooth = msmooth, plot = FALSE)
+  if(env_type == 'Hilbert'){
+    env = env(wave, msmooth = msmooth, plot = FALSE)
+    env = (env - min(env)) / max(env - min(env))
+  }
   if(env_type == 'summed') {
     starts = seq(1, length(wave@left), by = bin_depth)
     env = vapply(seq_along(starts), function(i){
@@ -50,8 +56,8 @@ call.detect.multiple = function(wave,
       end = ifelse(i == length(starts), length(wave), starts[i+1])
       sum(abs(wave@left[start:end]))
     }, numeric(1))
+    env = env / bin_depth
   }
-  env = (env - min(env)) / max(env - min(env))
   duration = length(wave@left)/wave@samp.rate
 
   # Find calls
@@ -84,12 +90,29 @@ call.detect.multiple = function(wave,
     ends[ends>length(wave@left)] = length(wave@left)
   }
 
+  # Optionally merge detections if they overlap because of save_extra
+  if(merge_overlap & length(starts) > 1){
+    i = 1
+    while(i < length(starts)){
+      for(i in seq(2, length(starts))){
+        ## if overlap make end previous to end current
+        if(starts[i] < ends[i-1]){
+          ends[i-1] = ends[i]
+          ## remove this detection
+          starts = starts[-i]
+          ends = ends[-i]
+          break
+        } # end if start < end
+      } # end for i
+    } # end while i
+  } # end if merge_overlap
+
   # Optionally plot output
   if(plot_it){
     oldpar = par(no.readonly = TRUE)
     on.exit(par(oldpar))
-    par(mfrow = c(2 , 1), mar = c(0, 0, 0, 0), oma = c(4, 1, 1, 1))
-    plot(env, type = 'l', xaxt = 'n', yaxt = 'n')
+    par(mfrow = c(2 , 1), mar = c(0, 0, 0, 0), oma = c(4, 4, 1, 1))
+    plot(env, type = 'l', xaxt = 'n')
     abline(h = threshold, lty = 2, col = 2)
     plot(wave)
     for(i in seq_len(length(starts))){
