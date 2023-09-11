@@ -7,8 +7,8 @@
 load.selection.tables(path_selection_tables)
 }
 \arguments{
-\item{path_selection_tables}{the path to the folder containing selection tables. Folder should not contain
-any other files.}
+\item{path_selection_tables}{the path to the folder containing selection
+tables. Folder should not contain any other files.}
 }
 \value{
 Returns data frame with all selection tables.

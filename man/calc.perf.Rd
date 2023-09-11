@@ -7,16 +7,19 @@
 calc.perf(d, gt)
 }
 \arguments{
-\item{d}{data frame, detection selection table with start = start time in seconds, end = end time in
-seconds and file = file name}
+\item{d}{data frame, detection selection table with start = start time in
+seconds, end = end time in  seconds and file = file name}
 
-\item{gt}{data frame, ground truth selection table with start = start time in seconds, end = end time in
-seconds and file = file name}
+\item{gt}{data frame, ground truth selection table with start = start time
+in seconds, end = end time in seconds and file = file name}
 }
 \value{
-Returns a named list with tp = the row numbers (in d) for the true positives, fp = the row numbers (in d) for the
-false positives, fp_rate = `length(pf)/nrow(d)` and tp_rate = `length(tp)/nrow(gt)`.
+Returns a named list with tp = the row numbers (in d) for the true
+positives, fp = the row numbers (in d) for the false positives, fn = the row
+numbers (in gt) for the false negatives, fp_rate = `length(pf)/nrow(d)` and
+tp_rate = `length(tp)/nrow(gt)`.
 }
 \description{
-Calculates the performance of the detections.
+Calculates the performance of the detections. Detections are
+true positive if they overlap to any extend with a ground truth selection.
 }

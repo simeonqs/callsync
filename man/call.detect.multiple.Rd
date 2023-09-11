@@ -11,7 +11,10 @@ call.detect.multiple(
   plot_it = FALSE,
   min_dur = 0.1,
   max_dur = 0.3,
-  save_extra = 0
+  save_extra = 0,
+  env_type = "Hilbert",
+  bin_depth = 512,
+  merge_overlap = FALSE
 )
 }
 \arguments{
@@ -34,6 +37,15 @@ current plotting window. Default is `FALSE`.}
 
 \item{save_extra}{numeric, how much to add to start and end time in seconds. Can be used to make sure
 the whole vocalisation is included.}
+
+\item{env_type}{character, what type of envelope to calculate. If `Hilbert` returns the modulus (Mod)
+of the analytical signal of wave obtained through the Hilbert transform (hilbert) using seewave::env.
+If `summed` returns the summed absolute amplitude. Default is `Hilbert`.}
+
+\item{bin_depth}{numeric, how many samples to sum if env_type is `summed`. Default is `512`.}
+
+\item{merge_overlap}{logical, if `TRUE` overlapping detections (due to `save_extra`) are merged.
+Default is `FALSE`.}
 }
 \value{
 Returns a data frame with start = start time in samples and end = end time in samples for each
