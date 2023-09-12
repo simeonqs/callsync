@@ -128,8 +128,10 @@ call.detect.multiple = function(wave,
     mtext('time [s]', 1, 3)
   }
 
-  # Return
-  detections = data.frame(start = starts, end = ends)
+  # Return, if no detections, create empty data.frame
+  if(length(starts > 0))
+     detections = data.frame(start = starts, end = ends) else
+       detections = data.frame(start = numeric(), end = numeric())
   return(detections)
 
 }
