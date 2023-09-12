@@ -24,18 +24,34 @@ export.detections = function(detections, sr = 1, path_out = 'out.txt'){
   if(!str_detect(path_out, '.txt'))
     stop('Path needs to end on `.txt`.')
 
-  out = data.frame(c(seq_len(nrow(detections)), seq_len(nrow(detections))),
-                   c('Waveform 1', 'Spectrogram 1'),
-                   c(1, 1),
-                   c(detections$start/sr, detections$start/sr),
-                   c(detections$end/sr, detections$end/sr),
-                   c(0, 0),
-                   c(0, 0),
-                   c(detections$end/sr - detections$start/sr,
-                     detections$end/sr - detections$start/sr),
-                   c(0, 0),
-                   c(0, 0),
-                   c('', ''))
+  # Make empty data frame if no detections
+  if(nrow(detections) == 0) {
+    out = data.frame(numeric(),
+                     character(),
+                     numeric(),
+                     numeric(),
+                     numeric(),
+                     numeric(),
+                     numeric(),
+                     numeric(),
+                     numeric(),
+                     numeric(),
+                     character())
+  } else {
+    # Else make actual thing
+    out = data.frame(c(seq_len(nrow(detections)), seq_len(nrow(detections))),
+                     c('Waveform 1', 'Spectrogram 1'),
+                     c(1, 1),
+                     c(detections$start/sr, detections$start/sr),
+                     c(detections$end/sr, detections$end/sr),
+                     c(0, 0),
+                     c(0, 0),
+                     c(detections$end/sr - detections$start/sr,
+                       detections$end/sr - detections$start/sr),
+                     c(0, 0),
+                     c(0, 0),
+                     c('', ''))
+  }
   names(out) = c('Selection', 'View', 'Channel', 'Begin Time (s)',
                  'End Time (s)', 'Low Freq (Hz)', 'High Freq (Hz)',
                  'Delta Time (s)', 'Delta Freq (Hz)',
