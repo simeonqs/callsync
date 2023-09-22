@@ -13,7 +13,7 @@ load.selection.table = function(path_selection_table){
 
   selection_table = read.csv(path_selection_table, sep = '\t')
   # if there are decibel columns, make sure it still works
-  if(ncol(selection_table) != 8){
+  if(ncol(selection_table) == 11){
     temp = read.csv(path_selection_table, sep = '\t',
                     colClasses = c('numeric', 'character', 'numeric',
                                    'numeric', 'numeric', 'numeric', 'numeric',
@@ -24,7 +24,15 @@ load.selection.table = function(path_selection_table){
                         c('Selection', 'View', 'Channel', 'Begin.Time..s.',
                           'End.Time..s.', 'Low.Freq..Hz.', 'High.Freq..Hz.',
                           'Delta.Time..s.', 'Annotation')]
-  } else {
+  }
+  if(ncol(selection_table) == 9){
+    selection_table =
+      read.csv(path_selection_table, sep = '\t',
+               colClasses = c('numeric', 'character', 'numeric', 'numeric',
+                              'numeric', 'numeric', 'numeric', 'character',
+                              'character'))
+  }
+  if(ncol(selection_table) == 8){
     selection_table =
       read.csv(path_selection_table, sep = '\t',
                colClasses = c('numeric', 'character', 'numeric', 'numeric',
