@@ -61,12 +61,14 @@ calc.perf = function(d, gt){
   # Calculate rates
   fp_rate = length(fp)/nrow(d)
   tp_rate = length(tp)/nrow(gt)
+  fn_rate = length(fn)/nrow(gt)
 
   # Return
   return(list(tp = tp,
               fp = fp,
               fn = fn,
               fp_rate = fp_rate,
-              tp_rate = tp_rate))
+              tp_rate = tp_rate,
+              fn_rate = fn_rate))
 
 }
