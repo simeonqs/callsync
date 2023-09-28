@@ -13,6 +13,14 @@
 #' numbers (in gt) for the false negatives, fp_rate = `length(pf)/nrow(d)` and
 #' tp_rate = `length(tp)/nrow(gt)`.
 #'
+#' @examples
+#' require(callsync)
+#' require(seewave)
+#' require(tuneR)
+#' file = system.file("extdata/audacity", "", package = "callsync")
+#' d = load.selection.tables.audacity(path_selection_tables = file)
+#' result = calc.perf(d, d)
+#'
 #' @export
 
 calc.perf = function(d, gt){
