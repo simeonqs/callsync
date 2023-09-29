@@ -9,21 +9,35 @@ call.detect(wave, threshold = 0.3, msmooth = c(500, 95), plot_it = FALSE)
 \arguments{
 \item{wave}{wave object, e.g., from `load.wave` or `readWave`.}
 
-\item{threshold}{rector of length 1 or 2. The fraction of the maximum of the normalised envelope to use as
-threshold to detect start and end. If a vector of length 2 is supplied, the first is used to detect the
-start and the second to detect the end (in case of echo).}
+\item{threshold}{rector of length 1 or 2. The fraction of the maximum of the
+normalised envelope to use as threshold to detect start and end. If a vector
+of length 2 is supplied, the first is used to detect the start and the
+second to detect the end (in case of echo).}
 
-\item{msmooth}{used as argument for the `seewave::env` function. *A vector of length 2 to smooth the
-amplitude envelope with a mean sliding window. The first component is the window length (in number of
-points). The second component is the overlap between successive windows (in \%).* Default is `c(500, 95)`.}
+\item{msmooth}{used as argument for the `seewave::env` function. *A vector
+of length 2 to smooth the amplitude envelope with a mean sliding window. The
+first component is the window length (in number of points). The second
+component is the overlap between successive windows (in \%).* Default is
+`c(500, 95)`.}
 
-\item{plot_it}{if `TRUE`, returns three-panel plot of wave form, envelope and spectrogram to current
-plotting window. Default is `FALSE`.}
+\item{plot_it}{if `TRUE`, returns three-panel plot of wave form, envelope
+and spectrogram to current plotting window. Default is `FALSE`.}
 }
 \value{
-Returns a dataframe with start = start time in samples and end = end time in samples for each
-detection. Optionally also plots the wave form and detections to current window.
+Returns a dataframe with start = start time in samples and end = end
+time in samples for each detection. Optionally also plots the wave form and
+detections to current window.
 }
 \description{
-Detects calls in a wave object using an amplitude envelope.
+Detects single call in a wave object using an amplitude
+envelope.
+}
+\examples{
+require(callsync)
+require(seewave)
+require(tuneR)
+file = system.file("extdata", "wave_1.wav", package = "callsync")
+wave = readWave(file)
+cd = call.detect(wave)
+
 }

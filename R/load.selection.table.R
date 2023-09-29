@@ -7,6 +7,13 @@
 #'
 #' @return Returns data frame with all selections.
 #'
+#' @examples
+#' require(callsync)
+#' require(seewave)
+#' require(tuneR)
+#' files = system.file("extdata", "", package = "callsync")
+#' st = load.selection.tables(path_selection_tables = 'files')
+#'
 #' @export
 
 load.selection.table = function(path_selection_table){

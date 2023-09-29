@@ -1,29 +1,47 @@
 #' @title call.detect.multiple
 #'
-#' @description Detects multiple calls in a wave object using an amplitude envelope.
+#' @description Detects multiple calls in a wave object using an amplitude
+#' envelope.
 #'
 #' @param wave wave object, e.g., from `load.wave` or `readWave`.
-#' @param threshold rector of length 1 or 2. The fraction of the maximum of the normalised envelope to use as
-#' threshold to detect start and end. If a vector of length 2 is supplied, the first is used to detect the
-#' start and the second to detect the end (in case of echo).
-#' @param msmooth used as argument for the `seewave::env` function. *A vector of length 2 to smooth the
-#' amplitude envelope with a mean sliding window. The first component is the window length (in number of
-#' points). The second component is the overlap between successive windows (in \%).* Default is `c(500, 95)`.
-#' @param plot_it  logical, if `TRUE`, returns three-panel plot of wave form, envelope and spectrogram to
-#' current plotting window. Default is `FALSE`.
-#' @param min_dur numeric, the minimal duration in seconds for a detection to be saved. Default is `0.1`.
-#' @param max_dur numeric, the maximal duration in seconds for a detection to be saved. Default is `0.3`.
-#' @param save_extra numeric, how much to add to start and end time in seconds. Can be used to make sure
-#' the whole vocalisation is included.
-#' @param env_type character, what type of envelope to calculate. If `Hilbert` returns the modulus (Mod)
-#' of the analytical signal of wave obtained through the Hilbert transform (hilbert) using seewave::env.
-#' If `summed` returns the summed absolute amplitude. Default is `Hilbert`.
-#' @param bin_depth numeric, how many samples to sum if env_type is `summed`. Default is `512`.
-#' @param merge_overlap logical, if `TRUE` overlapping detections (due to `save_extra`) are merged.
-#' Default is `FALSE`.
+#' @param threshold rector of length 1 or 2. The fraction of the maximum of the
+#' normalised envelope to use as threshold to detect start and end. If a vector
+#' of length 2 is supplied, the first is used to detect the start and the
+#' second to detect the end (in case of echo).
+#' @param msmooth used as argument for the `seewave::env` function. *A vector
+#' of length 2 to smooth the amplitude envelope with a mean sliding window. The
+#' first component is the window length (in number of points). The second
+#' component is the overlap between successive windows (in \%).* Default is
+#' `c(500, 95)`.
+#' @param plot_it  logical, if `TRUE`, returns three-panel plot of wave form,
+#' envelope and spectrogram to current plotting window. Default is `FALSE`.
+#' @param min_dur numeric, the minimal duration in seconds for a detection to
+#' be saved. Default is `0.1`.
+#' @param max_dur numeric, the maximal duration in seconds for a detection to
+#' be saved. Default is `0.3`.
+#' @param save_extra numeric, how much to add to start and end time in seconds.
+#' Can be used to make sure the whole vocalisation is included.
+#' @param env_type character, what type of envelope to calculate. If `Hilbert`
+#' returns the modulus (Mod)
+#' of the analytical signal of wave obtained through the Hilbert transform
+#' (hilbert) using seewave::env. If `summed` returns the summed absolute
+#' amplitude. Default is `Hilbert`.
+#' @param bin_depth numeric, how many samples to sum if env_type is `summed`.
+#' Default is `512`.
+#' @param merge_overlap logical, if `TRUE` overlapping detections (due to
+#' `save_extra`) are merged. Default is `FALSE`.
 #'
-#' @return Returns a data frame with start = start time in samples and end = end time in samples for each
-#' detection. Optionally also plots the wave form and detections to current window.
+#' @return Returns a data frame with start = start time in samples and end =
+#' end time in samples for each detection. Optionally also plots the wave form
+#' and detections to current window.
+#'
+#' @examples
+#' require(callsync)
+#' require(seewave)
+#' require(tuneR)
+#' file = system.file("extdata", "wave_1.wav", package = "callsync")
+#' wave = readWave(file)
+#' cd = call.detect.multiple(wave)
 #'
 #' @export
 #'
@@ -84,9 +102,11 @@ call.detect.multiple = function(wave,
 
   # Fix time
   if(length(starts) != 0){
-    starts = round((starts-1) * duration/length(env) * wave@samp.rate - save_extra * wave@samp.rate)
+    starts = round((starts-1) * duration/length(env) *
+                     wave@samp.rate - save_extra * wave@samp.rate)
     starts[starts<1] = 1
-    ends = round((ends-1) * duration/length(env) * wave@samp.rate + save_extra * wave@samp.rate)
+    ends = round((ends-1) * duration/length(env) *
+                   wave@samp.rate + save_extra * wave@samp.rate)
     ends[ends>length(wave@left)] = length(wave@left)
   }
 

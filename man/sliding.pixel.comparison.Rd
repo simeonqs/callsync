@@ -11,13 +11,28 @@ sliding.pixel.comparison(s1, s2, step_size = 1)
 
 \item{s2}{numeric matrix, the second spectrogram.}
 
-\item{step_size}{numeric, how many pixels should be moved for each step. Default is `1`.}
+\item{step_size}{numeric, how many pixels should be moved for each step.
+Default is `1`.}
 }
 \value{
 Returns the distance at the point of maximal signal overlap.
 }
 \description{
-Can be used to run spectrographic cross correlation. Both spectrograms are zero-padded
-and slid over each other. For each step the difference is computed. The function returns the absolute
-difference at the point at the minimum (maximal signal overlap).
+Can be used to run spectrographic cross correlation. Both
+spectrograms are zero-padded and slid over each other. For each step the
+difference is computed. The function returns the absolute difference at the
+point at the minimum (maximal signal overlap).
+}
+\examples{
+require(callsync)
+require(seewave)
+require(tuneR)
+file_1 = system.file("extdata", "wave_1.wav", package = "callsync")
+file_2 = system.file("extdata", "wave_2.wav", package = "callsync")
+wave_1 = readWave(file_1)
+wave_2 = readWave(file_2)
+so_1 = create.spec.object(wave = wave_1, plot_it = FALSE)
+so_2 = create.spec.object(wave = wave_2, plot_it = FALSE)
+out = sliding.pixel.comparison(so_1, so_2)
+
 }

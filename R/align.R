@@ -51,8 +51,8 @@
 #' a = align(chunk_size = 2,
 #'           step_size = 0.1,
 #'           all_files = all_files,
-#'           keys_id = c('c', '$'),
-#'           keys_rec = c('c', '$'),
+#'           keys_id = c('c', '@'),
+#'           keys_rec = c('c', '@'),
 #'           blank = 0,
 #'           wing = 0,
 #'           quiet = TRUE)

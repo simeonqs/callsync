@@ -1,4 +1,4 @@
-#' @title load.selection.tables
+#' @title load.selection.tables.audacity
 #'
 #' @description Loads multiple Audacity selection tables into one data frame.
 #'
@@ -6,6 +6,13 @@
 #' not contain any other txt files.
 #'
 #' @return Returns data frame with all selection tables.
+#'
+#' @examples
+#' require(callsync)
+#' require(seewave)
+#' require(tuneR)
+#' files = system.file("extdata", "audacity", package = "callsync")
+#' st = load.selection.tables.audacity(path_selection_tables = files)
 #'
 #' @export
 #' @importFrom dplyr "bind_rows"

@@ -24,3 +24,11 @@ Returns an R wave object.
 Wrapper function for `readWave` from *tuneR*.
 Also optionally applies `ffilter` from *seewave*.
 }
+\examples{
+require(callsync)
+require(seewave)
+require(tuneR)
+file = system.file("extdata", "wave_1.wav", package = "callsync")
+wave = load.wave(file)
+
+}

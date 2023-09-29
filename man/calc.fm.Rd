@@ -7,7 +7,9 @@
 calc.fm(trace, min_height = 8, plot_it = FALSE)
 }
 \arguments{
-\item{trace}{numeric vector, e.g., the fundamental frequency from `trace.fund`.}
+\item{trace}{numeric vector, e.g., the fundamental frequency from
+`trace.fund`, NOTE this would be `trace$fund` and not the whole `trace`
+object.}
 
 \item{min_height}{the minimum difference between a bottom and a peak for an infliction point to be
 accepted.}
@@ -22,4 +24,14 @@ interval (s).
 \description{
 Calculates the frequency modulation for a wave object and returns several measurements in
 a data frame.
+}
+\examples{
+require(callsync)
+require(seewave)
+require(tuneR)
+file = system.file("extdata", "wave_1.wav", package = "callsync")
+wave = readWave(file)
+trace = trace.fund(wave)
+result = calc.fm(trace$fund)
+
 }

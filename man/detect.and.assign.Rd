@@ -21,8 +21,9 @@ detect.and.assign(
 )
 }
 \arguments{
-\item{all_files}{character vector or `NULL`. Character vector should contain all the paths to the raw
-recordings that should be considered. If `NULL` files are loaded from `path_chunks`.}
+\item{all_files}{character vector or `NULL`. Character vector should contain
+all the paths to the raw recordings that should be considered. If `NULL`
+files are loaded from `path_chunks`.}
 
 \item{path_chunks}{character, path to where the chunks are stored.}
 
@@ -30,34 +31,52 @@ recordings that should be considered. If `NULL` files are loaded from `path_chun
 
 \item{ffilter_from}{numeric, frequency in Hz for the high-pass filter.}
 
-\item{threshold}{numeric, threshold (fraction of the maximum) for amplitude envelope when detecting call.}
+\item{threshold}{numeric, threshold (fraction of the maximum) for amplitude
+envelope when detecting call.}
 
-\item{msmooth}{used as argument for the `seewave::env` function. *A vector of length 2 to smooth the
-amplitude envelope with a mean sliding window. The first component is the window length (in number of
-points). The second component is the overlap between successive windows (in \%).* Default is `c(500, 95)`.}
+\item{msmooth}{used as argument for the `seewave::env` function. *A vector
+of length 2 to smooth the amplitude envelope with a mean sliding window. The
+first component is the window length (in number of points). The second
+component is the overlap between successive windows (in \%).* Default is
+`c(500, 95)`.}
 
-\item{min_dur}{numeric, the minimal duration in seconds for a detection to be saved. Default is `0.1`.}
+\item{min_dur}{numeric, the minimal duration in seconds for a detection to
+be saved. Default is `0.1`.}
 
-\item{max_dur}{numeric, the maximal duration in seconds for a detection to be saved. Default is `0.3`.}
+\item{max_dur}{numeric, the maximal duration in seconds for a detection to
+be saved. Default is `0.3`.}
 
-\item{step_size}{numeric, duration in seconds of the bins for signal compression before cross correlation.
-Default is `0.01`.}
+\item{step_size}{numeric, duration in seconds of the bins for signal
+compression before cross correlation. Default is `0.01`.}
 
-\item{wing}{numeric, the duration in minutes to load before and after each chunk to improve alignment. This
+\item{wing}{numeric, the duration in minutes to load before and after each
+chunk to improve alignment. This
 is not saved with the aligned chunk.}
 
-\item{save_files}{logical, if `TRUE` the files are stored in the `path_chunks` location. Results are also
-returned.}
+\item{save_files}{logical, if `TRUE` the files are stored in the
+`path_chunks` location. Results are also returned.}
 
 \item{quiet}{logical, if `TRUE` no messages are printed.}
 
-\item{save_extra}{numberic, how much to add to start and end time in seconds. Can be used to make sure
-the whole vocalisation is included.}
+\item{save_extra}{numberic, how much to add to start and end time in
+seconds. Can be used to make sure the whole vocalisation is included.}
 }
 \value{
-Returns a data frame with start = start time in samples and end = end time in samples for each
-detection.
+Returns a data frame with start = start time in samples and end =
+end time in samples for each detection.
 }
 \description{
-Traces the fundamental frequency from a wave object. Also applies smoothening to trace.
+Traces the fundamental frequency from a wave object. Also
+applies smoothening to trace.
+}
+\examples{
+require(callsync)
+require(seewave)
+require(tuneR)
+files = system.file("extdata", "", package = "callsync")
+all_files = list.files(files, "*chunk*", full.names = T)
+result = detect.and.assign(all_files = all_files,
+                           quiet = TRUE,
+                           save_files = FALSE)
+
 }

@@ -7,9 +7,10 @@
 measure.trace(trace, sr = 44100, hop = 5)
 }
 \arguments{
-\item{trace}{data frame, e.g., the output of the `trace.fund` function. Should contain columns with
-time = time in seconds, fund = fundamental frequency in Hz and missing = logical indicating if the
-fundamental was detected (`TRUE`) or interpolated (`FALSE`).}
+\item{trace}{data frame, e.g., the output of the `trace.fund` function.
+Should contain columns with time = time in seconds, fund = fundamental
+frequency in Hz and missing = logical indicating if the fundamental was
+detected (`TRUE`) or interpolated (`FALSE`).}
 
 \item{sr}{sample rate of the wave object used for `trace.fund`.}
 
@@ -20,4 +21,14 @@ Returns a dataframe with all measurements.
 }
 \description{
 Takes several measurements on a fundamental frequency trace.
+}
+\examples{
+require(callsync)
+require(seewave)
+require(tuneR)
+file = system.file("extdata", "wave_1.wav", package = "callsync")
+wave = readWave(file)
+trace = trace.fund(wave)
+result = measure.trace(trace)
+
 }

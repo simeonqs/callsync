@@ -26,7 +26,7 @@ a dataframe.
 require(callsync)
 require(seewave)
 require(tuneR)
-file = system.file("extdata", "wave_1.wav", package="callsync")
+file = system.file("extdata", "wave_1.wav", package = "callsync")
 wave = readWave(file)
 result = calc.am(wave)
 

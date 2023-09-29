@@ -1,17 +1,30 @@
 #' @title trace.fund
 #'
-#' @description Traces the fundamental frequency from a wave object. Also applies smoothening to trace.
+#' @description Traces the fundamental frequency from a wave object. Also
+#' applies smoothening to trace.
 #'
 #' @param wave wave object, e.g., from `load.wave` or `readWave`.
 #' @param hop integer, how many samples to skip for each trace point.
 #' @param wl integer, window length for the spectrum
-#' @param freq_lim numeric vector of length 2, frequency in kHz between which to find the fundamental
+#' @param freq_lim numeric vector of length 2, frequency in kHz between which
+#' to find the fundamental
 #' @param spar numeric between 0-1, for the `smooth.spline` function
-#' @param noise_factor numeric, how much louder the fundamental has to be than the noise to be accepted
-#' @param thr numeric between 0-1, the fraction of the maximum of the spectrum used to detect the fundamental
+#' @param noise_factor numeric, how much louder the fundamental has to be
+#' than the noise to be accepted
+#' @param thr numeric between 0-1, the fraction of the maximum of the spectrum
+#' used to detect the fundamental
 #'
-#' @return Data frame with time = time in seconds, fund = fundamental frequency in Hz and missing = logical
-#' indicating if the fundamental was detected (`TRUE`) or interpolated (`FALSE`).
+#' @return Data frame with time = time in seconds, fund = fundamental
+#' frequency in Hz and missing = logical indicating if the fundamental was
+#' detected (`TRUE`) or interpolated (`FALSE`).
+#'
+#' @examples
+#' require(callsync)
+#' require(seewave)
+#' require(tuneR)
+#' file = system.file("extdata", "wave_1.wav", package = "callsync")
+#' wave = readWave(file)
+#' trace = trace.fund(wave)
 #'
 #' @export
 #'
@@ -32,7 +45,8 @@ trace.fund = function(wave,
   funds = sapply(starts, function(start){
     w = wave[start:(start+wl)] # select part wave
     s = seewave::spec(w, plot = FALSE) # make spectrum
-    s[,2][s[,1] < freq_lim[1] | s[,1] > freq_lim[2]] = 0 # set all outside limit to 0
+    s[,2][s[,1] < freq_lim[1] | s[,1] > freq_lim[2]] =
+      0 # set all outside limit to 0
     s[,2] = s[,2]/max(s[,2]) # rescale the remaining spectrum
     peak = s[,1][s[,2] > thr][1]
     cont = TRUE
@@ -48,7 +62,8 @@ trace.fund = function(wave,
     return(peak)
   })
 
-  if(length(which(!is.na(funds))) < 4) funds = rep(1, length(funds)) # fix if all points are missing
+  if(length(which(!is.na(funds))) < 4)
+    funds = rep(1, length(funds)) # fix if all points are missing
 
   d = data.frame(starts, funds)
   smoo = with(d[!is.na(d$funds),], smooth.spline(starts, funds, spar = spar))

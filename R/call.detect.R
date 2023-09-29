@@ -1,19 +1,32 @@
 #' @title call.detect
 #'
-#' @description Detects calls in a wave object using an amplitude envelope.
+#' @description Detects single call in a wave object using an amplitude
+#' envelope.
 #'
 #' @param wave wave object, e.g., from `load.wave` or `readWave`.
-#' @param threshold rector of length 1 or 2. The fraction of the maximum of the normalised envelope to use as
-#' threshold to detect start and end. If a vector of length 2 is supplied, the first is used to detect the
-#' start and the second to detect the end (in case of echo).
-#' @param msmooth used as argument for the `seewave::env` function. *A vector of length 2 to smooth the
-#' amplitude envelope with a mean sliding window. The first component is the window length (in number of
-#' points). The second component is the overlap between successive windows (in \%).* Default is `c(500, 95)`.
-#' @param plot_it  if `TRUE`, returns three-panel plot of wave form, envelope and spectrogram to current
-#' plotting window. Default is `FALSE`.
+#' @param threshold rector of length 1 or 2. The fraction of the maximum of the
+#' normalised envelope to use as threshold to detect start and end. If a vector
+#' of length 2 is supplied, the first is used to detect the start and the
+#' second to detect the end (in case of echo).
+#' @param msmooth used as argument for the `seewave::env` function. *A vector
+#' of length 2 to smooth the amplitude envelope with a mean sliding window. The
+#' first component is the window length (in number of points). The second
+#' component is the overlap between successive windows (in \%).* Default is
+#' `c(500, 95)`.
+#' @param plot_it  if `TRUE`, returns three-panel plot of wave form, envelope
+#' and spectrogram to current plotting window. Default is `FALSE`.
 #'
-#' @return Returns a dataframe with start = start time in samples and end = end time in samples for each
-#' detection. Optionally also plots the wave form and detections to current window.
+#' @return Returns a dataframe with start = start time in samples and end = end
+#' time in samples for each detection. Optionally also plots the wave form and
+#' detections to current window.
+#'
+#' @examples
+#' require(callsync)
+#' require(seewave)
+#' require(tuneR)
+#' file = system.file("extdata", "wave_1.wav", package = "callsync")
+#' wave = readWave(file)
+#' cd = call.detect(wave)
 #'
 #' @export
 #'
@@ -44,7 +57,8 @@ call.detect = function(wave,
   j = where_max
   while(is.na(end)){
     j = j + 1
-    if(j == length(env)) end = j else if(env[j] < threshold[length(threshold)]) end = j
+    if(j == length(env)) end = j else if(env[j] < threshold[length(threshold)])
+      end = j
   }
 
   # Re-clip wave

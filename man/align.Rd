@@ -82,3 +82,19 @@ and after them (see examples in the argument descriptions). The function loads c
 sums the absolute amplitude per bin and runs cross correlation to find alignment relative to the first
 recording. The aligned chunks are then saved.
 }
+\examples{
+require(callsync)
+require(seewave)
+require(tuneR)
+files = system.file("extdata", "", package = "callsync")
+all_files = list.files(files, '*chunk*', full.names = T)
+a = align(chunk_size = 2,
+          step_size = 0.1,
+          all_files = all_files,
+          keys_id = c('c', '@'),
+          keys_rec = c('c', '@'),
+          blank = 0,
+          wing = 0,
+          quiet = TRUE)
+
+}

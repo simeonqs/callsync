@@ -12,6 +12,13 @@
 #'
 #' @return Returns an R wave object.
 #'
+#' @examples
+#' require(callsync)
+#' require(seewave)
+#' require(tuneR)
+#' file = system.file("extdata", "wave_1.wav", package = "callsync")
+#' wave = load.wave(file)
+#'
 #' @export
 #' @importFrom tuneR "readWave"
 #' @importFrom seewave "ffilter"

@@ -44,3 +44,13 @@ Plots the spectrogram to current window.
 \description{
 Creates a spectrogram and plots it to the current window.
 }
+\examples{
+
+require(callsync)
+require(seewave)
+require(tuneR)
+file = system.file("extdata", "wave_1.wav", package = "callsync")
+wave = readWave(file)
+better.spectro(wave)
+
+}

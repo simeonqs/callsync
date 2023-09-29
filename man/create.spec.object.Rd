@@ -23,24 +23,37 @@ create.spec.object(
 
 \item{ovl}{numeric, overlap in samples. Default is `450`.}
 
-\item{freq_range}{numeric vector of length 2, the frequency range in Hz to return.}
+\item{freq_range}{numeric vector of length 2, the frequency range in Hz to
+return.}
 
-\item{plot_it}{logical, if `TRUE`, returns three-panel plot of wave form, envelope and spectrogram to
-current plotting window. Default is `FALSE`.}
+\item{plot_it}{logical, if `TRUE`, returns three-panel plot of wave form,
+envelope and spectrogram to current plotting window. Default is `FALSE`.}
 
-\item{thr_low}{numeric, the lower range (see `method`). Pixels with lower values are set to 0 for noise
-reduction.}
+\item{thr_low}{numeric, the lower range (see `method`). Pixels with lower
+values are set to 0 for noise reduction.}
 
-\item{thr_high}{numeric, the upper range (see `method`). Pixels with higher values are set to `thr_high`.}
+\item{thr_high}{numeric, the upper range (see `method`). Pixels with higher
+values are set to `thr_high`.}
 
-\item{sum_one}{logical, if `TRUE` pixels are divided by the sum of all pixels, such that they sum to one.}
+\item{sum_one}{logical, if `TRUE` pixels are divided by the sum of all
+pixels, such that they sum to one.}
 
-\item{method}{character, either `sd` or `max`. If `sd`, pixels are standardised. If `max`, pixels are
-normalised.}
+\item{method}{character, either `sd` or `max`. If `sd`, pixels are
+standardised. If `max`, pixels are normalised.}
 }
 \value{
 Returns a numeric matrix with the spectrogram values.
 }
 \description{
-Creates a tailored spectrogram (matrix) for spectrographic cross correlation.
+Creates a tailored spectrogram (matrix) for spectrographic
+cross correlation.
+}
+\examples{
+require(callsync)
+require(seewave)
+require(tuneR)
+file = system.file("extdata", "wave_1.wav", package = "callsync")
+wave = readWave(file)
+result = create.spec.object(wave, plot_it = FALSE)
+
 }

@@ -23,3 +23,12 @@ tp_rate = `length(tp)/nrow(gt)`.
 Calculates the performance of the detections. Detections are
 true positive if they overlap to any extend with a ground truth selection.
 }
+\examples{
+require(callsync)
+require(seewave)
+require(tuneR)
+file = system.file("extdata/audacity", "", package = "callsync")
+d = load.selection.tables.audacity(path_selection_tables = file)
+result = calc.perf(d, d)
+
+}
