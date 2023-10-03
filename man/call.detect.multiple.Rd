@@ -20,37 +20,56 @@ call.detect.multiple(
 \arguments{
 \item{wave}{wave object, e.g., from `load.wave` or `readWave`.}
 
-\item{threshold}{rector of length 1 or 2. The fraction of the maximum of the normalised envelope to use as
-threshold to detect start and end. If a vector of length 2 is supplied, the first is used to detect the
-start and the second to detect the end (in case of echo).}
+\item{threshold}{rector of length 1 or 2. The fraction of the maximum of the
+normalised envelope to use as threshold to detect start and end. If a vector
+of length 2 is supplied, the first is used to detect the start and the
+second to detect the end (in case of echo).}
 
-\item{msmooth}{used as argument for the `seewave::env` function. *A vector of length 2 to smooth the
-amplitude envelope with a mean sliding window. The first component is the window length (in number of
-points). The second component is the overlap between successive windows (in \%).* Default is `c(500, 95)`.}
+\item{msmooth}{used as argument for the `seewave::env` function. *A vector
+of length 2 to smooth the amplitude envelope with a mean sliding window. The
+first component is the window length (in number of points). The second
+component is the overlap between successive windows (in \%).* Default is
+`c(500, 95)`.}
 
-\item{plot_it}{logical, if `TRUE`, returns three-panel plot of wave form, envelope and spectrogram to
-current plotting window. Default is `FALSE`.}
+\item{plot_it}{logical, if `TRUE`, returns three-panel plot of wave form,
+envelope and spectrogram to current plotting window. Default is `FALSE`.}
 
-\item{min_dur}{numeric, the minimal duration in seconds for a detection to be saved. Default is `0.1`.}
+\item{min_dur}{numeric, the minimal duration in seconds for a detection to
+be saved. Default is `0.1`.}
 
-\item{max_dur}{numeric, the maximal duration in seconds for a detection to be saved. Default is `0.3`.}
+\item{max_dur}{numeric, the maximal duration in seconds for a detection to
+be saved. Default is `0.3`.}
 
-\item{save_extra}{numeric, how much to add to start and end time in seconds. Can be used to make sure
-the whole vocalisation is included.}
+\item{save_extra}{numeric, how much to add to start and end time in seconds.
+Can be used to make sure the whole vocalisation is included.}
 
-\item{env_type}{character, what type of envelope to calculate. If `Hilbert` returns the modulus (Mod)
-of the analytical signal of wave obtained through the Hilbert transform (hilbert) using seewave::env.
-If `summed` returns the summed absolute amplitude. Default is `Hilbert`.}
+\item{env_type}{character, what type of envelope to calculate. If `Hilbert`
+returns the modulus (Mod)
+of the analytical signal of wave obtained through the Hilbert transform
+(hilbert) using seewave::env. If `summed` returns the summed absolute
+amplitude. Default is `Hilbert`.}
 
-\item{bin_depth}{numeric, how many samples to sum if env_type is `summed`. Default is `512`.}
+\item{bin_depth}{numeric, how many samples to sum if env_type is `summed`.
+Default is `512`.}
 
-\item{merge_overlap}{logical, if `TRUE` overlapping detections (due to `save_extra`) are merged.
-Default is `FALSE`.}
+\item{merge_overlap}{logical, if `TRUE` overlapping detections (due to
+`save_extra`) are merged. Default is `FALSE`.}
 }
 \value{
-Returns a data frame with start = start time in samples and end = end time in samples for each
-detection. Optionally also plots the wave form and detections to current window.
+Returns a data frame with start = start time in samples and end =
+end time in samples for each detection. Optionally also plots the wave form
+and detections to current window.
 }
 \description{
-Detects multiple calls in a wave object using an amplitude envelope.
+Detects multiple calls in a wave object using an amplitude
+envelope.
+}
+\examples{
+require(callsync)
+require(seewave)
+require(tuneR)
+file = system.file("extdata", "wave_1.wav", package = "callsync")
+wave = readWave(file)
+cd = call.detect.multiple(wave)
+
 }

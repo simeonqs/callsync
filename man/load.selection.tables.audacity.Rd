@@ -2,7 +2,7 @@
 % Please edit documentation in R/load.selection.tables.audacity.R
 \name{load.selection.tables.audacity}
 \alias{load.selection.tables.audacity}
-\title{load.selection.tables}
+\title{load.selection.tables.audacity}
 \usage{
 load.selection.tables.audacity(path_selection_tables)
 }
@@ -15,4 +15,12 @@ Returns data frame with all selection tables.
 }
 \description{
 Loads multiple Audacity selection tables into one data frame.
+}
+\examples{
+require(callsync)
+require(seewave)
+require(tuneR)
+files = system.file("extdata", "audacity", package = "callsync")
+st = load.selection.tables.audacity(path_selection_tables = files)
+
 }

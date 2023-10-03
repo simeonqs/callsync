@@ -53,3 +53,21 @@ samples for each detection.
 Assigns calls from a detection table. Or rather removes calls that are not the loudest and
 returns the cleaned detection table. Uses fine alignment and energy content.
 }
+\examples{
+require(callsync)
+require(seewave)
+require(tuneR)
+files = system.file("extdata", "", package = "callsync")
+all_files = list.files(files, '*chunk*', full.names = T)
+detections = lapply(all_files, function(file){
+  wave = load.wave(file, ffilter_from = 1100)
+  detections = call.detect.multiple(wave, plot_it = F)
+  return(detections)
+})
+names(detections) = basename(all_files)
+ca = call.assign(all_files = all_files,
+                 detections = detections,
+                 quiet = TRUE,
+                 save_files = FALSE)
+
+}

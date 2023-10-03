@@ -15,6 +15,15 @@
 #'
 #' @return Plots the spectrogram to current window.
 #'
+#' @examples
+#'
+#' require(callsync)
+#' require(seewave)
+#' require(tuneR)
+#' file = system.file("extdata", "wave_1.wav", package = "callsync")
+#' wave = readWave(file)
+#' better.spectro(wave)
+#'
 #' @export
 #'
 #' @importFrom signal "specgram"

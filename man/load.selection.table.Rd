@@ -16,3 +16,11 @@ Returns data frame with all selections.
 \description{
 Loads single Raven selection table into a dataframe.
 }
+\examples{
+require(callsync)
+require(seewave)
+require(tuneR)
+files = system.file("extdata", "", package = "callsync")
+st = load.selection.tables(path_selection_tables = 'files')
+
+}

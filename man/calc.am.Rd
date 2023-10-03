@@ -22,3 +22,12 @@ internote_med = median internote distance in seconds.
 Calculates the amplitude modulation for a wave object and returns several measurements in
 a dataframe.
 }
+\examples{
+require(callsync)
+require(seewave)
+require(tuneR)
+file = system.file("extdata", "wave_1.wav", package = "callsync")
+wave = readWave(file)
+result = calc.am(wave)
+
+}

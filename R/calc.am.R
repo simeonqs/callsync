@@ -12,6 +12,14 @@
 #' amp_mod_med = median difference between highest and lowest amplitude from the normalised envelope,
 #' internote_med = median internote distance in seconds.
 #'
+#' @examples
+#' require(callsync)
+#' require(seewave)
+#' require(tuneR)
+#' file = system.file("extdata", "wave_1.wav", package = "callsync")
+#' wave = readWave(file)
+#' result = calc.am(wave)
+#'
 #' @export
 #'
 #' @importFrom seewave "env"

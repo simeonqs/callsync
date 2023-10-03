@@ -3,6 +3,7 @@
 ^README.md
 ^flowchart.png
 ^update.R
+^code_examples.R
 ^cran-comments\.md$
 ^LICENSE.md
 ^CRAN-SUBMISSION$

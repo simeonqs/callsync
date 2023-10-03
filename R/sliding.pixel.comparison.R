@@ -1,14 +1,28 @@
 #' @title sliding.pixel.comparison
 #'
-#' @description Can be used to run spectrographic cross correlation. Both spectrograms are zero-padded
-#' and slid over each other. For each step the difference is computed. The function returns the absolute
-#' difference at the point at the minimum (maximal signal overlap).
+#' @description Can be used to run spectrographic cross correlation. Both
+#' spectrograms are zero-padded and slid over each other. For each step the
+#' difference is computed. The function returns the absolute difference at the
+#' point at the minimum (maximal signal overlap).
 #'
 #' @param s1 numeric matrix, the first spectrogram.
 #' @param s2 numeric matrix, the second spectrogram.
-#' @param step_size numeric, how many pixels should be moved for each step. Default is `1`.
+#' @param step_size numeric, how many pixels should be moved for each step.
+#' Default is `1`.
 #'
 #' @return Returns the distance at the point of maximal signal overlap.
+#'
+#' @examples
+#' require(callsync)
+#' require(seewave)
+#' require(tuneR)
+#' file_1 = system.file("extdata", "wave_1.wav", package = "callsync")
+#' file_2 = system.file("extdata", "wave_2.wav", package = "callsync")
+#' wave_1 = readWave(file_1)
+#' wave_2 = readWave(file_2)
+#' so_1 = create.spec.object(wave = wave_1, plot_it = FALSE)
+#' so_2 = create.spec.object(wave = wave_2, plot_it = FALSE)
+#' out = sliding.pixel.comparison(so_1, so_2)
 #'
 #' @export
 

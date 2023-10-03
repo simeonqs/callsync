@@ -14,10 +14,11 @@ measure.trace.multiple(
 )
 }
 \arguments{
-\item{traces}{a list of data frames, e.g., the output of the `trace.fund` function. Should contain columns
-with time = time in seconds, fund = fundamental frequency in Hz and missing = logical indicating if the
-fundamental was detected (`TRUE`) or interpolated (`FALSE`). If the list is named the names will be used
-as file names in the output.}
+\item{traces}{a list of data frames, e.g., the output of the `trace.fund`
+function. Should contain columns with time = time in seconds, fund =
+fundamental frequency in Hz and missing = logical indicating if the
+fundamental was detected (`TRUE`) or interpolated (`FALSE`). If the list is
+named the names will be used as file names in the output.}
 
 \item{new_waves}{a list of wave objects, should only contain the call.}
 
@@ -25,13 +26,30 @@ as file names in the output.}
 
 \item{detections}{the detections.}
 
-\item{sr}{numeric, sample rate of the waves objects used for the traces. Only needed if `waves` is `NULL`.}
+\item{sr}{numeric, sample rate of the waves objects used for the traces.
+Only needed if `waves` is `NULL`.}
 
-\item{path_pdf}{numeric or `NULL`, where to store the pdf. If `NULL` no pdf is stored.}
+\item{path_pdf}{numeric or `NULL`, where to store the pdf. If `NULL` no pdf
+is stored.}
 }
 \value{
 Returns a data frame with all measurements.
 }
 \description{
-Takes several measurements on multiple fundamental frequency traces.
+Takes several measurements on multiple fundamental frequency
+traces.
+}
+\examples{
+require(callsync)
+require(seewave)
+require(tuneR)
+file = system.file("extdata", "", package = "callsync")
+files = list.files(file, pattern = "wave_*", full.names = TRUE)
+waves = lapply(files, load.wave)
+new_waves = waves
+detections = lapply(waves, call.detect)
+traces = lapply(waves, trace.fund)
+mt = measure.trace.multiple(traces = traces, waves = waves,
+                            new_waves = new_waves, detections = detections)
+
 }

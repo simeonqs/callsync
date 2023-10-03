@@ -1,18 +1,35 @@
 #' @title measure.trace.multiple
 #'
-#' @description Takes several measurements on multiple fundamental frequency traces.
+#' @description Takes several measurements on multiple fundamental frequency
+#' traces.
 #'
-#' @param traces a list of data frames, e.g., the output of the `trace.fund` function. Should contain columns
-#' with time = time in seconds, fund = fundamental frequency in Hz and missing = logical indicating if the
-#' fundamental was detected (`TRUE`) or interpolated (`FALSE`). If the list is named the names will be used
-#' as file names in the output.
+#' @param traces a list of data frames, e.g., the output of the `trace.fund`
+#' function. Should contain columns with time = time in seconds, fund =
+#' fundamental frequency in Hz and missing = logical indicating if the
+#' fundamental was detected (`TRUE`) or interpolated (`FALSE`). If the list is
+#' named the names will be used as file names in the output.
 #' @param new_waves a list of wave objects, should only contain the call.
 #' @param waves a list of wave objects, should not be resized.
 #' @param detections the detections.
-#' @param sr numeric, sample rate of the waves objects used for the traces. Only needed if `waves` is `NULL`.
-#' @param path_pdf numeric or `NULL`, where to store the pdf. If `NULL` no pdf is stored.
+#' @param sr numeric, sample rate of the waves objects used for the traces.
+#' Only needed if `waves` is `NULL`.
+#' @param path_pdf numeric or `NULL`, where to store the pdf. If `NULL` no pdf
+#' is stored.
 #'
 #' @return Returns a data frame with all measurements.
+#'
+#' @examples
+#' require(callsync)
+#' require(seewave)
+#' require(tuneR)
+#' file = system.file("extdata", "", package = "callsync")
+#' files = list.files(file, pattern = "wave_*", full.names = TRUE)
+#' waves = lapply(files, load.wave)
+#' new_waves = waves
+#' detections = lapply(waves, call.detect)
+#' traces = lapply(waves, trace.fund)
+#' mt = measure.trace.multiple(traces = traces, waves = waves,
+#'                             new_waves = new_waves, detections = detections)
 #'
 #' @importFrom graphics "abline"
 #' @importFrom graphics "lines"
@@ -28,9 +45,12 @@ measure.trace.multiple = function(traces,
                                   sr = NULL,
                                   path_pdf = NULL){
 
-  # Test if new_waves are smaller than waves - easy to enter them in wrong order
-  if(!is.null(waves)) if(!all(sapply(waves, length) >= sapply(new_waves, length)))
-    stop('Waves longer than new_waves! Are you sure you entered them under the correct arguments?')
+  # Test if new_waves are smaller than waves - easy to enter them in wrong
+  # order
+  if(!is.null(waves))
+    if(!all(sapply(waves, length) >= sapply(new_waves, length)))
+      stop('Waves longer than new_waves!
+         Are you sure you entered them under the correct arguments?')
 
   # Make data frame to save results
   measurements = data.frame()
@@ -62,7 +82,8 @@ measure.trace.multiple = function(traces,
       on.exit(par(oldpar))
       par(mfrow = c(2, 2))
       plot(waves[[i]])
-      abline(v = c(start/waves[[i]]@samp.rate, end/waves[[i]]@samp.rate), col = 1)
+      abline(v = c(start/waves[[i]]@samp.rate, end/waves[[i]]@samp.rate),
+             col = 1)
       better.spectro(waves[[i]], wl = 200, ovl = 195, ylim = c(500, 4000),
                      main = np[i], mar = rep(4, 4))
       lines(traces[[i]]$time + start/waves[[i]]@samp.rate,
@@ -72,19 +93,25 @@ measure.trace.multiple = function(traces,
                    max(traces[[i]]$fund, na.rm = TRUE),
                    min(traces[[i]]$fund, na.rm = TRUE)), lty = 2,
              col = alpha('black', 0.5))
-      plot(NULL, xlim = c(0, 1), ylim = c(0, 8), xaxt = 'n', yaxt = 'n', xlab = '', ylab = '')
+      plot(NULL, xlim = c(0, 1), ylim = c(0, 8),
+           xaxt = 'n', yaxt = 'n', xlab = '', ylab = '')
       text(0, 1:6, adj = 0,
-           labels = c(sprintf('mean_fund_hz: %s', round(mean(traces[[i]]$fund, na.rm = TRUE))),
+           labels = c(sprintf('mean_fund_hz: %s',
+                              round(mean(traces[[i]]$fund, na.rm = TRUE))),
                       sprintf('diff_start_mean: %s',
-                              round(traces[[i]]$fund[1] - mean(traces[[i]]$fund))),
+                              round(traces[[i]]$fund[1] -
+                                      mean(traces[[i]]$fund))),
                       sprintf('diff_end_mean: %s',
                               round(traces[[i]]$fund[nrow(traces[[i]])] -
                                       mean(traces[[i]]$fund))),
-                      sprintf('duration: %s', round((end - start)/waves[[i]]@samp.rate, 2)),
+                      sprintf('duration: %s',
+                              round((end - start)/waves[[i]]@samp.rate, 2)),
                       sprintf('band_hz: %s',
-                              round(max(traces[[i]]$fund) - min(traces[[i]]$fund))),
-                      sprintf('prop_missing_trace: %s', round(length(which(traces[[i]]$missing))/
-                                                                length(traces[[i]]$missing), 3))))
+                              round(max(traces[[i]]$fund) -
+                                      min(traces[[i]]$fund))),
+                      sprintf('prop_missing_trace: %s',
+                              round(length(which(traces[[i]]$missing))/
+                                      length(traces[[i]]$missing), 3))))
     } # end plot_it
 
     # Take measurements and save results
