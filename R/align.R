@@ -129,7 +129,7 @@ align = function(chunk_size = 15,
     if(save_pdf){
       oldpar = par(no.readonly = TRUE)
       on.exit(par(oldpar))
-      pdf(sprintf('%s/%s.pdf', path_chunks, str_remove(basename(files[1]), '.wav')), 9, length(files)/2+2)
+      pdf(sprintf('%s/%s.pdf', path_chunks, str_remove(basename(files[1]), '.wav')), 9, length(files)/3+2)
       par(mfrow = c(length(files), 1), mar = c(0, 0, 0, 0), oma = c(5, 1, 3, 1))
     }
 
@@ -147,7 +147,7 @@ align = function(chunk_size = 15,
       chunk_seq = seq(blank, # start after the blank
                       min_duration-blank-chunk_size, # until minimum duration - blank and chunk
                       chunk_size) # by chunk steps
-    if(!quiet) message(sprintf('Running %s recordings with id: %s. Running %s chunks with start times: ',
+    if(!quiet) message(sprintf('Running %s recordings with id: %s. Running %s chunk(s) with start time(s): ',
                                length(files), rec, length(chunk_seq)))
     for(chunk in chunk_seq){
       if(!quiet) message(chunk)
@@ -176,7 +176,7 @@ align = function(chunk_size = 15,
         plot(times, s1,
              type = 'l', xlim = c(-wing/2, max(times) + wing/2), xaxt = 'n', yaxt = 'n',
              main = '', col = '#3a586e')
-        mtext(chunk, line = 1)
+        mtext(sprintf('start time chunk: %s min', chunk), line = 1)
       }
 
       # Save master
