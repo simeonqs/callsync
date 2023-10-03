@@ -10,8 +10,8 @@
 #'
 #' @return Returns a named list with tp = the row numbers (in d) for the true
 #' positives, fp = the row numbers (in d) for the false positives, fn = the row
-#' numbers (in gt) for the false negatives, fp_rate = `length(pf)/nrow(d)` and
-#' tp_rate = `length(tp)/nrow(gt)`.
+#' numbers (in gt) for the false negatives, fp_rate = `length(pf)/nrow(d)`,
+#' tp_rate = `length(tp)/nrow(gt)`, fn_rate = `length(fn)/nrow(gt)`.
 #'
 #' @examples
 #' require(callsync)
