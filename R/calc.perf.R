@@ -40,7 +40,7 @@ calc.perf = function(d, gt){
       d$end[i] > sub$start[j] & d$end[i] < sub$end[j])
     # or if start and end fall around -> also overlap
     keep_around = sapply(1:nrow(sub), function(j)
-      d$start[i] < sub$start[j] & d$end[i] > sub$end[j])
+      d$start[i] <= sub$start[j] & d$end[i] >= sub$end[j])
     keep = keep_start | keep_end | keep_around
     if(any(keep)) tp = c(tp, i) else fp = c(fp, i)
   }
