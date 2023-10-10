@@ -25,6 +25,26 @@
 
 calc.perf = function(d, gt){
 
+  # Test and try to fix start and end columns
+  ## if missing both types
+  if(is.null(d$start) & is.null(d$Begin.time..s.))
+    stop('No start column found in d.')
+  if(is.null(d$end) & is.null(d$End.time..s.))
+    stop('No end column found in d.')
+  if(is.null(gt$start) & is.null(gt$Begin.Time..s.))
+    stop('No start column found in gt.')
+  if(is.null(gt$end) & is.null(gt$End.Time..s.))
+    stop('No end column found in gt.')
+  ## if missing end or start add from Raven format
+  if(is.null(d$start) & !is.null(d$Begin.time..s.))
+    d$start = d$Begin.time..s.
+  if(is.null(d$end) & !is.null(d$End.time..s.))
+    d$end = d$End.time..s.
+  if(is.null(gt$start) & !is.null(gt$Begin.Time..s.))
+    gt$start = gt$Begin.Time..s.
+  if(is.null(gt$end) & !is.null(gt$End.Time..s.))
+    gt$end = gt$End.Time..s.
+
   # Find the tp and fp
   tp = fp = c()
   for(i in seq_len(nrow(d))){
