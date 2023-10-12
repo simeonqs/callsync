@@ -3,6 +3,14 @@
 #' @description Traces the fundamental frequency from a wave object. Also
 #' applies smoothening to trace.
 #'
+#' @details Tracing step is based on a sliding window for which the spectrum
+#' is calculated. A threshold is based on the maximum y value and the first
+#' frequency to cross the threshold is considered the fundamental frequency.
+#' If the average hight before the fundamental is higher than `noise_factor`,
+#' the detection is discarded and NA is returned for that window.
+#' Smoothing step is based on `smooth.spline`. Finally, all points outside
+#' `freq_lim` are reset to these limits.
+#'
 #' @param wave wave object, e.g., from `load.wave` or `readWave`.
 #' @param hop integer, how many samples to skip for each trace point.
 #' @param wl integer, window length for the spectrum
@@ -65,6 +73,7 @@ trace.fund = function(wave,
   if(length(which(!is.na(funds))) < 4)
     funds = rep(1, length(funds)) # fix if all points are missing
 
+  # Smoothen trace
   d = data.frame(starts, funds)
   smoo = with(d[!is.na(d$funds),], smooth.spline(starts, funds, spar = spar))
   new_trace = with(d, predict(smoo, starts))$y
