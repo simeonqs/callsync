@@ -4,11 +4,14 @@
 \alias{load.selection.tables}
 \title{load.selection.tables}
 \usage{
-load.selection.tables(path_selection_tables)
+load.selection.tables(path_selection_tables, recursive = FALSE)
 }
 \arguments{
 \item{path_selection_tables}{the path to the folder containing selection
 tables. Folder should not contain any other files.}
+
+\item{recursive}{if `TRUE` lists files recursively before loading, default
+is `FALSE`.}
 }
 \value{
 Returns data frame with all selection tables.
