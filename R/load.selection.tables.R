@@ -5,6 +5,8 @@
 #'
 #' @param path_selection_tables the path to the folder containing selection
 #' tables. Folder should not contain any other files.
+#' @param recursive if `TRUE` lists files recursively before loading, default
+#' is `FALSE`.
 #'
 #' @return Returns data frame with all selection tables.
 #'
@@ -14,10 +16,10 @@
 #' @importFrom dplyr "bind_rows"
 #' @importFrom utils "read.csv"
 
-load.selection.tables = function(path_selection_tables){
+load.selection.tables = function(path_selection_tables, recursive = FALSE){
 
   files = path_selection_tables |>
-    list.files('*txt', full.names = TRUE)
+    list.files('*txt', full.names = TRUE, recursive = recursive)
   selection_tables = files |> lapply(load.selection.table)
   names(selection_tables) = files |> basename() |>
     stringr::str_remove('.Table.1.selections.txt') |>
