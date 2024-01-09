@@ -2,7 +2,7 @@
 devtools::document()
 
 # Install
-devtools::install('/Users/ssmeele/ownCloud/Simeon/MPI AB/Side projects/Methods alignment paper/callsync')
+devtools::install('/home/au472091/Documents/au/projects/callsync')
 
 # Test
 devtools::test()
