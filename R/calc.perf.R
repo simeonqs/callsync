@@ -25,6 +25,26 @@
 
 calc.perf = function(d, gt){
 
+  # Test and try to fix start and end columns
+  ## if missing both types
+  if(is.null(d$start) & is.null(d$Begin.time..s.))
+    stop('No start column found in d.')
+  if(is.null(d$end) & is.null(d$End.time..s.))
+    stop('No end column found in d.')
+  if(is.null(gt$start) & is.null(gt$Begin.Time..s.))
+    stop('No start column found in gt.')
+  if(is.null(gt$end) & is.null(gt$End.Time..s.))
+    stop('No end column found in gt.')
+  ## if missing end or start add from Raven format
+  if(is.null(d$start) & !is.null(d$Begin.time..s.))
+    d$start = d$Begin.time..s.
+  if(is.null(d$end) & !is.null(d$End.time..s.))
+    d$end = d$End.time..s.
+  if(is.null(gt$start) & !is.null(gt$Begin.Time..s.))
+    gt$start = gt$Begin.Time..s.
+  if(is.null(gt$end) & !is.null(gt$End.Time..s.))
+    gt$end = gt$End.Time..s.
+
   # Find the tp and fp
   tp = fp = c()
   for(i in seq_len(nrow(d))){
@@ -40,7 +60,7 @@ calc.perf = function(d, gt){
       d$end[i] > sub$start[j] & d$end[i] < sub$end[j])
     # or if start and end fall around -> also overlap
     keep_around = sapply(1:nrow(sub), function(j)
-      d$start[i] < sub$start[j] & d$end[i] > sub$end[j])
+      d$start[i] <= sub$start[j] & d$end[i] >= sub$end[j])
     keep = keep_start | keep_end | keep_around
     if(any(keep)) tp = c(tp, i) else fp = c(fp, i)
   }
@@ -61,7 +81,7 @@ calc.perf = function(d, gt){
       gt$end[i] > sub$start[j] & gt$end[i] < sub$end[j])
     # or if start and end fall around -> also overlap
     keep_around = sapply(1:nrow(sub), function(j)
-      gt$start[i] < sub$start[j] & gt$end[i] > sub$end[j])
+      gt$start[i] <= sub$start[j] & gt$end[i] >= sub$end[j])
     keep = keep_start | keep_end | keep_around
     if(!any(keep)) fn = c(fn, i)
   }
