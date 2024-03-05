@@ -138,7 +138,7 @@ call.detect.multiple = function(wave,
     for(i in seq_len(length(starts))){
       graphics::rect(xleft = starts[i]/wave@samp.rate,
                      xright = ends[i]/wave@samp.rate,
-                     ybottom = par("usr")[3], ytop = par("usr")[4],
+                     ybottom = par('usr')[3], ytop = par('usr')[4],
                      border = NA, col = alpha('#3a586e', 0.5))
       abline(v = starts[i]/wave@samp.rate, lty = 2,
              col = '#3a586e', lwd = 3)
