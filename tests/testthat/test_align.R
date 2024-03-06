@@ -57,3 +57,21 @@ test_that('Warning wing.', {
                 'Wing cannot be greater than blank.')
 
 })
+
+test_that('Test log.', {
+
+  td = tempdir()
+  a = align(chunk_size = 2,
+            step_size = 0.1,
+            all_files = all_files,
+            keys_id = c('c', '@'),
+            keys_rec = c('c', '@'),
+            blank = 0,
+            wing = 0,
+            quiet = TRUE,
+            save_log = TRUE,
+            path_chunks = td)
+  path_out = paste(tempdir(), 'align_log.csv', sep = '/')
+  expect_true(file.exists(path_out))
+
+})
