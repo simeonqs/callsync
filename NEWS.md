@@ -42,3 +42,9 @@
 
 * Adding additional functions and modifying/adding options to existing functions. All
   original functions should still work without changing any settings. 
+  
+# callsync 0.2.0
+
+* Adding vignette.
+* Minor updates to descriptions.
+* Adding units to column titles align_log.
