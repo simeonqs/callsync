@@ -214,9 +214,9 @@ align = function(chunk_size = 15,
 
         # Optionally save alignment log
         if(save_log) align_log = rbind(align_log, data.frame(rec = rec, file = files[i], chunk = chunk,
-                                                             from = chunk + d,
-                                                             to = chunk + chunk_size + d,
-                                                             offset = d))
+                                                             from_min = chunk + d,
+                                                             to_min = chunk + chunk_size + d,
+                                                             offset_min = d))
 
         # Plot
         if(save_pdf){
