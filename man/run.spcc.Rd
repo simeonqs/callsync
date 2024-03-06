@@ -62,7 +62,7 @@ require(callsync)
 require(seewave)
 require(tuneR)
 file = system.file("extdata", "", package = "callsync")
-files = list.files(file, "wave_*", full.names = T)
+files = list.files(file, "wave_*", full.names = TRUE)
 waves = lapply(files, load.wave)
 spcc_out = run.spcc(waves)
 

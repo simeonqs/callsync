@@ -87,7 +87,7 @@ require(callsync)
 require(seewave)
 require(tuneR)
 files = system.file("extdata", "", package = "callsync")
-all_files = list.files(files, '*chunk*', full.names = T)
+all_files = list.files(files, '*chunk*', full.names = TRUE)
 a = align(chunk_size = 2,
           step_size = 0.1,
           all_files = all_files,
