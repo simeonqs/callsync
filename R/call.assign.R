@@ -11,8 +11,8 @@
 #' @param save_files logical, if `TRUE` the files are stored in the `path_chunks` location. Results are also
 #' returned.
 #' @param ffilter_from numeric, frequency in Hz for the high-pass filter.
-#' @param wing numeric, the duration in minutes to load before and after each chunk to improve alignment. This
-#' is not saved with the aligned chunk.
+#' @param wing numeric, the duration in seconds to load before and after each detection to improve alignment.
+#' This is not saved with the aligned call.
 #' @param step_size numeric, duration in seconds of the bins for signal compression before cross correlation.
 #' Default is `0.01`.
 #' @param assign_fraq numeric between 0 and 1, how much louder does the focal needs to be than the second

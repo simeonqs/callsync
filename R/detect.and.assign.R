@@ -22,9 +22,8 @@
 #' be saved. Default is `0.3`.
 #' @param step_size numeric, duration in seconds of the bins for signal
 #' compression before cross correlation. Default is `0.01`.
-#' @param wing numeric, the duration in minutes to load before and after each
-#' chunk to improve alignment. This
-#' is not saved with the aligned chunk.
+#' @param wing numeric, the duration in seconds to load before and after each
+#' detection to improve alignment. This is not saved with the aligned call.
 #' @param save_files logical, if `TRUE` the files are stored in the
 #' `path_chunks` location. Results are also returned.
 #' @param quiet logical, if `TRUE` no messages are printed.
