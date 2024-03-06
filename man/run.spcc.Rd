@@ -55,7 +55,7 @@ list. Diagonal is zeroes. Other values are the normalised pairwise
 distances from `sliding.pixel.comparison`.
 }
 \description{
-Runs spectrograph cross correlation on multiple wave objects.
+Runs spectrographic cross correlation on multiple wave objects.
 }
 \examples{
 require(callsync)

@@ -1,6 +1,6 @@
 #' @title run.spcc
 #'
-#' @description Runs spectrograph cross correlation on multiple wave objects.
+#' @description Runs spectrographic cross correlation on multiple wave objects.
 #'
 #' @param waves a list of wave objects, e.g., from `lapply` in combination with
 #' `load.wave` or `readWave`.
@@ -33,7 +33,7 @@
 #' require(seewave)
 #' require(tuneR)
 #' file = system.file("extdata", "", package = "callsync")
-#' files = list.files(file, "wave_*", full.names = T)
+#' files = list.files(file, "wave_*", full.names = TRUE)
 #' waves = lapply(files, load.wave)
 #' spcc_out = run.spcc(waves)
 #'
