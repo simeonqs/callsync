@@ -47,7 +47,7 @@
 #' require(seewave)
 #' require(tuneR)
 #' files = system.file("extdata", "", package = "callsync")
-#' all_files = list.files(files, '*chunk*', full.names = T)
+#' all_files = list.files(files, '*chunk*', full.names = TRUE)
 #' a = align(chunk_size = 2,
 #'           step_size = 0.1,
 #'           all_files = all_files,
@@ -159,9 +159,9 @@ align = function(chunk_size = 15,
 
       # Optionally save alignment log
       if(save_log) align_log = rbind(align_log, data.frame(rec = rec, file = files[1], chunk = chunk,
-                                                           from = chunk,
-                                                           to = chunk + chunk_size,
-                                                           offset = 0))
+                                                           from_min = chunk,
+                                                           to_min = chunk + chunk_size,
+                                                           offset_min = 0))
 
       # Sum the sound per step
       step = master@samp.rate*step_size
