@@ -13,7 +13,6 @@ Intended to analyse recordings from multiple microphones (e.g., backpack
   analysis of the vocalisations and filtering of noise. Finally, the package includes a function
   to run spectrographic cross correlation, which can be used to compare vocalisations. It also
   includes multiple other functions related to analysis of vocal behaviour.
-
 }
 
 \details{
@@ -37,9 +36,7 @@ The package offers functions to:
 
 License: GNU (>= 2)
 
-\author{
-  Authors: Simeon Q. Smeele & Stephen A. Tyndel
+Authors: Simeon Q. Smeele and Stephen A. Tyndel
 
-  Maintainer: Simeon Q. Smeele (\email{simeonqs@hotmail.com})
+Maintainer: Simeon Q. Smeele, <simeonqs@hotmail.com>
 }
-
