@@ -1,6 +1,6 @@
 ---
 title: "Examples main functions callsync"
-author: "Simeon Q. Smeele"
+author: "Simeon Q. Smeele and Stephen A. Tyndel"
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette:
@@ -9,6 +9,9 @@ vignette: >
   %\VignetteIndexEntry{Examples main functions callsync}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
+  audio/artificial_recording_drifted_ID_ind2_ID_REC_rec1_REC.wav
+  audio/artificial_recording_ID_ind1_ID_REC_rec1_REC.wav
+  examples_main_functions_callsync.Rmd
 editor_options: 
   chunk_output_type: console
 ---
@@ -28,7 +31,7 @@ We used the following recordings from the Macaulay Library at the Cornell Lab of
 
 The artificially created files both contain the same 10 minutes of background noise comprised of six snippets taken from both recordings. The snippets were then concatenated together in random sequences to produce a 10 minute long recording. This recording was than amplified by 4dB. 
 
-Spring Peepers produce tonal calls around 120 ms and have a almost flat fundamental frequency around 2800 Hz. The background noise contains multiple other species and loud low frequency (up to 2 kHz) bursts of noise. All noise has lower amplitude than the Spring Peepers, since we tried to create a situation where focal individuals are recorded with backpack microphones. 
+Spring Peepers produce tonal calls around 120 ms and have a almost flat fundamental frequency around 1500 Hz with a louder first harmonic. The background noise contains multiple other species and loud low frequency (up to 2 kHz) bursts of noise. All noise has lower amplitude than the Spring Peepers, since we tried to create a situation where focal individuals are recorded with backpack microphones. 
 
 We overlayed 20 frog calls on top of the background noise on each track, 10 calls from each recording ML273028 and ML397067. The recordings were ordered such that the order of calls alternated between calls taken from recording ML273028 and ML397067. This way, the first artificially created track simulated a focal individual (taken from ML273028) and the second artificially created track simulated a different focal individual (taken from ML397067). 
 
@@ -57,6 +60,11 @@ rm(list = ls())
 path_recordings = 'audio'
 path_chunks = 'results/chunks'
 path_calls = 'results/calls'
+
+# Clean and create results directories
+if(dir.exists('results')) unlink('results', recursive = TRUE)
+dir.create(path_chunks, recursive = TRUE)
+dir.create(path_calls, recursive = TRUE)
 ```
 
 <br>
@@ -82,7 +90,7 @@ align(chunk_size = 2,
 
 # Call detection and assignment
 
-The following code chunk runs `call.detect.multiple` and `call.assign` together using the function `detect.and.assign`. Chunks are first filtered with a high-pass filter (`ffilter_from`) and then a spectral envelope is computed. Using a threshold of 0.2 of the maximum (`threshold`) calls are detected. Each detection is then aligned with the other recording and only the loudest detection (focal individual) is stored as seperate wav fil in the specified location (`path_calls`). Note that calls close to the start and end (`wing`) are not included, because the corresponding detection from the other recording might lie outside the chunk.
+The following code chunk runs `call.detect.multiple` and `call.assign` together using the function `detect.and.assign`. Chunks are first filtered with a high-pass filter (`ffilter_from`) and then a spectral envelope is computed. Using a threshold of 0.2 of the maximum (`threshold`) calls are detected. Each detection is then aligned with the other recording and only the loudest detection (focal individual) is stored as separate wav file in the specified location (`path_calls`). Note that calls close to the start and end (`wing`) are not included, because the corresponding detection from the other recording might lie outside the chunk.
 
 ```{r call-detection-and-assignment}
 detect.and.assign(path_chunks = path_chunks,
@@ -123,7 +131,7 @@ new_waves = lapply(1:length(waves), function(i)
 # Trace fundamental
 message('Tracing.')
 traces = mclapply(new_waves, function(new_wave)
-  trace.fund(new_wave, spar = 0.3, freq_lim = c(1, 3), 
+  trace.fund(new_wave, spar = 0.3, freq_lim = c(0.5, 2), 
              thr = 0.15, hop = 5, noise_factor = 1.5), 
   mc.cores = 1)
 names(traces) = basename(calls)
@@ -141,7 +149,7 @@ lines(traces[[1]]$time + detections[[1]]$start/waves[[1]]@samp.rate,
 
 # Analyse the traces
 
-The final code chunks runs the default measurements on the traces and plots the mean fundamental frequency vs duration to show that individuals cluster (red vs blue).
+The final code chunks runs the default measurements on the traces and plots the mean fundamental frequency vs duration to show that individuals are variable and their calls form fuzzy clusters (red vs blue).
 
 ```{r analysis, fig.cap = "Scatter plot of meand fundamental frequency [Hz] vs duration [s]. Dots are individual calls and are coloured by individual."}
 # Take measurements
@@ -160,6 +168,12 @@ plot(measurements$mean_fund_hz,
      xlab = 'Mean fund freq [Hz]',
      ylab = 'Duration [s]')
 ```
+
+<br>
+
+# Further examples and maintenance
+
+For a real world example see <https://github.com/simeonqs/callsync_an_R_package_for_alignment_and_analysis_of_multi-microphone_animal_recordings>. For questions and suggestions please contact <simeonqs@hotmail.com>.
 
 <br>
 
