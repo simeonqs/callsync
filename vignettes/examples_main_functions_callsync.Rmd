@@ -43,7 +43,7 @@ We added 0.03 seconds of additional noise at each second for the second artifici
 
 # Load libraries and settings block
 
-The code below will load all required libraries and includes all paths used later on. 
+The code below will load all required libraries and includes all paths used later on. It also downloads the audio files and generates the results folders. 
 
 ```{r libraries-and-paths}
 # Install missing libraries and load all libraries
@@ -60,6 +60,18 @@ rm(list = ls())
 path_recordings = 'audio'
 path_chunks = 'results/chunks'
 path_calls = 'results/calls'
+path_git = 'https://raw.githubusercontent.com'
+path_repo = '/simeonqs/callsync/master/vignettes/audio'
+file_1 = '/artificial_recording_ID_ind1_ID_REC_rec1_REC.wav'
+file_2 = '/artificial_recording_drifted_ID_ind2_ID_REC_rec1_REC.wav'
+url_1 = paste0(path_git, path_repo, file_1)
+url_2 = paste0(path_git, path_repo, file_2)
+local_file_1 = paste0(path_recordings, file_1)
+local_file_2 = paste0(path_recordings, file_2)
+
+# Download audio files from GitHub
+download.file(url_1, destfile = local_file_1, mode = 'wb')
+download.file(url_2, destfile = local_file_2, mode = 'wb')
 
 # Clean and create results directories
 if(dir.exists('results')) unlink('results', recursive = TRUE)
