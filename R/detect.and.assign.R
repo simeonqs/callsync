@@ -27,7 +27,7 @@
 #' @param save_files logical, if `TRUE` the files are stored in the
 #' `path_chunks` location. Results are also returned.
 #' @param quiet logical, if `TRUE` no messages are printed.
-#' @param save_extra numberic, how much to add to start and end time in
+#' @param save_extra numeric, how much to add to start and end time in
 #' seconds. Can be used to make sure the whole vocalisation is included.
 #'
 #' @return Returns a data frame with start = start time in samples and end =
@@ -38,7 +38,7 @@
 #' require(seewave)
 #' require(tuneR)
 #' files = system.file("extdata", "", package = "callsync")
-#' all_files = list.files(files, "*chunk*", full.names = T)
+#' all_files = list.files(files, "*chunk*", full.names = TRUE)
 #' result = detect.and.assign(all_files = all_files,
 #'                            quiet = TRUE,
 #'                            save_files = FALSE)

@@ -57,7 +57,7 @@ detection to improve alignment. This is not saved with the aligned call.}
 
 \item{quiet}{logical, if `TRUE` no messages are printed.}
 
-\item{save_extra}{numberic, how much to add to start and end time in
+\item{save_extra}{numeric, how much to add to start and end time in
 seconds. Can be used to make sure the whole vocalisation is included.}
 }
 \value{
