@@ -2,7 +2,7 @@
 devtools::document()
 
 # Install
-devtools::install('/home/au472091/Documents/au/projects/callsync')
+devtools::install('/home/au472091/OneDrive/au/projects/callsync')
 
 # Test
 devtools::test()
