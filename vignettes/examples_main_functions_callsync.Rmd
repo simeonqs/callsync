@@ -70,8 +70,11 @@ local_file_1 = paste0(path_recordings, file_1)
 local_file_2 = paste0(path_recordings, file_2)
 
 # Download audio files from GitHub
-download.file(url_1, destfile = local_file_1, mode = 'wb')
-download.file(url_2, destfile = local_file_2, mode = 'wb')
+if(!dir.exists('audio')) dir.create('audio')
+if(!file.exists(local_file_1)) 
+  download.file(url_1, destfile = local_file_1, mode = 'wb')
+if(!file.exists(local_file_2)) 
+  download.file(url_2, destfile = local_file_2, mode = 'wb')
 
 # Clean and create results directories
 if(dir.exists('results')) unlink('results', recursive = TRUE)
