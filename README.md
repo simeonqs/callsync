@@ -26,6 +26,8 @@ The package also offers:
 - loading selection tables from Raven and Audacity
 - calculating performance of the detection and assignment functions
 
+A vignette going trough the main functions can be found [here](vignettes/examples_main_functions_callsync.Rmd).
+
 # Requirements
 
 R version 4.1.0 or later. Earlier versions might work if you replace the `|>` function with `%>%` and load the package `tidyverse`.
