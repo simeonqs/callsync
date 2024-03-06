@@ -8,3 +8,4 @@
 ^LICENSE.md
 ^CRAN-SUBMISSION$
 ^vignettes/results
+^vignettes/audio
