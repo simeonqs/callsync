@@ -49,9 +49,8 @@ be saved. Default is `0.3`.}
 \item{step_size}{numeric, duration in seconds of the bins for signal
 compression before cross correlation. Default is `0.01`.}
 
-\item{wing}{numeric, the duration in minutes to load before and after each
-chunk to improve alignment. This
-is not saved with the aligned chunk.}
+\item{wing}{numeric, the duration in seconds to load before and after each
+detection to improve alignment. This is not saved with the aligned call.}
 
 \item{save_files}{logical, if `TRUE` the files are stored in the
 `path_chunks` location. Results are also returned.}

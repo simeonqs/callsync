@@ -31,8 +31,8 @@ returned.}
 
 \item{ffilter_from}{numeric, frequency in Hz for the high-pass filter.}
 
-\item{wing}{numeric, the duration in minutes to load before and after each chunk to improve alignment. This
-is not saved with the aligned chunk.}
+\item{wing}{numeric, the duration in seconds to load before and after each detection to improve alignment.
+This is not saved with the aligned call.}
 
 \item{step_size}{numeric, duration in seconds of the bins for signal compression before cross correlation.
 Default is `0.01`.}
