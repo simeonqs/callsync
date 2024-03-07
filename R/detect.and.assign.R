@@ -50,9 +50,11 @@
 #' if(!file.exists(local_file_2))
 #'   download.file(url_2, destfile = local_file_2, mode = 'wb')
 #' all_files = c(local_file_1, local_file_2)
+#' \dontrun{
 #' result = detect.and.assign(all_files = all_files,
 #'                            quiet = TRUE,
 #'                            save_files = FALSE)
+#'                            }
 #'
 #' @export
 #'

@@ -76,9 +76,11 @@ detections = lapply(all_files, function(file){
   return(detections)
 })
 names(detections) = basename(all_files)
+\dontrun{
 ca = call.assign(all_files = all_files,
                  detections = detections,
                  quiet = TRUE,
                  save_files = FALSE)
+                 }
 
 }
