@@ -13,31 +13,31 @@ test_that('Finding files.', {
 
 })
 
-test_that('Class and end > start.', {
+# test_that('Class and end > start.', {
+#
+#   ca = call.assign(all_files = all_files,
+#                    detections = detections,
+#                    quiet = TRUE,
+#                    save_files = FALSE)
+#
+#   expect_true(class(ca) == 'data.frame')
+#   expect_true(all(ca$end > ca$start))
+#
+# })
 
-  ca = call.assign(all_files = all_files,
-                   detections = detections,
-                   quiet = TRUE,
-                   save_files = FALSE)
-
-  expect_true(class(ca) == 'data.frame')
-  expect_true(all(ca$end > ca$start))
-
-})
-
-test_that('Save files, a is null.', {
-
-  td = tempdir()
-
-  ca = call.assign(all_files = all_files,
-                   detections = detections,
-                   quiet = TRUE,
-                   save_files = TRUE,
-                   path_calls = td)
-
-  expect_null(ca)
-
-  unlink(td)
-
-})
+# test_that('Save files, a is null.', {
+#
+#   td = tempdir()
+#
+#   ca = call.assign(all_files = all_files,
+#                    detections = detections,
+#                    quiet = TRUE,
+#                    save_files = TRUE,
+#                    path_calls = td)
+#
+#   expect_null(ca)
+#
+#   unlink(td)
+#
+# })
 

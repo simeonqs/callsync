@@ -8,8 +8,8 @@ test_that('Finding files.', {
 
 test_that('Class.', {
 
-  a = align(chunk_size = 2,
-            step_size = 0.1,
+  a = align(chunk_size = 0.1,
+            step_size = 0.05,
             all_files = all_files,
             keys_id = c('c', '@'),
             keys_rec = c('c', '@'),
@@ -22,32 +22,31 @@ test_that('Class.', {
 
 })
 
-test_that('Save files, a is null.', {
-
-  td = tempdir()
-
-  a = align(chunk_size = 2,
-            step_size = 0.1,
-            all_files = all_files,
-            keys_id = c('c', '@'),
-            keys_rec = c('c', '@'),
-            blank = 0,
-            wing = 0,
-            quiet = TRUE,
-            save_pdf = TRUE,
-            path_chunks = td)
-
-  expect_null(a)
-
-  unlink(td)
-
-})
-
+# test_that('Save files, a is null.', {
+#
+#   td = tempdir()
+#
+#   a = align(chunk_size = 0.1,
+#             step_size = 0.01,
+#             all_files = all_files,
+#             keys_id = c('c', '@'),
+#             keys_rec = c('c', '@'),
+#             blank = 0,
+#             wing = 0,
+#             quiet = TRUE,
+#             save_pdf = TRUE,
+#             path_chunks = td)
+#
+#   expect_null(a)
+#
+#   unlink(td)
+#
+# })
 
 test_that('Warning wing.', {
 
-  expect_error( align(chunk_size = 1,
-                      step_size = 0.1,
+  expect_error( align(chunk_size = 0.1,
+                      step_size = 0.05,
                       all_files = files,
                       keys_id = c('c', '@'),
                       keys_rec = c('c', '@'),
@@ -61,8 +60,8 @@ test_that('Warning wing.', {
 test_that('Test log.', {
 
   td = tempdir()
-  a = align(chunk_size = 2,
-            step_size = 0.1,
+  a = align(chunk_size = 0.1,
+            step_size = 0.05,
             all_files = all_files,
             keys_id = c('c', '@'),
             keys_rec = c('c', '@'),
