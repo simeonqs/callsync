@@ -9,8 +9,6 @@ vignette: >
   %\VignetteIndexEntry{Examples main functions callsync}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
-  audio/artificial_recording_drifted_ID_ind2_ID_REC_rec1_REC.wav
-  audio/artificial_recording_ID_ind1_ID_REC_rec1_REC.wav
   examples_main_functions_callsync.Rmd
 editor_options: 
   chunk_output_type: console
@@ -70,6 +68,7 @@ local_file_1 = paste0(path_recordings, file_1)
 local_file_2 = paste0(path_recordings, file_2)
 
 # Download audio files from GitHub
+options(timeout = 600)
 if(!dir.exists('audio')) dir.create('audio')
 if(!file.exists(local_file_1)) 
   download.file(url_1, destfile = local_file_1, mode = 'wb')
