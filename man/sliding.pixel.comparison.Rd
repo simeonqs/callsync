@@ -27,10 +27,20 @@ point at the minimum (maximal signal overlap).
 require(callsync)
 require(seewave)
 require(tuneR)
-file_1 = system.file("extdata", "wave_1.wav", package = "callsync")
-file_2 = system.file("extdata", "wave_2.wav", package = "callsync")
-wave_1 = readWave(file_1)
-wave_2 = readWave(file_2)
+path_git = 'https://raw.githubusercontent.com'
+path_repo = '/simeonqs/callsync/master/tests/testthat/files'
+file_1 = '/wave_1.wav'
+file_2 = '/wave_2.wav'
+url_1 = paste0(path_git, path_repo, file_1)
+url_2 = paste0(path_git, path_repo, file_2)
+local_file_1 = paste(tempdir(), file_1, sep = '/')
+local_file_2 = paste(tempdir(), file_2, sep = '/')
+if(!file.exists(local_file_1))
+  download.file(url_1, destfile = local_file_1, mode = 'wb',)
+if(!file.exists(local_file_2))
+  download.file(url_2, destfile = local_file_2, mode = 'wb')
+wave_1 = readWave(local_file_1)
+wave_2 = readWave(local_file_2)
 so_1 = create.spec.object(wave = wave_1, plot_it = FALSE)
 so_2 = create.spec.object(wave = wave_2, plot_it = FALSE)
 out = sliding.pixel.comparison(so_1, so_2)

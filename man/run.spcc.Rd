@@ -61,9 +61,20 @@ Runs spectrographic cross correlation on multiple wave objects.
 require(callsync)
 require(seewave)
 require(tuneR)
-file = system.file("extdata", "", package = "callsync")
-files = list.files(file, "wave_*", full.names = TRUE)
-waves = lapply(files, load.wave)
+path_git = 'https://raw.githubusercontent.com'
+path_repo = '/simeonqs/callsync/master/tests/testthat/files'
+file_1 = '/wave_1.wav'
+file_2 = '/wave_2.wav'
+url_1 = paste0(path_git, path_repo, file_1)
+url_2 = paste0(path_git, path_repo, file_2)
+local_file_1 = paste(tempdir(), file_1, sep = '/')
+local_file_2 = paste(tempdir(), file_2, sep = '/')
+if(!file.exists(local_file_1))
+  download.file(url_1, destfile = local_file_1, mode = 'wb',)
+if(!file.exists(local_file_2))
+  download.file(url_2, destfile = local_file_2, mode = 'wb')
+all_files = c(local_file_1, local_file_2)
+waves = lapply(all_files, load.wave)
 spcc_out = run.spcc(waves)
 
 }

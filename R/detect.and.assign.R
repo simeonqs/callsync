@@ -37,8 +37,19 @@
 #' require(callsync)
 #' require(seewave)
 #' require(tuneR)
-#' files = system.file("extdata", "", package = "callsync")
-#' all_files = list.files(files, "*chunk*", full.names = TRUE)
+#' path_git = 'https://raw.githubusercontent.com'
+#' path_repo = '/simeonqs/callsync/master/tests/testthat/files'
+#' file_1 = '/chunk@1@1@1@1.wav'
+#' file_2 = '/chunk@2@1@1@1.wav'
+#' url_1 = paste0(path_git, path_repo, file_1)
+#' url_2 = paste0(path_git, path_repo, file_2)
+#' local_file_1 = paste(tempdir(), file_1, sep = '/')
+#' local_file_2 = paste(tempdir(), file_2, sep = '/')
+#' if(!file.exists(local_file_1))
+#'   download.file(url_1, destfile = local_file_1, mode = 'wb',)
+#' if(!file.exists(local_file_2))
+#'   download.file(url_2, destfile = local_file_2, mode = 'wb')
+#' all_files = c(local_file_1, local_file_2)
 #' result = detect.and.assign(all_files = all_files,
 #'                            quiet = TRUE,
 #'                            save_files = FALSE)

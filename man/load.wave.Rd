@@ -28,7 +28,13 @@ Also optionally applies `ffilter` from *seewave*.
 require(callsync)
 require(seewave)
 require(tuneR)
-file = system.file("extdata", "wave_1.wav", package = "callsync")
-wave = load.wave(file)
+path_git = 'https://raw.githubusercontent.com'
+path_repo = '/simeonqs/callsync/master/tests/testthat/files'
+file_1 = '/wave_1.wav'
+url_1 = paste0(path_git, path_repo, file_1)
+local_file_1 = paste(tempdir(), file_1, sep = '/')
+if(!file.exists(local_file_1))
+  download.file(url_1, destfile = local_file_1, mode = 'wb',)
+wave = load.wave(local_file_1)
 
 }
