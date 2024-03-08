@@ -48,3 +48,8 @@
 * Adding vignette.
 * Minor updates to descriptions.
 * Adding units to column titles align_log.
+
+# callsync 0.2.1
+
+* Removing files from inst/extdata, now downloading from GitHub instead. 
+* Speeding up testing and code examples. 
