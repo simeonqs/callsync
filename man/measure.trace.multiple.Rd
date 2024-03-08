@@ -40,6 +40,7 @@ Takes several measurements on multiple fundamental frequency
 traces.
 }
 \examples{
+\dontrun{
 require(callsync)
 require(seewave)
 require(tuneR)
@@ -62,5 +63,6 @@ detections = lapply(waves, call.detect)
 traces = lapply(waves, trace.fund)
 mt = measure.trace.multiple(traces = traces, waves = waves,
                             new_waves = new_waves, detections = detections)
+}
 
 }

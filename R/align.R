@@ -42,7 +42,7 @@
 #'
 #' @return saves all the aligned chunks in the location specific by `path_chunks`.
 #'
-#' @examples
+#' @examples \dontrun{
 #' require(callsync)
 #' require(seewave)
 #' require(tuneR)
@@ -59,7 +59,6 @@
 #' if(!file.exists(local_file_2))
 #'   download.file(url_2, destfile = local_file_2, mode = 'wb')
 #' all_files = c(local_file_1, local_file_2)
-#' \dontrun{
 #' a = align(chunk_size = 2,
 #'           step_size = 0.1,
 #'           all_files = all_files,
@@ -68,7 +67,7 @@
 #'           blank = 0,
 #'           wing = 0,
 #'           quiet = TRUE)
-#'           }
+#'}
 #'
 #' @export
 #'

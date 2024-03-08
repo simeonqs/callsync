@@ -81,6 +81,6 @@ ca = call.assign(all_files = all_files,
                  detections = detections,
                  quiet = TRUE,
                  save_files = FALSE)
-                 }
+}
 
 }

@@ -18,7 +18,7 @@
 #'
 #' @return Returns a data frame with all measurements.
 #'
-#' @examples
+#' @examples \dontrun{
 #' require(callsync)
 #' require(seewave)
 #' require(tuneR)
@@ -41,6 +41,7 @@
 #' traces = lapply(waves, trace.fund)
 #' mt = measure.trace.multiple(traces = traces, waves = waves,
 #'                             new_waves = new_waves, detections = detections)
+#'}
 #'
 #' @importFrom graphics "abline"
 #' @importFrom graphics "lines"

@@ -24,8 +24,7 @@
 #' @return Returns a data frame with file = file name, start = start time in samples and end = end time in
 #' samples for each detection.
 #'
-#' @examples
-#' \dontrun{
+#' @examples \dontrun{
 #' require(callsync)
 #' require(seewave)
 #' require(tuneR)
@@ -52,7 +51,7 @@
 #'                  detections = detections,
 #'                  quiet = TRUE,
 #'                  save_files = FALSE)
-#'                  }
+#'}
 #'
 #' @export
 #'
