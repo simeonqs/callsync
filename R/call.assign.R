@@ -25,6 +25,7 @@
 #' samples for each detection.
 #'
 #' @examples
+#' \dontrun{
 #' require(callsync)
 #' require(seewave)
 #' require(tuneR)
@@ -47,7 +48,6 @@
 #'   return(detections)
 #' })
 #' names(detections) = basename(all_files)
-#' \dontrun{
 #' ca = call.assign(all_files = all_files,
 #'                  detections = detections,
 #'                  quiet = TRUE,

@@ -54,6 +54,7 @@ Assigns calls from a detection table. Or rather removes calls that are not the l
 returns the cleaned detection table. Uses fine alignment and energy content.
 }
 \examples{
+\dontrun{
 require(callsync)
 require(seewave)
 require(tuneR)
@@ -76,7 +77,6 @@ detections = lapply(all_files, function(file){
   return(detections)
 })
 names(detections) = basename(all_files)
-\dontrun{
 ca = call.assign(all_files = all_files,
                  detections = detections,
                  quiet = TRUE,
