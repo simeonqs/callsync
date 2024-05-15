@@ -8,7 +8,7 @@ better.spectro(
   wave,
   main = "",
   wl = 512,
-  ovl = 450,
+  ovl = wl/2,
   xlim = NULL,
   ylim = NULL,
   mar = rep(3, 4),
@@ -24,7 +24,7 @@ better.spectro(
 
 \item{wl}{numeric, window length in samples. Default is `512`.}
 
-\item{ovl}{numeric, overlap in samples. Default is `450`.}
+\item{ovl}{numeric, overlap in samples. Default is `wl/2`.}
 
 \item{xlim}{numeric vector of length 2, limits for the x-axis. Default is no limits.}
 
