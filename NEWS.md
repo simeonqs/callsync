@@ -53,3 +53,7 @@
 
 * Removing files from inst/extdata, now downloading from GitHub instead. 
 * Speeding up testing and code examples. 
+
+# callsync 0.2.2
+
+* Creating specific error if ovl >= wl in better.spectro. Also updating default for ovl (=wl/2), this might impact how spectrograms are rendered if you used the default settings (wl = 512, ovl = 450). 

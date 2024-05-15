@@ -5,7 +5,7 @@
 #' @param wave wave object, e.g., from `load.wave` or `readWave`.
 #' @param main character, title for the spectrogram. Default is no title.
 #' @param wl numeric, window length in samples. Default is `512`.
-#' @param ovl numeric, overlap in samples. Default is `450`.
+#' @param ovl numeric, overlap in samples. Default is `wl/2`.
 #' @param ylim numeric vector of length 2, limits for the y-axis. Default is no limits.
 #' @param xlim numeric vector of length 2, limits for the x-axis. Default is no limits.
 #' @param mar numeric vector of length 4, the margins of the plot for the `impagep` function. Default is `rep(3, 4)`.
@@ -39,13 +39,17 @@
 better.spectro = function(wave,
                           main = '',
                           wl = 512,
-                          ovl = 450,
+                          ovl = wl/2,
                           xlim = NULL,
                           ylim = NULL,
                           mar = rep(3, 4),
                           cex.main = 1,
                           cex.axis = 0.75,
                           cex.lab = 0.5){
+
+  # Warning if ovl >= wl
+  if(ovl >= wl) stop('\n\nOverlap greater than window length.
+                     \nPlease make sure that ovl < wl.')
 
   # Create spectrogram
   n = wl
