@@ -58,6 +58,10 @@
 
 * Creating specific error if ovl >= wl in better.spectro. Also updating default for ovl (=wl/2), this might impact how spectrograms are rendered if you used the default settings (wl = 512, ovl = 450). 
 
-# callsync 0.2.2
+# callsync 0.2.3
 
 * Updating reference to now published Ecology and Evolution version of the paper (before it was BioRxiv).
+
+# callsync 0.2.4
+
+* Adding col option to better.spectro. Now possible to change the palette. Default is the same as before. 

@@ -14,7 +14,8 @@ better.spectro(
   mar = rep(3, 4),
   cex.main = 1,
   cex.axis = 0.75,
-  cex.lab = 0.5
+  cex.lab = 0.5,
+  col = hcl.colors(20, palette = "RdBu", rev = TRUE)
 )
 }
 \arguments{
@@ -26,17 +27,23 @@ better.spectro(
 
 \item{ovl}{numeric, overlap in samples. Default is `wl/2`.}
 
-\item{xlim}{numeric vector of length 2, limits for the x-axis. Default is no limits.}
+\item{xlim}{numeric vector of length 2, limits for the x-axis. Default is
+no limits.}
 
-\item{ylim}{numeric vector of length 2, limits for the y-axis. Default is no limits.}
+\item{ylim}{numeric vector of length 2, limits for the y-axis. Default is
+no limits.}
 
-\item{mar}{numeric vector of length 4, the margins of the plot for the `impagep` function. Default is `rep(3, 4)`.}
+\item{mar}{numeric vector of length 4, the margins of the plot for the
+`impagep` function. Default is `rep(3, 4)`.}
 
-\item{cex.main}{numeric the relative size of the title}
+\item{cex.main}{numeric, the relative size of the title}
 
-\item{cex.axis}{numeric the relative size of the axis labels.}
+\item{cex.axis}{numeric, the relative size of the axis labels.}
 
-\item{cex.lab}{numeric the relative size of the axis titles}
+\item{cex.lab}{numeric, the relative size of the axis titles}
+
+\item{col}{function, col argument for the `imagep` function.
+Default is `hcl.colors(20, palette = "RdBu", rev = TRUE)`.}
 }
 \value{
 Plots the spectrogram to current window.

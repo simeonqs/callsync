@@ -6,12 +6,17 @@
 #' @param main character, title for the spectrogram. Default is no title.
 #' @param wl numeric, window length in samples. Default is `512`.
 #' @param ovl numeric, overlap in samples. Default is `wl/2`.
-#' @param ylim numeric vector of length 2, limits for the y-axis. Default is no limits.
-#' @param xlim numeric vector of length 2, limits for the x-axis. Default is no limits.
-#' @param mar numeric vector of length 4, the margins of the plot for the `impagep` function. Default is `rep(3, 4)`.
-#' @param cex.main numeric the relative size of the title
-#' @param cex.lab numeric the relative size of the axis titles
-#' @param cex.axis numeric the relative size of the axis labels.
+#' @param ylim numeric vector of length 2, limits for the y-axis. Default is
+#' no limits.
+#' @param xlim numeric vector of length 2, limits for the x-axis. Default is
+#' no limits.
+#' @param mar numeric vector of length 4, the margins of the plot for the
+#' `impagep` function. Default is `rep(3, 4)`.
+#' @param cex.main numeric, the relative size of the title
+#' @param cex.lab numeric, the relative size of the axis titles
+#' @param cex.axis numeric, the relative size of the axis labels.
+#' @param col function, col argument for the `imagep` function.
+#' Default is `hcl.colors(20, palette = "RdBu", rev = TRUE)`.
 #'
 #' @return Plots the spectrogram to current window.
 #'
@@ -37,7 +42,7 @@
 #' @importFrom grDevices "hcl.colors"
 
 better.spectro = function(wave,
-                          main = '',
+                          main = "",
                           wl = 512,
                           ovl = wl/2,
                           xlim = NULL,
@@ -45,7 +50,8 @@ better.spectro = function(wave,
                           mar = rep(3, 4),
                           cex.main = 1,
                           cex.axis = 0.75,
-                          cex.lab = 0.5){
+                          cex.lab = 0.5,
+                          col = hcl.colors(20, palette = "RdBu", rev = TRUE)){
 
   # Warning if ovl >= wl
   if(ovl >= wl) stop('\n\nOverlap greater than window length.
@@ -85,7 +91,7 @@ better.spectro = function(wave,
               zlim = c(max(min(P), -200), max(P)),
               xlim = xlim,
               ylim = ylim,
-              col = hcl.colors(20, "RdBu", rev = TRUE) ,
+              col = col,
               drawPalette = FALSE,
               decimate = FALSE,
               main = main,
