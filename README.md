@@ -1,7 +1,6 @@
 # *callsync*: sychronous analysis of multiple microphones
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/callsync)](https://cran.r-project.org/package=callsync)
-[![Dependencies](https://tinyverse.netlify.com/badge/callsync)](https://cran.r-project.org/package=callsync) 
 [![Project Status: Active  The project is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Licence](https://img.shields.io/badge/licence-GPL--2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.en.html) 
 [![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/callsync)](https://cranlogs.r-pkg.org/badges/grand-total/callsync)
