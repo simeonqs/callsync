@@ -65,3 +65,7 @@
 # callsync 0.2.4
 
 * Adding col option to better.spectro. Now possible to change the palette. Default is the same as before. 
+
+# callsync 0.2.5 
+
+* Fixing variable types when loading selection table with 11 columns.
